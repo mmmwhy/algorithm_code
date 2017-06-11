@@ -1,0 +1,291 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="renderer" content="webkit" />
+        <link rel="shortcut icon" href="https://www.cloudxns.net/favicon.ico" type="image/x-icon" />
+        <title>CloudXNS API 测试工具</title>
+        <link rel="stylesheet" href="https://www.cloudxns.net/Public/Sun/css/manage.css?v=20151022">
+        <link rel="stylesheet" href="https://www.cloudxns.net/Public/Sun/css/jquery.fancybox-1.3.4.css?v=20151022"/>
+        <link rel="stylesheet" href="https://www.cloudxns.net/Public/Sun/js/artDialog/skins/xns.css?v=20151022"/>
+        <link rel="stylesheet" href="https://www.cloudxns.net/Public/Sun/css/jquery.cxcalendar.css?v=20151028">
+        <style type="text/css">
+            .usercenter .userside li.current ul li a:hover, .usercenter .userside li.current ul li a.current {
+                color: #00a4ef;
+            }
+            .mainbody .text {
+                border: 1px solid #c4c4c4;
+                border-radius: 3px;
+                height: 30px;
+                padding: 0 0 0 8px;
+                width: 162px;
+            }
+            .usercon span{
+                font-size: 12px;
+                margin: 0 8px 0 0;
+            }
+            .btn-group a{
+                background: #00a4ef none repeat scroll 0 0;
+                border-radius: 3px;
+                color: #fff;
+                display: inline-block;
+                line-height: 34px;
+                padding: 0 17px;
+                vertical-align: top;
+            }
+        </style>
+    </head>
+    <body class="zhcn">
+        <div id="account">
+            <div class="wrap">
+                <a href="https://www.cloudxns.net/Index/index.html" id="logo" title="CloudXNS 面向云计算的智能DNS系统">CloudXNS</a>
+            </div>
+        </div>
+        <div class="managetop">
+            <div class="wrap">
+                <div class="breadcrumb">
+                    <h2>CloudXNS API 测试工具</h2>
+                </div>
+
+            </div>
+        </div> 
+        <div class="mainbody">
+            <div class="usercenter">
+                <div class="userside">
+                    <ul>
+                        <li><a href="Domain.html" >域名信息</a></li>
+                        <li><a href="RecordType.html">记录类型</a></li>
+                        <li ><a href="Line.html">线路&区域&ISP</a></li>
+                        <li><a href="Host.html">主机记录</a></li>
+                        <li><a href="Record.html">解析记录</a></li>
+                        <li class="current"><a href="Statistics.html">解析量统计</a></li>
+                        <li><a href="Ns.html">NS服务器</a></li>
+                    </ul>
+                </div>	
+                <div class="usercon">
+                    <div class="action">
+                        <div class="btn-toolbar">                            
+                            <div class="btn-group">
+                                <span>域名ID：</span><input type="text" class="text" name="domainId" id="domainId" placeholder="域名ID"/>
+                                <span>主机记录：</span><input type="text" class="text" name="host" id="host" placeholder="默认为：all"/>
+                                <span>区域ID或ISP ID：</span><input type="text" class="text" name="code" id="code" placeholder="默认为：all"/><br/><br/>
+                                <span>时间：</span>
+                                <span>从</span>
+                                <input id="search_start" class="text date" type="text" value="" placeholder="开始时间" data-base-class="zh-cn" name="search_start">
+                                <span>至</span>
+                                <input id="search_end" class="text date" type="text" value="" placeholder="结束时间" data-base-class="zh-cn" name="search_end">
+                                <a id="create-record"  href="#">查询</a>
+                            </div>
+                        </div>
+                    </div>
+                    <h3>总体趋势</h3>
+                    <div id="oCharts" style="height:400px;"><span>暂无数据！</span></div>
+                </div>
+            </div> 
+        </div>
+
+        <div id="footer">
+            <div class="footlinks">
+                <dl>
+                    <dt><a href="https://www.cloudxns.net/Index/AboutXns.html">了解CloudXNS</a></dt>
+                    <dd><a href="https://www.cloudxns.net/Index/AboutXns.html">九大优势</a></dd>
+                    <dd><a href="https://www.cloudxns.net/Index/Line.html">线路纵览</a></dd>
+                    <dd><a href="https://www.cloudxns.net/Index/Extend.html">扩展解析</a></dd>
+                    <dd><a href="https://www.cloudxns.net/Index/Guide.html">带你入门</a></dd>
+                </dl>
+                <dl>
+                    <dt>CloudXNS+</dt>
+                    <dd><a href="https://www.cloudxns.net/Index/Speed.html">牛盾云加速</a></dd>
+                    <dd><a href="https://www.cloudxns.net/Index/HttpDNS.html">HttpDNS</a></dd>
+                    <dd><a href="https://www.cloudxns.net/Index/weixin.html">微域名管理</a></dd>
+                </dl>
+                <dl>
+                    <dt><a href="https://www.cloudxns.net/Support/index.html">服务与支持</a></dt>
+                    <dd><a href="https://www.cloudxns.net/Support/lists/cid/1.html">帮助中心</a></dd>
+                    <dd><a href="https://www.cloudxns.net/Support/lists/cid/2.html">资讯快车</a></dd>
+                    <dd><a href="https://www.cloudxns.net/Support/lists/cid/3.html">X社区</a></dd>
+                </dl>
+                <dl>
+                    <dt><a href="http://tools.cloudxns.net">运维工具箱</a></dt>
+                    <dd><a href="http://tools.cloudxns.net/index.php/Index/Diag" target="_blank">用户DNS优化</a></dd>
+                    <dd><a href="http://tools.cloudxns.net/index.php/Index/Mdig" target="_blank">分区解析查询</a></dd>
+                    <dd><a href="http://tools.cloudxns.net/index.php/Index/Ping" target="_blank">分区Ping</a></dd>
+                </dl>
+                <dl>
+                    <dt><a href="https://www.cloudxns.net/Index/aboutus.html">关于我们</a></dt>
+                    <dd><a href="https://www.cloudxns.net/Index/service.html">服务订制</a></dd>
+                    <dd><a href="https://www.cloudxns.net/Sign/agreement.html">用户协议</a></dd>
+                    <dd><a href="http://www.fastweb.com.cn" target="_blank" title="北京快网—专业的云计算CDN网站加速服务提供商">北京快网</a></dd>
+                    <dd><a href="http://www.21vianet.com/" target="_blank" title="世纪互联—中国最大的电信中立互联网基础设施服务商">世纪互联</a></dd>
+                </dl>
+                <dl>
+                    <dt>管理控制台</dt>
+                    <dd><a href="https://www.cloudxns.net/Domain/index.html">我的域名</a></dd>
+                    <dd><a href="https://www.cloudxns.net/Monitor/index.html">监控任务</a></dd>
+                    <dd><a href="https://www.cloudxns.net/PrivateView/index.html">私有线路</a></dd>
+                </dl>
+                <div class="contact">
+                    <ul>
+                        <li><a href="http://crm2.qq.com/page/portalpage/wpa.php?uin=800081044&f=1&ty=1&aty=0&a=&from=6" class="qq" target="_blank">QQ</a></li>
+                        <li><a href="javascript:;" class="wx">微信</a>
+                            <p><img src="https://www.cloudxns.net/Public/Sun/images/common/cloudxns.jpg">CloudXNS官方微信<s>></s></p>
+                        </li>
+                        <li><a href="http://weibo.com/cloudxns" class="wb" target="_blank">新浪微博</a></li>
+                    </ul>
+                    <h4>紧急技术支持：</h4><p>027-87001618-8013</p><p>15549442542</p><p>15671618036</p>            
+                </div>
+            </div>
+            <p class="t">Copyright © 2015 Beijing Fastweb Technology Inc. All Rights Reserved <a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备06026704号-4</a></p>
+        </div>
+        <script src="https://www.cloudxns.net/Public/Sun/js/jquery.min.js?v=20151022"></script>       
+        <script src="https://www.cloudxns.net/Public/Sun/js/jquery.cxcalendar.min.js?v=20151028"></script>
+        <script src="https://www.cloudxns.net/Public/Sun/js/artDialog/jquery.artDialog.js?v=20151022"></script>
+        <script src="https://www.cloudxns.net/Public/Sun/js/echarts-all.js?v=20151028"></script>
+        <script>
+            $(function() {
+                var dateFirst = $('#search_start');
+                var dateLast = $('#search_end');
+                var dateFirstApi;
+                var dateLastApi;
+                var today = new Date();
+                today.setDate(today.getDate());
+
+                dateFirst.cxCalendar({
+                    type: 'YYYY-MM-DD',
+                    wday:1,
+                    language: 'zh-cn',
+                    endDate:today,
+                }, function(api){
+                    dateFirstApi = api;
+                });
+
+                dateLast.cxCalendar({
+                    type: 'YYYY-MM-DD',
+                    wday:1,
+                    language: 'zh-cn',
+                    endDate:today,
+                }, function(api){
+                    dateLastApi = api;
+                });
+
+
+                dateFirst.bind('change', function(){
+                    var firstTime = parseInt(dateFirstApi.getDate('TIME'), 10);
+                    var lastTime = parseInt(dateLastApi.getDate('TIME'), 10);
+
+                    if (lastTime < firstTime) {
+                        dateLastApi.clearDate();
+                    };
+
+                    dateLastApi.setOptions({
+                        startDate: firstTime
+                    });
+                    //dateLastApi.show();
+                });
+                
+                $(".btn-group a").live({
+                    click:function() {
+                        setOCharts();
+                    }
+                });
+                
+                var loadText = 'loading...';
+                var loadEffect = 'whirling';
+                //总体趋势
+                var setOCharts = function () {
+                    var oCharts = echarts.init(document.getElementById('oCharts'));
+                    var action = 'statisticsList';
+                    var id = $('#domainId').val();
+                    var host = $('#host').val();
+                    var code = $('#code').val();
+                    var startTime = $('#search_start').val();
+                    var endTime = $('#search_end').val();
+                    $.ajax({
+                        type: "post",
+                        url: "Demo.php",
+                        dataType: "json",
+                        data: {action: action, id:id, host:host, code:code, startTime:startTime, endTime:endTime},
+                        cache: false,
+                        async: true,
+                        beforeSend: function() {
+                            oCharts.showLoading({
+                                text : loadText,
+                                effect : loadEffect
+                            });
+                        },
+                        success: function(data){
+                            if (data.code != 1) {
+                                alert(data.message);
+                            } else {
+                                var chartsData = eval(data.data);
+                                var format_time = '';
+                                var data_x = new Array();
+                                var data_y = new Array();
+                                var is_hh = (data.info == 'HH') ? true : false;
+
+                                chartsData.forEach(function(v, i){
+                                    var times = parseInt(v['date']) * 1000;
+                                    var value = v['value'];
+                                    var dt = new Date(parseInt(times));
+                                    format_time  = dt.getFullYear() + "-";
+                                    format_time = format_time + (dt.getMonth() + 1) + "-";
+                                    format_time = format_time + dt.getDate() + " ";
+                                    if(is_hh){
+                                        //format_time = format_time + dt.getHours() + "h";
+                                        format_time = dt.getHours() + "h";
+                                    }
+                                    data_x[i] = format_time;
+                                    data_y[i] = value;
+                                });
+                                var oOption = {
+                                    tooltip : {
+                                        trigger: 'axis',
+                                        backgroundColor:'#fc6e3c'
+                                    },
+                                    calculable : false,
+                                    grid:{
+                                        y : 20,
+                                        x2: 40,
+                                        y2: 30
+                                    },
+                                    xAxis : [
+                                        {
+                                            type : 'category',
+                                            boundaryGap: false,
+                                            data: data_x,
+                                            axisLine:{show : false},
+                                            axisTick:{show : false}
+                                        }
+                                    ],
+                                    yAxis : [
+                                        {
+                                            type : 'value',
+                                            axisLine:{show : false}
+                                        }
+                                    ],
+                                    series : [
+                                        {
+                                            name: "解析量",
+                                            type: "line",
+                                            stack: '总量',
+                                            data: data_y,
+                                            smooth: true,
+                                            itemStyle: {normal: {areaStyle: {color: 'rgba(252,110,60,0.1)'}}}
+                                        }
+                                    ]
+                                };
+                                oCharts.hideLoading();
+                                oCharts.setOption(oOption, true);
+                            }
+                            
+                        }
+                    });
+                }
+                
+            });
+
+        </script>
+
+    </body>
+</html>

@@ -1,0 +1,196 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="renderer" content="webkit" />
+        <link rel="shortcut icon" href="https://www.cloudxns.net/favicon.ico" type="image/x-icon" />
+        <title>CloudXNS API 测试工具</title>
+        <link rel="stylesheet" href="https://www.cloudxns.net/Public/Sun/css/manage.css?v=20151022">
+        <link rel="stylesheet" href="https://www.cloudxns.net/Public/Sun/css/jquery.fancybox-1.3.4.css?v=20151022"/>
+        <link rel="stylesheet" href="https://www.cloudxns.net/Public/Sun/js/artDialog/skins/xns.css?v=20151022"/>
+        <style type="text/css">
+            .usercenter .userside li.current ul li a:hover, .usercenter .userside li.current ul li a.current {
+                color: #00a4ef;
+            }
+            .mainbody .text {
+                background: #fff none repeat scroll 0 0;
+                border: 1px solid #c4c4c4;
+                border-radius: 3px;
+                height: 18px;
+                margin: 0;
+                padding: 7px;
+                vertical-align: top;
+                width: 260px;
+            }
+            .btn-group a{
+                background: #00a4ef none repeat scroll 0 0;
+                border-radius: 3px;
+                color: #fff;
+                display: inline-block;
+                line-height: 34px;
+                padding: 0 17px;
+                vertical-align: top;
+            }
+        </style>
+    </head>
+    <body class="zhcn">
+        <div id="account">
+            <div class="wrap">
+                <a href="https://www.cloudxns.net/Index/index.html" id="logo" title="CloudXNS 面向云计算的智能DNS系统">CloudXNS</a>
+            </div>
+        </div>
+        <div class="managetop">
+            <div class="wrap">
+                <div class="breadcrumb">
+                    <h2>CloudXNS API 测试工具</h2>
+                </div>
+
+            </div>
+        </div> 
+        <div class="mainbody">
+            <div class="usercenter">
+                <div class="userside">
+                    <ul>
+                        <li><a href="Domain.html" >域名信息</a></li>
+                        <li><a href="RecordType.html">记录类型</a></li>
+                        <li ><a href="Line.html">线路&区域&ISP</a></li>
+                        <li class="current"><a href="Host.html">主机记录</a></li>
+                        <li><a href="Record.html">解析记录</a></li>
+                        <li><a href="Statistics.html">解析量统计</a></li>
+                        <li><a href="Ns.html">NS服务器</a></li>
+                    </ul>
+                </div>	
+                <div class="usercon">
+                    <div class="action">
+                        <div class="btn-toolbar">                            
+                            <div class="btn-group">
+                                域名ID：<input type="text" class="text" name="domainId" id="domainId"/>
+                                <a id="create-record"  href="#">查询</a>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="simple">
+                        <thead>
+                            <tr>
+                                <th>主机ID </th>
+                                <th>主机名称</th>
+                                <th>解析记录数</th>
+                                <th>所属域名</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="domain_list">
+                            <tr class="bg_white h_30">
+                                <td colspan="5">暂无数据</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div> 
+        </div>
+
+        <div id="footer">
+            <div class="footlinks">
+                <dl>
+                    <dt><a href="https://www.cloudxns.net/Index/AboutXns.html">了解CloudXNS</a></dt>
+                    <dd><a href="https://www.cloudxns.net/Index/AboutXns.html">九大优势</a></dd>
+                    <dd><a href="https://www.cloudxns.net/Index/Line.html">线路纵览</a></dd>
+                    <dd><a href="https://www.cloudxns.net/Index/Extend.html">扩展解析</a></dd>
+                    <dd><a href="https://www.cloudxns.net/Index/Guide.html">带你入门</a></dd>
+                </dl>
+                <dl>
+                    <dt>CloudXNS+</dt>
+                    <dd><a href="https://www.cloudxns.net/Index/Speed.html">牛盾云加速</a></dd>
+                    <dd><a href="https://www.cloudxns.net/Index/HttpDNS.html">HttpDNS</a></dd>
+                    <dd><a href="https://www.cloudxns.net/Index/weixin.html">微域名管理</a></dd>
+                </dl>
+                <dl>
+                    <dt><a href="https://www.cloudxns.net/Support/index.html">服务与支持</a></dt>
+                    <dd><a href="https://www.cloudxns.net/Support/lists/cid/1.html">帮助中心</a></dd>
+                    <dd><a href="https://www.cloudxns.net/Support/lists/cid/2.html">资讯快车</a></dd>
+                    <dd><a href="https://www.cloudxns.net/Support/lists/cid/3.html">X社区</a></dd>
+                </dl>
+                <dl>
+                    <dt><a href="http://tools.cloudxns.net">运维工具箱</a></dt>
+                    <dd><a href="http://tools.cloudxns.net/index.php/Index/Diag" target="_blank">用户DNS优化</a></dd>
+                    <dd><a href="http://tools.cloudxns.net/index.php/Index/Mdig" target="_blank">分区解析查询</a></dd>
+                    <dd><a href="http://tools.cloudxns.net/index.php/Index/Ping" target="_blank">分区Ping</a></dd>
+                </dl>
+                <dl>
+                    <dt><a href="https://www.cloudxns.net/Index/aboutus.html">关于我们</a></dt>
+                    <dd><a href="https://www.cloudxns.net/Index/service.html">服务订制</a></dd>
+                    <dd><a href="https://www.cloudxns.net/Sign/agreement.html">用户协议</a></dd>
+                    <dd><a href="http://www.fastweb.com.cn" target="_blank" title="北京快网—专业的云计算CDN网站加速服务提供商">北京快网</a></dd>
+                    <dd><a href="http://www.21vianet.com/" target="_blank" title="世纪互联—中国最大的电信中立互联网基础设施服务商">世纪互联</a></dd>
+                </dl>
+                <dl>
+                    <dt>管理控制台</dt>
+                    <dd><a href="https://www.cloudxns.net/Domain/index.html">我的域名</a></dd>
+                    <dd><a href="https://www.cloudxns.net/Monitor/index.html">监控任务</a></dd>
+                    <dd><a href="https://www.cloudxns.net/PrivateView/index.html">私有线路</a></dd>
+                </dl>
+                <div class="contact">
+                    <ul>
+                        <li><a href="http://crm2.qq.com/page/portalpage/wpa.php?uin=800081044&f=1&ty=1&aty=0&a=&from=6" class="qq" target="_blank">QQ</a></li>
+                        <li><a href="javascript:;" class="wx">微信</a>
+                            <p><img src="https://www.cloudxns.net/Public/Sun/images/common/cloudxns.jpg">CloudXNS官方微信<s>></s></p>
+                        </li>
+                        <li><a href="http://weibo.com/cloudxns" class="wb" target="_blank">新浪微博</a></li>
+                    </ul>
+                    <h4>紧急技术支持：</h4><p>027-87001618-8013</p><p>15549442542</p><p>15671618036</p>            
+                </div>
+            </div>
+            <p class="t">Copyright © 2015 Beijing Fastweb Technology Inc. All Rights Reserved <a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备06026704号-4</a></p>
+        </div>
+        <script src="https://www.cloudxns.net/Public/Sun/js/jquery.min.js?v=20151022"></script>
+
+        <script src="https://www.cloudxns.net/Public/Sun/js/artDialog/jquery.artDialog.js?v=20151022"></script>
+
+        <script>
+            $(function() {
+                
+                $(".btn-group a").live({
+                    click:function() {
+                        var id = $('#domainId').val();
+                        var action = 'hostList';
+                        $.ajax({
+                            type: "post",
+                            url: "Demo.php",
+                            dataType: 'json',
+                            data: {action: action, id:id},
+                            success: function(data) {
+                                if (data.code != 1) {
+                                    alert(data.message);
+                                } else {
+                                    $("#domain_list").html(data.message);
+                                }
+                            }
+                        });
+                    }
+                });
+                
+                $(".delete").live({
+                    click:function() {
+                        var id = $(this).attr('param');
+                        var action = 'hostDelete';
+                        $.ajax({
+                            type: "post",
+                            url: "Demo.php",
+                            dataType: 'json',
+                            data: {action: action, id:id},
+                            success: function(data) {
+                                alert(data.message);
+                                if (data.code == 1) {
+                                    location.reload();
+                                }
+                            }
+                        });
+                    }
+                });
+            });
+
+        </script>
+
+    </body>
+</html>

@@ -1,0 +1,20 @@
+{
+    "name": "cloudxns/cloudxns-api-sdk-php",
+    "description": "CloudXNS SDK FILES",
+    "homepage": "https://www.cloudxns.net/",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "CloudXNS",
+            "email": "support@cloudxns.net"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "CloudXNS\\": "src/"
+        }
+    },
+	"require-dev": {
+      "guzzlehttp/guzzle": "~5.0"
+   }
+}
