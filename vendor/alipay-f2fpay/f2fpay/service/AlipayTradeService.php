@@ -365,26 +365,13 @@ class AlipayTradeService {
 	 * $lev：可选参数，纠错等级
 	 * $margin：生成的二维码离边框的距离
 	 */
-	function create_erweima($content, $size = '200', $lev = 'L', $margin= '0') {
-		$content = urlencode($content);
-		$image = '<img src="http://chart.apis.google.com/chart?chs='.$size.'x'.$size.'&amp;cht=qr&chld='.$lev.'|'.$margin.'&amp;chl='.$content.'"  widht="'.$size.'" height="'.$size.'" />';
+
+    function create_erweima_baidu($content, $size = '200', $lev = 'L', $margin= '0') {
+        $domain = $_SERVER['SERVER_NAME'];
+        $url='http://qr.feiyang.li/?data='.$content.'&domain='.$domain;
+        $html = file_get_contents($url);
+		$image = '<a href="'.$content.'" target="_blank"><img src="'.$html.'"></a>';
 		return $image;
-	}
-	
-	function create_erweima_baidu($content, $size = '200', $lev = 'L', $margin= '0') {
-		$orgin = $content;
-		$image = '<a href="'.$orgin.'" target="_blank"><img src="http://pan.baidu.com/share/qrcode?w='.$size.'&h='.$size.'&url='.$content.'"></a>';
-		return $image;
-	}
-	
-	function create_erweima64($content, $size = '200', $lev = 'L', $margin= '0') {
-		$content = urlencode($content);
-		$imageurl = 'http://chart.apis.google.com/chart?chs='.$size.'x'.$size.'&cht=qr&chld='.$lev.'|'.$margin.'&chl='.$content;
-		$image_data = file_get_contents($imageurl);
-		$image_info = getimagesize($imageurl);
-		$base64_image = 'data:' . $image_info['mime'] . ';base64,' . chunk_split(base64_encode($image_data));
-		$qrcode = '<img src="'.$base64_image.'" >';
-		return $qrcode;
 	}
 
 }

@@ -4,7 +4,7 @@
 //
 // !!! 修改此key为随机字符串确保网站安全 !!!
 $System_Config['key'] = '';
-$System_Config['debug'] =  'true';  //  正式环境请确保为false
+$System_Config['debug'] =  'false';  //  正式环境请确保为false
 $System_Config['appName'] = '';             //站点名称
 $System_Config['baseUrl'] = 'http://s.91vps.club';            // 站点地址
 $System_Config['timeZone'] = 'PRC';        // PRC 天朝时间  UTC 格林时间
