@@ -319,7 +319,7 @@ $System_Config['f2fpay_app_id']='';
 $System_Config['f2fpay_p_id']='';
 $System_Config['alipay_public_key']='';
 $System_Config['merchant_private_key']='';
-$System_Config['f2fpay_activate_key']=''; #请联系 https://web.telegram.org/#/im?p=u369173679_3082441468848409198 
+$System_Config['f2fpay_activate_key']=''; #请联系 https://t.me/gh012363
 
 
 #不安全中转模式，这个开启之后使用除了 auth_aes128_md5 或者 auth_aes128_sha1 以外的协议地用户也可以设置和使用中转，但是，强烈推荐不开启。
