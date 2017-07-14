@@ -26,7 +26,7 @@
 										<p class="card-heading">注意！</p>
 										<p>配置文件以及二维码请勿泄露！</p>
 									</div>
-									
+
 								</div>
 							</div>
 						</div>
@@ -43,13 +43,13 @@
 										协议参数：{$user->protocol_param}<br>
 										混淆：{$user->obfs}<br>
 										混淆参数：{$user->obfs_param}<br>
-										
+
 										</p>
 									</div>
-									
+
 								</div>
 							</div>
-						</div>					
+						</div>
 						<div class="col-lg-12 col-sm-12">
 							<div class="card">
 								<div class="card-main">
@@ -61,11 +61,11 @@
 										<p><i class="icon icon-lg">android</i>&nbsp;<a href="/ssr-download/ssr-android.apk">Android</a></p>
 										<p><i class="icon icon-lg">phone_iphone</i>&nbsp;<a href="https://itunes.apple.com/us/app/shadowrocket/id932747118">iOS</a></p>
 									</div>
-									
+
 								</div>
 							</div>
 						</div>
-						
+
 						<div class="col-lg-12 col-sm-12">
 							<div class="card">
 								<div class="card-main">
@@ -73,11 +73,11 @@
 										<p class="card-heading">SSR-Python 配置Json</p>
 										<textarea class="form-control" rows="6">{$json_show}</textarea>
 									</div>
-									
+
 								</div>
 							</div>
 						</div>
-						
+
 						<div class="col-lg-12 col-sm-12">
 							<div class="card">
 								<div class="card-main">
@@ -89,11 +89,11 @@
 										<p><a href="{$ssqr_s_new}"/>Android 手机上用默认浏览器打开点我就可以直接添加了(给 SSR)</a></p>
 										<p><a href="{$ssqr_s_new}"/>iOS 上用 Safari 打开点我就可以直接添加了(给 Shadowrocket)</a></p>
 									</div>
-									
+
 								</div>
 							</div>
 						</div>
-							
+
 							{if $mu == 0}
 							<div class="col-lg-12 col-sm-12">
 								<div class="card">
@@ -104,41 +104,27 @@
 												<div id="ss-qr"></div>
 											</div>
 										</div>
-										
+
 									</div>
 								</div>
 							</div>
 							{/if}
-						
+
 						<div class="col-lg-12 col-sm-12">
 							<div class="card">
 								<div class="card-main">
 									<div class="card-inner margin-bottom-no">
-										<p class="card-heading">SSR 旧版(3.8.3之前)配置二维码</p>
-										<div class="text-center">
-											<div id="ss-qr-y"></div>
-										</div>
-									</div>
-									
-								</div>
-							</div>
-						</div>
-						
-						<div class="col-lg-12 col-sm-12">
-							<div class="card">
-								<div class="card-main">
-									<div class="card-inner margin-bottom-no">
-										<p class="card-heading">SSR 新版(3.8.3之后)配置二维码</p>
+										<p class="card-heading">SSR 配置二维码</p>
 										<div class="text-center">
 											<div id="ss-qr-n"></div>
 										</div>
 									</div>
-									
+
 								</div>
 							</div>
 						</div>
-						
-						
+
+
 						{if $mu == 0}
 								<div class="col-lg-12 col-sm-12">
 									<div class="card">
@@ -147,7 +133,7 @@
 												<STRIKE>
 													<p class="card-heading">iOS9 上 Surge 配置</p>
 													<div class="row">
-											
+
 														<div class="col-md-12">
 															<p>您要先安装 surge 。</p>
 															<p>配置的话，直接下载生成好的配置文件，然后在 APP 里添加设置时选择 Download configuration from URL ，把地址粘贴进去添加。</p>
@@ -159,12 +145,12 @@
 													</div>
 												</STRIKE>
 											</div>
-										
+
 										</div>
 									</div>
 								</div>
 						{/if}
-						
+
 					</div>
 				</div>
 			</section>
@@ -186,16 +172,11 @@
 	jQuery('#ss-qr').qrcode({
 		"text": text_qrcode
 	});
-	
-	var text_qrcode1 = '{$ssqr_s}';
-	jQuery('#ss-qr-y').qrcode({
-		"text": text_qrcode1
-	});
-	
+
 	var text_qrcode2 = '{$ssqr_s_new}';
 	jQuery('#ss-qr-n').qrcode({
 		"text": text_qrcode2
 	});
-	
+
 
 </script>

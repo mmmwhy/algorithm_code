@@ -165,7 +165,8 @@ class AuthController extends BaseController
         $ary = $request->getQueryParams();
         $code = "";
         if (isset($ary['code'])) {
-            $code = $ary['code'];
+            $antiXss = new AntiXSS();
+            $code = $antiXss->xss_clean($ary['code']);
         }
 
         $uid = time().rand(1, 10000) ;
