@@ -6,7 +6,7 @@
 $System_Config['key'] = '';
 $System_Config['debug'] =  'false';  //  正式环境请确保为false
 $System_Config['appName'] = '';             //站点名称
-$System_Config['baseUrl'] = 'https://zhaojin97.cn';            // 站点地址
+$System_Config['baseUrl'] = 'http://ss.91vps.club';            // 站点地址
 $System_Config['timeZone'] = 'PRC';        // PRC 天朝时间  UTC 格林时间
 $System_Config['pwdMethod'] = 'sha256';       // 密码加密   可选 md5,sha256
 $System_Config['salt'] = '';               // 密码加密用，从旧版升级请留空
@@ -171,7 +171,7 @@ $System_Config['jump_delay']='1800';
 $System_Config['enable_invite_code']='false';
 
 #是否启用邮箱验证码
-$System_Config['enable_email_verify']='flase';
+$System_Config['enable_email_verify']='false';
 
 #邮箱验证码有效期
 $System_Config['email_verify_ttl']='3600';
@@ -297,7 +297,7 @@ $System_Config['sendgrid_sender'] = '';
 #支付系统
 
 #取值 paymentwall,zfbjk,spay,none
-$System_Config['payment_system']='none';
+$System_Config['payment_system']='f2fpay';
 
 #PaymentWall
 $System_Config['pmw_publickey']='';
@@ -314,11 +314,13 @@ $System_Config['zfbjk_pid']='';
 $System_Config['zfbjk_key']='';
 $System_Config['zfbjk_qrcodeurl']='https://www.zhaojin97.cn/wp-content/uploads/2016/01/630c50ab52bc139b2a33af8cc64e47ad2016010111570425541.jpg';
 
-#alipay,f2fpay
+#alipay,f2fpay ---> https://91vps.club/2017/06/09/alipay_f2f_ss_panel_mod/
 $System_Config['f2fpay_app_id']='';
 $System_Config['f2fpay_p_id']='';
 $System_Config['alipay_public_key']='';
 $System_Config['merchant_private_key']='';
+$System_Config['f2fpay_activate_key']=''; #请联系 https://t.me/gh012363
+
 
 #不安全中转模式，这个开启之后使用除了 auth_aes128_md5 或者 auth_aes128_sha1 以外的协议地用户也可以设置和使用中转，但是，强烈推荐不开启。
 $System_Config['relay_insecure_mode']='false';

@@ -193,7 +193,6 @@ class UserController extends BaseController
         $router_token = LinkController::GenerateRouterCode($this->user->id, 0);
         $router_token_without_mu = LinkController::GenerateRouterCode($this->user->id, 1);
 
-        $ssr_sub_token = LinkController::GenerateSSRSubCode($this->user->id, 0);
 
         $uid = time().rand(1, 10000) ;
         if (Config::get('enable_geetest_checkin') == 'true') {
@@ -205,7 +204,7 @@ class UserController extends BaseController
         $Ann = Ann::orderBy('date', 'desc')->first();
 
 
-        return $this->view()->assign("ssr_sub_token", $ssr_sub_token)->assign("router_token", $router_token)->assign("router_token_without_mu", $router_token_without_mu)->assign("acl_token", $acl_token)->assign('ann', $Ann)->assign('geetest_html', $GtSdk)->assign("ios_token", $ios_token)->assign("android_add", $android_add)->assign("android_add_without_mu", $android_add_without_mu)->assign('enable_duoshuo', Config::get('enable_duoshuo'))->assign('duoshuo_shortname', Config::get('duoshuo_shortname'))->assign('baseUrl', Config::get('baseUrl'))->display('user/index.tpl');
+        return $this->view()->assign("router_token", $router_token)->assign("router_token_without_mu", $router_token_without_mu)->assign("acl_token", $acl_token)->assign('ann', $Ann)->assign('geetest_html', $GtSdk)->assign("ios_token", $ios_token)->assign("android_add", $android_add)->assign("android_add_without_mu", $android_add_without_mu)->assign('enable_duoshuo', Config::get('enable_duoshuo'))->assign('duoshuo_shortname', Config::get('duoshuo_shortname'))->assign('baseUrl', Config::get('baseUrl'))->display('user/index.tpl');
     }
 
 
@@ -267,8 +266,55 @@ class UserController extends BaseController
             return $response->getBody()->write(json_encode($res));
         }
     }
+	
+	public function f2fpayget($request, $response, $args)
+    {
+        $time = $request->getQueryParams()["time"];
+        $res['ret'] = 1;
+        return $response->getBody()->write(json_encode($res));
+    }
 
+    public function f2fpay($request, $response, $args)
+    {
+        $amount = $request->getParam('amount');
+		if ($amount == "") {
+            $res['ret'] = 0;
+            $res['msg'] = "订单金额错误：".$amount;
+            return $response->getBody()->write(json_encode($res));
+        }
+		$user = $this->user;
+		
+		//生成二维码
+		$qrPayResult = Pay::alipay_get_qrcode($user, $amount, $qrPay);
+		//	根据状态值进行业务处理
+		switch ($qrPayResult->getTradeStatus()){
+			case "SUCCESS":
+				$aliresponse = $qrPayResult->getResponse();
+				$res['ret'] = 1;
+				$res['msg'] = "二维码生成成功";
+				$res['amount'] = $amount;
+				$res['qrcode'] = $qrPay->create_erweima_baidu($aliresponse->qr_code);
+				
+				break;
+			case "FAILED":
+				$res['ret'] = 0;
+				$res['msg'] = "支付宝创建订单二维码失败!!! 请使用其他方式付款。";
 
+				break;
+			case "UNKNOWN":
+				$res['ret'] = 0;
+				$res['msg'] = "系统异常，状态未知!!!!!! 请使用其他方式付款。";
+				
+				break;
+			default:
+				$res['ret'] = 0;
+				$res['msg'] = "创建订单二维码返回异常!!!!!! 请使用其他方式付款。";
+				
+				break;
+		}
+		
+        return $response->getBody()->write(json_encode($res));
+    }
     public function alipay($request, $response, $args)
     {
         $amount = $request->getQueryParams()["amount"];
@@ -302,18 +348,7 @@ class UserController extends BaseController
         $codeq->save();
 
         if ($codeq->type==-1) {
-            $res['ret'] = 1;
-            if($user->money==0&&$user->ref_by!=0&&$codeq->number>150){
-                $res['msg'] = "充值成功，充值的金额为".$codeq->number."元，首次充值额外奖励您".$codeq->number*0.5."元";
-            }else{
-                $res['msg'] = "充值成功，充值的金额为".$codeq->number."元。";
-            }
-
-            if($user->money==0&&$user->ref_by!=0){
-                $user->money=($user->money+$codeq->number*1.5+0.01);
-            }else{
-                $user->money=($user->money+$codeq->number+0.01);
-            }
+            $user->money=($user->money+$codeq->number);
             $user->save();
 
             if ($user->ref_by!=""&&$user->ref_by!=0&&$user->ref_by!=null) {
@@ -330,6 +365,8 @@ class UserController extends BaseController
                 $Payback->save();
             }
 
+            $res['ret'] = 1;
+            $res['msg'] = "充值成功，充值的金额为".$codeq->number."元。";
 
             if (Config::get('enable_donate') == 'true') {
                 if ($this->user->is_hide == 1) {
@@ -667,6 +704,8 @@ class UserController extends BaseController
                     $json = json_encode($ary);
                     $json_show = json_encode($ary, JSON_PRETTY_PRINT);
 
+                    $ssurl = str_replace("_compatible", "", $user->obfs).":".str_replace("_compatible", "", $user->protocol).":".$ary['method'] . ":" . $ary['password'] . "@" . $ary['server'] . ":" . $ary['server_port']."/".base64_encode($user->obfs_param);
+                    $ssqr_s = "ss://" . base64_encode($ssurl);
                     $ssurl = $ary['server']. ":" . $ary['server_port'].":".str_replace("_compatible", "", $user->protocol).":".$ary['method'].":".str_replace("_compatible", "", $user->obfs).":".Tools::base64_url_encode($ary['password'])."/?obfsparam=".Tools::base64_url_encode($user->obfs_param)."&protoparam=".Tools::base64_url_encode($user->protocol_param)."&remarks=".Tools::base64_url_encode($node->name) . "&group=" . Tools::base64_url_encode(Config::get('appName'));
                     $ssqr_s_new = "ssr://" . Tools::base64_url_encode($ssurl);
                     $ssurl = $ary['method'] . ":" . $ary['password'] . "@" . $ary['server'] . ":" . $ary['server_port'];
@@ -679,7 +718,7 @@ class UserController extends BaseController
                     $surge_proxy = "#!PROXY-OVERRIDE:ProxyBase.conf\n";
                     $surge_proxy .= "[Proxy]\n";
                     $surge_proxy .= "Proxy = custom," . $ary['server'] . "," . $ary['server_port'] . "," . $ary['method'] . "," . $ary['password'] . "," . Config::get('baseUrl') . "/downloads/SSEncrypt.module";
-                    return $this->view()->assign('ary', $ary)->assign('mu', $is_mu)->assign('node', $node)->assign('user', $user)->assign('json', $json)->assign('link1', Config::get('baseUrl')."/link/".$token_1)->assign('link2', Config::get('baseUrl')."/link/".$token_2)->assign('json_show', $json_show)->assign('ssqr', $ssqr)->assign('ssqr_s_new', $ssqr_s_new)->assign('surge_base', $surge_base)->assign('surge_proxy', $surge_proxy)->assign('info_server', $ary['server'])->assign('info_port', $this->user->port)->assign('info_method', $ary['method'])->assign('info_pass', $this->user->passwd)->display('user/nodeinfo.tpl');
+                    return $this->view()->assign('ary', $ary)->assign('mu', $is_mu)->assign('node', $node)->assign('user', $user)->assign('json', $json)->assign('link1', Config::get('baseUrl')."/link/".$token_1)->assign('link2', Config::get('baseUrl')."/link/".$token_2)->assign('json_show', $json_show)->assign('ssqr', $ssqr)->assign('ssqr_s_new', $ssqr_s_new)->assign('ssqr_s', $ssqr_s)->assign('surge_base', $surge_base)->assign('surge_proxy', $surge_proxy)->assign('info_server', $ary['server'])->assign('info_port', $this->user->port)->assign('info_method', $ary['method'])->assign('info_pass', $this->user->passwd)->display('user/nodeinfo.tpl');
                 }
             break;
 
@@ -867,6 +906,8 @@ class UserController extends BaseController
                     $json = json_encode($ary);
                     $json_show = json_encode($ary, JSON_PRETTY_PRINT);
 
+                    $ssurl = str_replace("_compatible", "", $user->obfs).":".str_replace("_compatible", "", $user->protocol).":".$ary['method'] . ":" . $ary['password'] . "@" . $ary['server'] . ":" . $ary['server_port']."/".base64_encode($user->obfs_param);
+                    $ssqr_s = "ss://" . base64_encode($ssurl);
                     $ssurl = $ary['server']. ":" . $ary['server_port'].":".str_replace("_compatible", "", $user->protocol).":".$ary['method'].":".str_replace("_compatible", "", $user->obfs).":".Tools::base64_url_encode($ary['password'])."/?obfsparam=".Tools::base64_url_encode($user->obfs_param)."&protoparam=".Tools::base64_url_encode($user->protocol_param)."&remarks=".Tools::base64_url_encode($node->name) . "&group=" . Tools::base64_url_encode(Config::get('appName'));
                     $ssqr_s_new = "ssr://" . Tools::base64_url_encode($ssurl);
                     $ssurl = $ary['method'] . ":" . $ary['password'] . "@" . $ary['server'] . ":" . $ary['server_port'];
@@ -879,7 +920,7 @@ class UserController extends BaseController
                     $surge_proxy = "#!PROXY-OVERRIDE:ProxyBase.conf\n";
                     $surge_proxy .= "[Proxy]\n";
                     $surge_proxy .= "Proxy = custom," . $ary['server'] . "," . $ary['server_port'] . "," . $ary['method'] . "," . $ary['password'] . "," . Config::get('baseUrl') . "/downloads/SSEncrypt.module";
-                    return $this->view()->assign('ary', $ary)->assign('mu', $is_mu)->assign('node', $node)->assign('user', $user)->assign('json', $json)->assign('link1', Config::get('baseUrl')."/link/".$token_1)->assign('link2', Config::get('baseUrl')."/link/".$token_2)->assign('json_show', $json_show)->assign('ssqr', $ssqr)->assign('ssqr_s_new', $ssqr_s_new)->assign('surge_base', $surge_base)->assign('surge_proxy', $surge_proxy)->assign('info_server', $ary['server'])->assign('info_port', $this->user->port)->assign('info_method', $ary['method'])->assign('info_pass', $this->user->passwd)->display('user/nodeinfo.tpl');
+                    return $this->view()->assign('ary', $ary)->assign('mu', $is_mu)->assign('node', $node)->assign('user', $user)->assign('json', $json)->assign('link1', Config::get('baseUrl')."/link/".$token_1)->assign('link2', Config::get('baseUrl')."/link/".$token_2)->assign('json_show', $json_show)->assign('ssqr', $ssqr)->assign('ssqr_s_new', $ssqr_s_new)->assign('ssqr_s', $ssqr_s)->assign('surge_base', $surge_base)->assign('surge_proxy', $surge_proxy)->assign('info_server', $ary['server'])->assign('info_port', $this->user->port)->assign('info_method', $ary['method'])->assign('info_pass', $this->user->passwd)->display('user/nodeinfo.tpl');
                 }
             break;
 
@@ -1767,14 +1808,6 @@ class UserController extends BaseController
         $user->telegram_id = 0;
         $user->save();
         $newResponse = $response->withStatus(302)->withHeader('Location', '/user/edit');
-        return $newResponse;
-    }
-
-    public function resetURL($request, $response, $args)
-    {
-        $user = $this->user;
-        $user->clean_link();
-        $newResponse = $response->withStatus(302)->withHeader('Location', '/user');
         return $newResponse;
     }
 }
