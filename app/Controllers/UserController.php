@@ -302,7 +302,18 @@ class UserController extends BaseController
         $codeq->save();
 
         if ($codeq->type==-1) {
-            $user->money=($user->money+$codeq->number);
+            $res['ret'] = 1;
+            if($user->money==0&&$user->ref_by!=0&&$codeq->number>150){
+                $res['msg'] = "充值成功，充值的金额为".$codeq->number."元，首次充值额外奖励您".$codeq->number*0.5."元";
+            }else{
+                $res['msg'] = "充值成功，充值的金额为".$codeq->number."元。";
+            }
+
+            if($user->money==0&&$user->ref_by!=0){
+                $user->money=($user->money+$codeq->number*1.5+0.01);
+            }else{
+                $user->money=($user->money+$codeq->number+0.01);
+            }
             $user->save();
 
             if ($user->ref_by!=""&&$user->ref_by!=0&&$user->ref_by!=null) {
@@ -319,8 +330,6 @@ class UserController extends BaseController
                 $Payback->save();
             }
 
-            $res['ret'] = 1;
-            $res['msg'] = "充值成功，充值的金额为".$codeq->number."元。";
 
             if (Config::get('enable_donate') == 'true') {
                 if ($this->user->is_hide == 1) {
