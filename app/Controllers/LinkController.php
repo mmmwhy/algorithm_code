@@ -10,6 +10,7 @@ use App\Models\Node;
 use App\Models\Relay;
 use App\Models\Smartline;
 use App\Utils\Tools;
+use App\Utils\URL;
 use App\Services\Config;
 
 /**
@@ -157,6 +158,26 @@ class LinkController extends BaseController
         return $NLink->token;
     }
 
+    public static function GenerateSSRSubCode($userid, $without_mu)
+    {
+        $Elink = Link::where("type", "=", 11)->where("userid", "=", $userid)->where("geo", $without_mu)->first();
+        if ($Elink != null) {
+            return $Elink->token;
+        }
+        $NLink = new Link();
+        $NLink->type = 11;
+        $NLink->address = "";
+        $NLink->port = 0;
+        $NLink->ios = 0;
+        $NLink->geo = $without_mu;
+        $NLink->method = "";
+        $NLink->userid = $userid;
+        $NLink->token = LinkController::GenerateRandomLink();
+        $NLink->save();
+
+        return $NLink->token;
+    }
+
     public static function GetContent($request, $response, $args)
     {
         $token = $args['token'];
@@ -173,27 +194,19 @@ class LinkController extends BaseController
                 if ($user == null) {
                     return null;
                 }
-                $newResponse = $response->withHeader('Content-type', ' application/octet-stream; charset=utf-8')->withHeader('Cache-Control', 'no-store, no-cache, must-revalidate')->withHeader('Content-Disposition', ' attachment; filename=allinone.conf');//->getBody()->write($builder->output());
-                if ($user->is_admin) {
-                    $newResponse->getBody()->write(LinkController::GetIosConf(Node::where(
-                        function ($query) {
-                            $query->Where("sort", "=", 0)
-                                ->orWhere("sort", "=", 10);
-                        }
-                    )->where("type", "1")->get(), $user));
-                } else {
-                    $newResponse->getBody()->write(LinkController::GetIosConf(Node::where(
-                            function ($query) {
-                                $query->Where("sort", "=", 0)
-                                    ->orWhere("sort", "=", 10);
-                            }
-                        )->where("type", "1")->where(
-                        function ($query) use ($user) {
-                            $query->where("node_group", "=", $user->node_group)
-                                ->orWhere("node_group", "=", 0);
-                        }
-                    )->where("node_class", "<=", $user->class)->get(), $user));
+
+                $is_ss = 1;
+                if (isset($request->getQueryParams()["is_ss"])) {
+                    $is_ss = $request->getQueryParams()["is_ss"];
                 }
+
+                $is_mu = 0;
+                if (isset($request->getQueryParams()["is_mu"])) {
+                    $is_mu = $request->getQueryParams()["is_mu"];
+                }
+
+                $newResponse = $response->withHeader('Content-type', ' application/octet-stream; charset=utf-8')->withHeader('Cache-Control', 'no-store, no-cache, must-revalidate')->withHeader('Content-Disposition', ' attachment; filename=allinone.conf');//->getBody()->write($builder->output());
+                $newResponse->getBody()->write(LinkController::GetIosConf($user, $is_mu, $is_ss));
                 return $newResponse;
             case 3:
                 $type = "PROXY";
@@ -232,27 +245,32 @@ class LinkController extends BaseController
                     return null;
                 }
 
-                $newResponse = $response->withHeader('Content-type', ' application/octet-stream; charset=utf-8')->withHeader('Cache-Control', 'no-store, no-cache, must-revalidate')->withHeader('Content-Disposition', ' attachment; filename='.$token.'.sh');//->getBody()->write($builder->output());
-                if ($user->is_admin) {
-                    $newResponse->getBody()->write(LinkController::GetRouter(Node::where(
-                        function ($query) {
-                            $query->where('sort', 0)
-                                ->orWhere('sort', 10);
-                        }
-                    )->where("type", "1")->get(), User::where("id", "=", $Elink->userid)->first(), $Elink->geo));
-                } else {
-                    $newResponse->getBody()->write(LinkController::GetRouter(Node::where(
-                        function ($query) {
-                            $query->where('sort', 0)
-                                ->orWhere('sort', 10);
-                        }
-                    )->where("type", "1")->where(
-                        function ($query) use ($user) {
-                            $query->where("node_group", "=", $user->node_group)
-                                ->orWhere("node_group", "=", 0);
-                        }
-                    )->where("node_class", "<=", $user->class)->get(), User::where("id", "=", $Elink->userid)->first(), $Elink->geo));
+                $is_ss = 0;
+                if (isset($request->getQueryParams()["is_ss"])) {
+                    $is_ss = $request->getQueryParams()["is_ss"];
                 }
+
+                $newResponse = $response->withHeader('Content-type', ' application/octet-stream; charset=utf-8')->withHeader('Cache-Control', 'no-store, no-cache, must-revalidate')->withHeader('Content-Disposition', ' attachment; filename='.$token.'.sh');//->getBody()->write($builder->output());
+                $newResponse->getBody()->write(LinkController::GetRouter(User::where("id", "=", $Elink->userid)->first(), $Elink->geo, $is_ss));
+                return $newResponse;
+            case 11:
+                $user=User::where("id", $Elink->userid)->first();
+                if ($user == null) {
+                    return null;
+                }
+
+                $max = 0;
+                if (isset($request->getQueryParams()["max"])) {
+                    $max = (int)$request->getQueryParams()["max"];
+                }
+
+                $mu = 0;
+                if (isset($request->getQueryParams()["mu"])) {
+                    $mu = (int)$request->getQueryParams()["mu"];
+                }
+
+                $newResponse = $response->withHeader('Content-type', ' application/octet-stream; charset=utf-8')->withHeader('Cache-Control', 'no-store, no-cache, must-revalidate')->withHeader('Content-Disposition', ' attachment; filename='.$token.'.txt');
+                $newResponse->getBody()->write(LinkController::GetSSRSub(User::where("id", "=", $Elink->userid)->first(), $mu, $max));
                 return $newResponse;
             default:
                 break;
@@ -271,7 +289,7 @@ class LinkController extends BaseController
         return $newResponse;
     }
 
-    public static function GetPcConf($nodes, $user, $without_mu = 0)
+    public static function GetPcConf($user, $is_mu = 0, $is_ss = 0)
     {
         $string='
 	{
@@ -315,158 +333,40 @@ class LinkController extends BaseController
         $json=json_decode($string, true);
         $temparray=array();
 
-        if ($user->is_admin) {
-            $mu_nodes = Node::where('sort', 9)->where("type", "1")->get();
-        } else {
-            $mu_nodes = Node::where('sort', 9)->where('node_class', '<=', $user->class)->where("type", "1")->where(
-                function ($query) use ($user) {
-                    $query->where("node_group", "=", $user->node_group)
-                        ->orWhere("node_group", "=", 0);
-                }
-            )->get();
+        $items = URL::getAllItems($user, $is_mu, $is_ss);
+        foreach($items as $item) {
+            array_push($temparray, array("remarks"=>$item['remark'],
+                                        "server"=>$item['address'],
+                                        "server_port"=>$item['port'],
+                                        "method"=>$item['method'],
+                                        "obfs"=>$item['obfs'],
+                                        "obfsparam"=>$item['obfs_param'],
+                                        "remarks_base64"=>base64_encode($item['remark']),
+                                        "password"=>$item['passwd'],
+                                        "tcp_over_udp"=>false,
+                                        "udp_over_tcp"=>false,
+                                        "group"=>Config::get('appName'),
+                                        "protocol"=>$item['protocol'],
+                                        "protoparam"=>$item['protocol_param'],
+                                        "obfs_udp"=>false,
+                                        "enable"=>true));
         }
-
-        $relay_rules = Relay::where('user_id', $user->id)->orWhere('user_id', 0)->orderBy('id', 'asc')->get();
-
-        if (!Tools::is_protocol_relay($user)) {
-            $relay_rules = array();
-        }
-
-        if ($user->obfs_param == null) {
-            $user->obfs_param = "";
-        }
-
-        if ($user->protocol_param == null) {
-            $user->protocol_param = "";
-        }
-
-        foreach ($nodes as $node) {
-            if ($node->mu_only != 1) {
-                $node_name = $node->name;
-
-                if ($node->sort == 10) {
-                    $relay_rule = Tools::pick_out_relay_rule($node->id, $user->port, $relay_rules);
-                    if ($relay_rule != null) {
-                        if ($relay_rule->dist_node() != null) {
-                            $node_name .= " - ".$relay_rule->dist_node()->name;
-                        }
-                    }
-                }
-
-                array_push($temparray, array("remarks"=>$node_name,
-                                            "server"=>$node->server,
-                                            "server_port"=>$user->port,
-                                            "method"=>($node->custom_method==1?$user->method:$node->method),
-                                            "obfs"=>str_replace("_compatible", "", (($node->custom_rss==1&&!($user->obfs=='plain'&&$user->protocol=='origin'))?$user->obfs:"plain")),
-                                            "obfsparam"=>(($node->custom_rss==1&&!($user->obfs=='plain'&&$user->protocol=='origin'))?$user->obfs_param:""),
-                                            "remarks_base64"=>base64_encode($node_name),
-                                            "password"=>$user->passwd,
-                                            "tcp_over_udp"=>false,
-                                            "udp_over_tcp"=>false,
-                                            "group"=>Config::get('appName'),
-                                            "protocol"=>str_replace("_compatible", "", (($node->custom_rss==1&&!($user->obfs=='plain'&&$user->protocol=='origin'))?$user->protocol:"origin")),
-                                            "obfs_udp"=>false,
-                                            "enable"=>true));
-            }
-
-            if ($node->custom_rss == 1 && $without_mu == 0 && $node->mu_only != -1) {
-                foreach ($mu_nodes as $mu_node) {
-                    $mu_user = User::where('port', '=', $mu_node->server)->first();
-
-                    if ($mu_user == null) {
-                        continue;
-                    }
-
-                    if (!($mu_user->class >= $node->node_class && ($node->node_group == 0 || $node->node_group == $mu_user->node_group))) {
-                        continue;
-                    }
-
-                    if ($mu_user->is_multi_user == 1) {
-                        $mu_user->obfs_param = $user->getMuMd5();
-                        $mu_user->protocol_param = $user->id.":".$user->passwd;
-                    } else {
-                        $mu_user->obfs_param = "";
-                        $mu_user->protocol_param = $user->id.":".$user->passwd;
-                    }
-
-                    $node_name = $node->name;
-
-                    if ($node->sort == 10 && $mu_user->is_multi_user != 2) {
-                        $relay_rule = Tools::pick_out_relay_rule($node->id, $mu_user->port, $relay_rules);
-
-                        if ($relay_rule != null) {
-                            if ($relay_rule->dist_node() != null) {
-                                $node_name .= " - ".$relay_rule->dist_node()->name;
-                            }
-                        }
-                    }
-
-                    array_push($temparray, array("remarks"=>$node_name."- ".$mu_node->server." 端口单端口多用户",
-                                                "server"=>$node->server,
-                                                "server_port"=>$mu_user->port,
-                                                "method"=>$mu_user->method,
-                                                "group"=>Config::get('appName'),
-                                                "obfs"=>str_replace("_compatible", "", (($node->custom_rss==1&&!($mu_user->obfs=='plain'&&$mu_user->protocol=='origin'))?$mu_user->obfs:"plain")),
-                                                "obfsparam"=>(($node->custom_rss==1&&!($mu_user->obfs=='plain'&&$mu_user->protocol=='origin'))?$mu_user->obfs_param:""),
-                                                "remarks_base64"=>base64_encode($node_name."- ".$mu_node->server." 端口单端口多用户"),
-                                                "password"=>$mu_user->passwd,
-                                                "tcp_over_udp"=>false,
-                                                "udp_over_tcp"=>false,
-                                                "protocol"=>str_replace("_compatible", "", (($node->custom_rss==1&&!($mu_user->obfs=='plain'&&$mu_user->protocol=='origin'))?$mu_user->protocol:"origin")),
-                                                "protocolparam"=>(($node->custom_rss==1&&!($mu_user->obfs=='plain'&&$mu_user->protocol=='origin'))?$mu_user->protocol_param:""),
-                                                "obfs_udp"=>false,
-                                                "enable"=>true));
-                }
-            }
-        }
-
 
         $json["configs"]=$temparray;
         return json_encode($json, JSON_PRETTY_PRINT);
     }
 
 
-    public static function GetIosConf($nodes, $user)
+    public static function GetIosConf($user, $is_mu = 0, $is_ss = 0)
     {
         $proxy_name="";
         $proxy_group="";
-        foreach ($nodes as $node) {
-            if ($node->sort == 0) {
-                $proxy_group.=$node->name.' = custom,'.$node->server.','.$user->port.','.($node->custom_method==1?$user->method:$node->method).','.$user->passwd.','.Config::get('baseUrl').'/downloads/SSEncrypt.module'."\n";
-                $proxy_name.=",".$node->name;
-            } else {
-                $relay_rules = Relay::where('user_id', $user->id)->where('port', $user->port)->where(
-                    function ($query) use ($node) {
-                        $query->Where("source_node_id", "=", $node->id)
-                            ->orWhere("source_node_id", "=", 0);
-                    }
-                )->get();
 
-                if (!Tools::is_protocol_relay($user)) {
-                    $relay_rules = array();
-                }
-
-                if (count($relay_rules) != 0) {
-                    foreach ($relay_rules as $relay_rule) {
-                        if (!Tools::is_relay_rule_avaliable($relay_rule, $relay_rules, $node->id)) {
-                            continue;
-                        }
-
-                        if ($relay_rule->dist_node() != null) {
-                            $proxy_group.=$node->name." 中转至 ".$relay_rule->Dist_Node()->name.' = custom,'.$node->server.','.$user->port.','.($node->custom_method==1?$user->method:$node->method).','.$user->passwd.','.Config::get('baseUrl').'/downloads/SSEncrypt.module'."\n";
-                            $proxy_name.=",".$node->name." 中转至 ".$relay_rule->Dist_Node()->name;
-                        } else {
-                            $proxy_group.=$node->name.' = custom,'.$node->server.','.$user->port.','.($node->custom_method==1?$user->method:$node->method).','.$user->passwd.','.Config::get('baseUrl').'/downloads/SSEncrypt.module'."\n";
-                            $proxy_name.=",".$node->name;
-                        }
-                    }
-                } else {
-                    $proxy_group.=$node->name.' = custom,'.$node->server.','.$user->port.','.($node->custom_method==1?$user->method:$node->method).','.$user->passwd.','.Config::get('baseUrl').'/downloads/SSEncrypt.module'."\n";
-                    $proxy_name.=",".$node->name;
-                }
-            }
+        $items = URL::getAllItems($user, $is_mu, $is_ss);
+        foreach($items as $item) {
+            $proxy_group .= $item['remark'].' = custom,'.$item['address'].','.$item['port'].','.$item['method'].','.$item['passwd'].','.Config::get('baseUrl').'/downloads/SSEncrypt.module'.URL::getSurgeObfs($item)."\n";
+            $proxy_name .= ",".$item['remark'];
         }
-
 
         return '
 [General]
@@ -1816,101 +1716,42 @@ FINAL,Proxy';
         return $pac_content;
     }
 
-    public static function GetRouter($nodes, $user, $without_mu = 0)
+    public static function GetRouter($user, $is_mu = 0, $is_ss = 0)
     {
         $bash = '#!/bin/sh'."\n";
         $bash .= 'export PATH=\'/opt/usr/sbin:/opt/usr/bin:/opt/sbin:/opt/bin:/usr/local/sbin:/usr/sbin:/usr/bin:/sbin:/bin\''."\n";
         $bash .= 'export LD_LIBRARY_PATH=/lib:/opt/lib'."\n";
-        $bash .= 'nvram set ss_type=1'."\n";
+        $bash .= 'nvram set ss_type='.($is_ss == 1 ? '0' : '1')."\n";
 
         $count = 0;
 
-        if($user->is_admin) {
-            $mu_nodes = Node::where('sort', 9)->where("type", "1")->get();
-        } else {
-            $mu_nodes = Node::where('sort', 9)->where('node_class', '<=', $user->class)->where("type", "1")->where(
-                function ($query) use ($user) {
-                    $query->where("node_group", "=", $user->node_group)
-                        ->orWhere("node_group", "=", 0);
-                }
-            )->get();
-        }
-
-        $relay_rules = Relay::where('user_id', $user->id)->where('user_id', 0)->orderBy('id', 'asc')->get();
-
-        if (!Tools::is_protocol_relay($user)) {
-            $relay_rules = array();
-        }
-
-        foreach ($nodes as $node) {
-            if ($node->mu_only != 1) {
-                $node_name = $node->name;
-
-                if ($node->sort == 10) {
-                    $relay_rule = Tools::pick_out_relay_rule($node->id, $user->port, $relay_rules);
-
-                    if ($relay_rule != null) {
-                        if ($relay_rule->dist_node() != null) {
-                            $node_name .= " - ".$relay_rule->dist_node()->name;
-                        }
-                    }
-                }
-
-                $bash .= 'nvram set rt_ss_name_x'.$count.'="'.$node_name."\"\n";
-                $bash .= 'nvram set rt_ss_port_x'.$count.'='.$user->port."\n";
-                $bash .= 'nvram set rt_ss_password_x'.$count.'="'.$user->passwd."\"\n";
-                $bash .= 'nvram set rt_ss_server_x'.$count.'='.$node->server."\n";
-                $bash .= 'nvram set rt_ss_usage_x'.$count.'="'."-o ".str_replace("_compatible", "", (($node->custom_rss==1&&!($user->obfs=='plain'&&$user->protocol=='origin'))?$user->obfs:"plain"))." ".(($node->custom_rss==1&&!($user->obfs=='plain'&&$user->protocol=='origin'))?($user->obfs_param == null || $user->obfs_param == "" ?  ""  : "-g ".$user->obfs_param):"")." -O ".str_replace("_compatible", "", (($node->custom_rss==1&&!($user->obfs=='plain'&&$user->protocol=='origin'))?$user->protocol:"origin"))."\"\n";
-                $bash .= 'nvram set rt_ss_method_x'.$count.'='.($node->custom_method==1?$user->method:$node->method)."\n";
+        $items = URL::getAllItems($user, $is_mu, $is_ss);
+        foreach($items as $item) {
+            if($is_ss == 0) {
+                $bash .= 'nvram set rt_ss_name_x'.$count.'="'.$item['remark']."\"\n";
+                $bash .= 'nvram set rt_ss_port_x'.$count.'='.$item['port']."\n";
+                $bash .= 'nvram set rt_ss_password_x'.$count.'="'.$item['passwd']."\"\n";
+                $bash .= 'nvram set rt_ss_server_x'.$count.'='.$item['address']."\n";
+                $bash .= 'nvram set rt_ss_usage_x'.$count.'="'."-o ".$item['obfs']." -g ".$item['obfs_param']." -O ".$item['protocol']." -G ".$item['protocol_param']."\"\n";
+                $bash .= 'nvram set rt_ss_method_x'.$count.'='.$item['method']."\n";
+                $count += 1;
+            }else{
+                $bash .= 'nvram set rt_ss_name_x'.$count.'="'.$item['remark']."\"\n";
+                $bash .= 'nvram set rt_ss_port_x'.$count.'='.$item['port']."\n";
+                $bash .= 'nvram set rt_ss_password_x'.$count.'="'.$item['passwd']."\"\n";
+                $bash .= 'nvram set rt_ss_server_x'.$count.'='.$item['address']."\n";
+                $bash .= 'nvram set rt_ss_method_x'.$count.'='.$item['method']."\n";
                 $count += 1;
             }
-
-            if ($node->custom_rss == 1 && $without_mu == 0 && $node->mu_only != -1) {
-                foreach ($mu_nodes as $mu_node) {
-                    $mu_user = User::where('port', '=', $mu_node->server)->first();
-
-                    if ($mu_user == null) {
-                        continue;
-                    }
-
-                    if (!($mu_user->class >= $node->node_class && ($node->node_group == 0 || $node->node_group == $mu_user->node_group))) {
-                        continue;
-                    }
-
-                    if ($mu_user->is_multi_user == 1) {
-                        $mu_user->obfs_param = $user->getMuMd5();
-                        $mu_user->protocol_param = $user->id.":".$user->passwd;
-                    } else {
-                        $mu_user->obfs_param = "";
-                        $mu_user->protocol_param = $user->id.":".$user->passwd;
-                    }
-
-                    $node_name = $node->name;
-
-                    if ($node->sort == 10 && $mu_user->is_multi_user != 2) {
-                        $relay_rule = Tools::pick_out_relay_rule($node->id, $mu_user->port, $relay_rules);
-
-                        if ($relay_rule != null) {
-                            if ($relay_rule->dist_node() != null) {
-                                $node_name .= " - ".$relay_rule->dist_node()->name;
-                            }
-                        }
-                    }
-
-                    $bash .= 'nvram set rt_ss_name_x'.$count.'="'.$node_name." - ".$mu_node->server." 端口单端口多用户"."\"\n";
-                    $bash .= 'nvram set rt_ss_port_x'.$count.'='.$mu_user->port."\n";
-                    $bash .= 'nvram set rt_ss_password_x'.$count.'="'.$mu_user->passwd."\"\n";
-                    $bash .= 'nvram set rt_ss_server_x'.$count.'='.$node->server."\n";
-                    $bash .= 'nvram set rt_ss_usage_x'.$count.'="'."-o ".str_replace("_compatible", "", (($node->custom_rss==1&&!($mu_user->obfs=='plain'&&$mu_user->protocol=='origin'))?$mu_user->obfs:"plain"))." ".(($node->custom_rss==1&&!($mu_user->obfs=='plain'&&$mu_user->protocol=='origin'))?($mu_user->obfs_param == null || $mu_user->obfs_param == "" ?  ""  : "-g ".$mu_user->obfs_param):"")." -O ".str_replace("_compatible", "", (($node->custom_rss==1&&!($mu_user->obfs=='plain'&&$mu_user->protocol=='origin'))?$mu_user->protocol:"origin"))." ".(($node->custom_rss==1&&!($mu_user->obfs=='plain'&&$mu_user->protocol=='origin'))?($mu_user->protocol_param == null || $mu_user->protocol_param == "" ?  ""  : "-G ".$mu_user->protocol_param):"")."\"\n";
-                    $bash .= 'nvram set rt_ss_method_x'.$count.'='.($node->custom_method==1?$mu_user->method:$node->method)."\n";
-                    $count += 1;
-                }
-            }
         }
-
 
         $bash .= "nvram set rt_ssnum_x=".$count."\n";
 
         return $bash;
+    }
+
+    public static function GetSSRSub($user, $mu = 0, $max = 0)
+    {
+        return Tools::base64_url_encode(URL::getAllUrl($user, $mu, 0, 1));
     }
 }

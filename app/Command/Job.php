@@ -141,6 +141,50 @@ class Job
         DetectLog::where("datetime", "<", time()-86400*3)->delete();
         Telegram::Send("姐姐姐姐，数据库被清理了，感觉身体被掏空了呢~");
 
+        //auto reset
+        $boughts=Bought::all();
+        foreach ($boughts as $bought) {
+            $user=User::where("id", $bought->userid)->first();
+
+            if ($user == null) {
+                $bought->delete();
+                continue;
+            }
+
+            $shop=Shop::where("id", $bought->shopid)->first();
+
+            if ($shop == null) {
+                $bought->delete();
+                continue;
+            }
+
+            if($shop->reset() != 0 && $shop->reset_value() != 0 && $shop->reset_exp() != 0) {
+              if(time() - $shop->reset_exp() * 86400 < $bought->datetime) {
+                if(intval((time() - $bought->datetime) / 86400) % $shop->reset() == 0 && intval((time() - $bought->datetime) / 86400) != 0) {
+                  echo("流量重置-".$user->id."\n");
+                  $user->transfer_enable = Tools::toGB($shop->reset_value());
+                  $user->u = 0;
+                  $user->d = 0;
+                  $user->last_day_t = 0;
+                  $user->save();
+
+                  $subject = Config::get('appName')."-您的流量被重置了";
+                  $to = $user->email;
+                  $text = "您好，根据您所订购的订单 ID:".$bought->id."，流量已经被重置为".$shop->reset_value().'GB' ;
+                  try {
+                      Mail::send($to, $subject, 'news/warn.tpl', [
+                          "user" => $user,"text" => $text
+                      ], [
+                      ]);
+                  } catch (Exception $e) {
+                      echo $e->getMessage();
+                  }
+                }
+              }
+            }
+
+        }
+
 
         $users = User::all();
         foreach ($users as $user) {
@@ -154,6 +198,18 @@ class Job
                 $user->last_day_t = 0;
                 $user->transfer_enable = $user->auto_reset_bandwidth*1024*1024*1024;
                 $user->save();
+
+                $subject = Config::get('appName')."-您的流量被重置了";
+                $to = $user->email;
+                $text = "您好，根据管理员的设置，流量已经被重置为".$user->auto_reset_bandwidth.'GB' ;
+                try {
+                    Mail::send($to, $subject, 'news/warn.tpl', [
+                        "user" => $user,"text" => $text
+                    ], [
+                    ]);
+                } catch (Exception $e) {
+                    echo $e->getMessage();
+                }
             }
         }
 

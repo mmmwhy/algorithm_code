@@ -25,23 +25,26 @@ class Shop extends Model
                 case "class":
                     $content_text .= "为账号升级为等级 ".$value." ,有效期 ".$content["class_expire"]." 天";
                     break;
+                case "reset":
+                    $content_text .= " 在 ".$content["reset_exp"]." 天内，每 ".$value." 天重置流量为 ".$content["reset_value"]." G ";
+                    break;
                 default:
             }
-            
-            if ($i<count($content)&&$key!="class_expire") {
+
+            if ($i<count($content)&&$key!="reset_exp") {
                 $content_text .= ",";
             }
-            
+
             $i++;
         }
-        
+
         if (substr($content_text, -1, 1)==",") {
             $content_text=substr($content_text, 0, -1);
         }
-        
+
         return $content_text;
     }
-    
+
     public function bandwidth()
     {
         $content =  json_decode($this->attributes['content']);
@@ -51,7 +54,7 @@ class Shop extends Model
             return 0;
         }
     }
-    
+
     public function expire()
     {
         $content =  json_decode($this->attributes['content']);
@@ -61,7 +64,37 @@ class Shop extends Model
             return 0;
         }
     }
-    
+
+    public function reset()
+    {
+        $content =  json_decode($this->attributes['content']);
+        if (isset($content->reset)) {
+            return $content->reset;
+        } else {
+            return 0;
+        }
+    }
+
+    public function reset_value()
+    {
+        $content =  json_decode($this->attributes['content']);
+        if (isset($content->reset_value)) {
+            return $content->reset_value;
+        } else {
+            return 0;
+        }
+    }
+
+    public function reset_exp()
+    {
+        $content =  json_decode($this->attributes['content']);
+        if (isset($content->reset_exp)) {
+            return $content->reset_exp;
+        } else {
+            return 0;
+        }
+    }
+
     public function user_class()
     {
         $content =  json_decode($this->attributes['content']);
@@ -71,7 +104,7 @@ class Shop extends Model
             return 0;
         }
     }
-    
+
     public function class_expire()
     {
         $content =  json_decode($this->attributes['content']);
@@ -81,12 +114,12 @@ class Shop extends Model
             return 0;
         }
     }
-    
+
     public function buy($user, $is_renew = 0)
     {
         $content = json_decode($this->attributes['content'], true);
         $content_text="";
-        
+
         foreach ($content as $key=>$value) {
             switch ($key) {
                 case "bandwidth":
@@ -127,7 +160,7 @@ class Shop extends Model
                 default:
             }
         }
-        
+
         $user->save();
     }
 }

@@ -321,18 +321,6 @@ class AuthController extends BaseController
             return $response->getBody()->write(json_encode($res));
         }
 
-        if ($imtype==""||$wechat=="") {
-            $res['ret'] = 0;
-            $res['msg'] = "要填上你的联络方式哦";
-            return $response->getBody()->write(json_encode($res));
-        }
-
-        $user = User::where('im_value', $wechat)->where('im_type', $imtype)->first();
-        if ($user != null) {
-            $res['ret'] = 0;
-            $res['msg'] = "此联络方式已经被注册了";
-            return $response->getBody()->write(json_encode($res));
-        }
 
         // do reg user
         $user = new User();

@@ -24,10 +24,10 @@ class TelegramProcess
                         break;
                     }
                     $traffic = rand(Config::get('checkinMin'), Config::get('checkinMax'));
-                    $user->transfer_enable = $user->transfer_enable + Tools::toMB($traffic);
+                    $user->transfer_enable = $user->transfer_enable + Tools::toMB($traffic)*2;
                     $user->last_check_in_time = time();
                     $user->save();
-                    $bot->sendMessage($message->getChat()->getId(), "天若有情天亦老，我为长者续一秒！获得了 ".$traffic." MB 流量！", $parseMode = null, $disablePreview = false, $replyToMessageId = $reply_to);
+                    $bot->sendMessage($message->getChat()->getId(), "天若有情天亦老，我为长者续一秒！获得了 ".$traffic." MB 流量！因为我很喜欢你，所以多送你".$traffic." MB 流量！", $parseMode = null, $disablePreview = false, $replyToMessageId = $reply_to);
                     break;
                 default:
                     $bot->sendMessage($message->getChat()->getId(), "???", $parseMode = null, $disablePreview = false, $replyToMessageId = $reply_to);

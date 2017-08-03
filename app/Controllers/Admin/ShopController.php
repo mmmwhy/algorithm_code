@@ -55,6 +55,18 @@ class ShopController extends AdminController
             $content["class_expire"]=$request->getParam('class_expire');
         }
 
+        if ($request->getParam('reset')!=0) {
+            $content["reset"]=$request->getParam('reset');
+        }
+
+        if ($request->getParam('reset_value')!=0) {
+            $content["reset_value"]=$request->getParam('reset_value');
+        }
+
+        if ($request->getParam('reset_exp')!=0) {
+            $content["reset_exp"]=$request->getParam('reset_exp');
+        }
+
         $shop->content=json_encode($content);
 
 
@@ -113,6 +125,18 @@ class ShopController extends AdminController
 
         if ($request->getParam('class_expire')!=0) {
             $content["class_expire"]=$request->getParam('class_expire');
+        }
+
+        if ($request->getParam('reset')!=0) {
+            $content["reset"]=$request->getParam('reset');
+        }
+
+        if ($request->getParam('reset_value')!=0) {
+            $content["reset_value"]=$request->getParam('reset_value');
+        }
+
+        if ($request->getParam('reset_exp')!=0) {
+            $content["reset_exp"]=$request->getParam('reset_exp');
         }
 
         $shop->content=json_encode($content);

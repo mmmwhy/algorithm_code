@@ -39,6 +39,7 @@ use App\Utils\Geetest;
 use App\Utils\Telegram;
 use App\Utils\TelegramSessionManager;
 use App\Utils\Pay;
+use App\Utils\URL;
 use App\Services\Mail;
 
 /**
@@ -55,136 +56,8 @@ class UserController extends BaseController
 
     public function index($request, $response, $args)
     {
-        /*$Speedtest['Tping']=Speedtest::where("datetime",">",time()-6*3600)->orderBy("telecomping","desc")->get();
-        $Speedtest['Uping']=Speedtest::where("datetime",">",time()-6*3600)->orderBy("unicomping","desc")->take(3);
-        $Speedtest['Cping']=Speedtest::where("datetime",">",time()-6*3600)->orderBy("cmccping","desc")->take(3);
-        $Speedtest['Tspeed']=Speedtest::where("datetime",">",time()-6*3600)->orderBy("telecomeupload","desc")->take(3);
-        $Speedtest['Uspeed']=Speedtest::where("datetime",">",time()-6*3600)->orderBy("unicomupload","desc")->take(3);
-        $Speedtest['Cspeed']=Speedtest::where("datetime",">",time()-6*3600)->orderBy("cmccupload","desc")->take(3);*/
-
-        if ($this->user->is_admin) {
-            $nodes=Node::where(
-                function ($query) {
-                    $query->where('sort', 0)
-                        ->orwhere('sort', 10);
-                }
-            )->where("type", "1")->get();
-        } else {
-            $nodes=Node::where(
-                function ($query) {
-                    $query->where('sort', 0)
-                        ->orwhere('sort', 10);
-                }
-            )->where(
-                function ($query) {
-                    $query->where("node_group", "=", $this->user->node_group)
-                        ->orWhere("node_group", "=", 0);
-                }
-            )->where("type", "1")->where("node_class", "<=", $this->user->class)->get();
-        }
-
-        $android_add="";
-        $android_add_without_mu = "";
 
         $user = $this->user;
-
-        if ($this->user->is_admin) {
-            $mu_nodes = Node::where('sort', 9)->where("type", "1")->get();
-        } else {
-            $mu_nodes = Node::where('sort', 9)->where('node_class', '<=', $user->class)->where("type", "1")->where(
-                function ($query) use ($user) {
-                    $query->where("node_group", "=", $user->node_group)
-                        ->orWhere("node_group", "=", 0);
-                }
-            )->get();
-        }
-
-        $relay_rules = Relay::where('user_id', $this->user->id)->orwhere('user_id', 0)->orderBy('id', 'asc')->get();
-
-        if (!Tools::is_protocol_relay($user)) {
-            $relay_rules = array();
-        }
-
-        foreach ($nodes as $node) {
-            $ary['server'] = $node->server;
-            $ary['server_port'] = $user->port;
-            $ary['password'] = $user->passwd;
-            $ary['method'] = $node->method;
-            if ($node->custom_method) {
-                $ary['method'] = $this->user->method;
-            }
-
-            if ($node->mu_only != 1) {
-                if ($node->custom_rss == 1) {
-                    $node_name = $node->name;
-
-                    if ($node->sort == 10) {
-                        $relay_rule = Tools::pick_out_relay_rule($node->id, $user->port, $relay_rules);
-
-                        if ($relay_rule != null) {
-                            if ($relay_rule->dist_node() != null) {
-                                $node_name .= " - ".$relay_rule->dist_node()->name;
-                            }
-                        }
-                    }
-
-                    $ssurl = $ary['server']. ":" . $ary['server_port'].":".str_replace("_compatible", "", $user->protocol).":".$ary['method'].":".str_replace("_compatible", "", $user->obfs).":".Tools::base64_url_encode($ary['password'])."/?obfsparam=".Tools::base64_url_encode($user->obfs_param)."&remarks=".Tools::base64_url_encode($node_name) . "&group=" . Tools::base64_url_encode(Config::get('appName'));
-                    $ssqr_s_new = "ssr://" . Tools::base64_url_encode($ssurl);
-                    $android_add .= $ssqr_s_new." ";
-                    $android_add_without_mu .= $ssqr_s_new." ";
-                } else {
-                    $ssurl = ($node->custom_method==1?$user->method:$node->method) . ":" . $user->passwd . "@" . $node->server . ":" . $user->port;
-                    $ssqr = "ss://" . base64_encode($ssurl);
-                    $android_add .= $ssqr." ";
-                    $android_add_without_mu .= $ssqr." ";
-                }
-            }
-
-
-            if ($node->custom_rss == 1 && $node->mu_only != -1) {
-                foreach ($mu_nodes as $mu_node) {
-                    $mu_user = User::where('port', '=', $mu_node->server)->first();
-
-                    if ($mu_user == null) {
-                        continue;
-                    }
-
-                    if (!($mu_user->class >= $node->node_class && ($node->node_group == 0 || $node->node_group == $mu_user->node_group))) {
-                        continue;
-                    }
-
-                    if ($mu_user->is_multi_user == 1) {
-                        $mu_user->obfs_param = $user->getMuMd5();
-                    }
-
-                    $mu_user->protocol_param = $user->id.":".$user->passwd;
-
-                    $node_name = $node->name;
-
-                    if ($node->sort == 10 && $mu_user->is_multi_user != 2) {
-                        $relay_rule = Tools::pick_out_relay_rule($node->id, $mu_user->port, $relay_rules);
-
-                        if ($relay_rule != null) {
-                            if ($relay_rule->dist_node() != null) {
-                                $node_name .= " - ".$relay_rule->dist_node()->name;
-                            }
-                        }
-                    }
-
-
-                    $ary['server_port'] = $mu_user->port;
-                    $ary['password'] = $mu_user->passwd;
-                    $ary['method'] = $node->method;
-                    if ($node->custom_method) {
-                        $ary['method'] = $mu_user->method;
-                    }
-
-                    $ssurl = $ary['server']. ":" . $ary['server_port'].":".str_replace("_compatible", "", $mu_user->protocol).":".$ary['method'].":".str_replace("_compatible", "", $mu_user->obfs).":".Tools::base64_url_encode($ary['password'])."/?obfsparam=".Tools::base64_url_encode($mu_user->obfs_param)."&protoparam=".Tools::base64_url_encode($mu_user->protocol_param)."&remarks=".Tools::base64_url_encode($node_name." - ".$mu_node->server." 端口单端口多用户") . "&group=" . Tools::base64_url_encode(Config::get('appName'));
-                    $ssqr_s_new = "ssr://" . Tools::base64_url_encode($ssurl);
-                    $android_add .= $ssqr_s_new." ";
-                }
-            }
-        }
 
         $ios_token = LinkController::GenerateIosCode("smart", 0, $this->user->id, 0, "smart");
 
@@ -193,6 +66,7 @@ class UserController extends BaseController
         $router_token = LinkController::GenerateRouterCode($this->user->id, 0);
         $router_token_without_mu = LinkController::GenerateRouterCode($this->user->id, 1);
 
+        $ssr_sub_token = LinkController::GenerateSSRSubCode($this->user->id, 0);
 
         $uid = time().rand(1, 10000) ;
         if (Config::get('enable_geetest_checkin') == 'true') {
@@ -204,7 +78,11 @@ class UserController extends BaseController
         $Ann = Ann::orderBy('date', 'desc')->first();
 
 
-        return $this->view()->assign("router_token", $router_token)->assign("router_token_without_mu", $router_token_without_mu)->assign("acl_token", $acl_token)->assign('ann', $Ann)->assign('geetest_html', $GtSdk)->assign("ios_token", $ios_token)->assign("android_add", $android_add)->assign("android_add_without_mu", $android_add_without_mu)->assign('enable_duoshuo', Config::get('enable_duoshuo'))->assign('duoshuo_shortname', Config::get('duoshuo_shortname'))->assign('baseUrl', Config::get('baseUrl'))->display('user/index.tpl');
+        return $this->view()->assign("ssr_sub_token", $ssr_sub_token)->assign("router_token", $router_token)
+                ->assign("router_token_without_mu", $router_token_without_mu)->assign("acl_token", $acl_token)
+                ->assign('ann', $Ann)->assign('geetest_html', $GtSdk)->assign("ios_token", $ios_token)
+                ->assign('enable_duoshuo', Config::get('enable_duoshuo'))->assign('duoshuo_shortname', Config::get('duoshuo_shortname'))
+                ->assign("user", $this->user)->registerClass("URL", "App\Utils\URL")->assign('baseUrl', Config::get('baseUrl'))->display('user/index.tpl');
     }
 
 
@@ -266,8 +144,10 @@ class UserController extends BaseController
             return $response->getBody()->write(json_encode($res));
         }
     }
-	
-	public function f2fpayget($request, $response, $args)
+
+
+
+    public function f2fpayget($request, $response, $args)
     {
         $time = $request->getQueryParams()["time"];
         $res['ret'] = 1;
@@ -277,44 +157,46 @@ class UserController extends BaseController
     public function f2fpay($request, $response, $args)
     {
         $amount = $request->getParam('amount');
-		if ($amount == "") {
+        if ($amount == "") {
             $res['ret'] = 0;
             $res['msg'] = "订单金额错误：".$amount;
             return $response->getBody()->write(json_encode($res));
         }
-		$user = $this->user;
-		
-		//生成二维码
-		$qrPayResult = Pay::alipay_get_qrcode($user, $amount, $qrPay);
-		//	根据状态值进行业务处理
-		switch ($qrPayResult->getTradeStatus()){
-			case "SUCCESS":
-				$aliresponse = $qrPayResult->getResponse();
-				$res['ret'] = 1;
-				$res['msg'] = "二维码生成成功";
-				$res['amount'] = $amount;
-				$res['qrcode'] = $qrPay->create_erweima_baidu($aliresponse->qr_code);
-				
-				break;
-			case "FAILED":
-				$res['ret'] = 0;
-				$res['msg'] = "支付宝创建订单二维码失败!!! 请使用其他方式付款。";
+        $user = $this->user;
+        
+        //生成二维码
+        $qrPayResult = Pay::alipay_get_qrcode($user, $amount, $qrPay);
+        //  根据状态值进行业务处理
+        switch ($qrPayResult->getTradeStatus()){
+            case "SUCCESS":
+                $aliresponse = $qrPayResult->getResponse();
+                $res['ret'] = 1;
+                $res['msg'] = "二维码生成成功";
+                $res['amount'] = $amount;
+                $res['qrcode'] = $qrPay->create_erweima_baidu($aliresponse->qr_code);
+                
+                break;
+            case "FAILED":
+                $res['ret'] = 0;
+                $res['msg'] = "支付宝创建订单二维码失败!!! 请使用其他方式付款。";
 
-				break;
-			case "UNKNOWN":
-				$res['ret'] = 0;
-				$res['msg'] = "系统异常，状态未知!!!!!! 请使用其他方式付款。";
-				
-				break;
-			default:
-				$res['ret'] = 0;
-				$res['msg'] = "创建订单二维码返回异常!!!!!! 请使用其他方式付款。";
-				
-				break;
-		}
-		
+                break;
+            case "UNKNOWN":
+                $res['ret'] = 0;
+                $res['msg'] = "系统异常，状态未知!!!!!! 请使用其他方式付款。";
+                
+                break;
+            default:
+                $res['ret'] = 0;
+                $res['msg'] = "创建订单二维码返回异常!!!!!! 请使用其他方式付款。";
+                
+                break;
+        }
+        
         return $response->getBody()->write(json_encode($res));
     }
+
+
     public function alipay($request, $response, $args)
     {
         $amount = $request->getQueryParams()["amount"];
@@ -636,89 +518,7 @@ class UserController extends BaseController
 
             case 0:
                 if ((($user->class>=$node->node_class&&($user->node_group==$node->node_group||$node->node_group==0))||$user->is_admin)&&($node->node_bandwidth_limit==0||$node->node_bandwidth<$node->node_bandwidth_limit)) {
-                    $ary['server'] = $node->server;
-                    $ary['local_address'] = '127.0.0.1';
-                    $ary['local_port'] = 1080;
-                    $ary['timeout'] = 300;
-                    $ary['workers'] = 1;
-
-                    $is_mu = 0;
-
-                    if ($mu == 0) {
-                        $ary['server_port'] = $this->user->port;
-                        $ary['password'] = $this->user->passwd;
-                        $ary['method'] = $node->method;
-                        if ($node->custom_method) {
-                            $ary['method'] = $this->user->method;
-                        }
-
-                        if ($node->custom_rss) {
-                            $ary['obfs'] = str_replace("_compatible", "", $this->user->obfs);
-                            $ary['protocol'] = str_replace("_compatible", "", $this->user->protocol);
-                        }
-                    } else {
-                        if ($node->mu_only == -1) {
-                            return;
-                        }
-
-                        $mu_user = User::where('port', '=', $mu)->where("is_multi_user", "<>", 0)->first();
-
-                        if ($mu_user == null) {
-                            return;
-                        }
-                        if (!($mu_user->class >= $node->node_class && ($node->node_group == 0 || $node->node_group == $mu_user->node_group))) {
-                            return;
-                        }
-                        $mu_user->obfs_param = $this->user->getMuMd5();
-                        $mu_user->protocol_param = $user->id.":".$user->passwd;
-                        $user = $mu_user;
-                        $node->name .= " - ".$mu." 端口单端口多用户";
-                        $ary['server_port'] = $mu_user->port;
-                        $ary['password'] = $mu_user->passwd;
-                        $ary['method'] = $node->method;
-
-                        if ($node->custom_method) {
-                            $ary['method'] = $mu_user->method;
-                        }
-
-                        if ($node->custom_rss) {
-                            $ary['obfs'] = str_replace("_compatible", "", $mu_user->obfs);
-                            if ($user->is_multi_user == 1) {
-                                $ary['obfs_param'] = $mu_user->obfs_param;
-                                $ary['protocol_param'] = $mu_user->protocol_param;
-                            } else {
-                                $ary['obfs_param'] = "";
-                                $ary['protocol_param'] = $mu_user->protocol_param;
-                                $mu_user->obfs_param = "";
-                            }
-                            $ary['protocol'] = str_replace("_compatible", "", $mu_user->protocol);
-                        }
-
-                        $is_mu = 1;
-                    }
-
-                    if ($relay_rule_id != 0) {
-                        $node->name .= " - ".$relay_server->name;
-                    }
-
-                    $json = json_encode($ary);
-                    $json_show = json_encode($ary, JSON_PRETTY_PRINT);
-
-                    $ssurl = str_replace("_compatible", "", $user->obfs).":".str_replace("_compatible", "", $user->protocol).":".$ary['method'] . ":" . $ary['password'] . "@" . $ary['server'] . ":" . $ary['server_port']."/".base64_encode($user->obfs_param);
-                    $ssqr_s = "ss://" . base64_encode($ssurl);
-                    $ssurl = $ary['server']. ":" . $ary['server_port'].":".str_replace("_compatible", "", $user->protocol).":".$ary['method'].":".str_replace("_compatible", "", $user->obfs).":".Tools::base64_url_encode($ary['password'])."/?obfsparam=".Tools::base64_url_encode($user->obfs_param)."&protoparam=".Tools::base64_url_encode($user->protocol_param)."&remarks=".Tools::base64_url_encode($node->name) . "&group=" . Tools::base64_url_encode(Config::get('appName'));
-                    $ssqr_s_new = "ssr://" . Tools::base64_url_encode($ssurl);
-                    $ssurl = $ary['method'] . ":" . $ary['password'] . "@" . $ary['server'] . ":" . $ary['server_port'];
-                    $ssqr = "ss://" . base64_encode($ssurl);
-
-                    $token_1 = LinkController::GenerateSurgeCode($ary['server'], $ary['server_port'], $this->user->id, 0, $ary['method']);
-                    $token_2 = LinkController::GenerateSurgeCode($ary['server'], $ary['server_port'], $this->user->id, 1, $ary['method']);
-
-                    $surge_base = Config::get('baseUrl') . "/downloads/ProxyBase.conf";
-                    $surge_proxy = "#!PROXY-OVERRIDE:ProxyBase.conf\n";
-                    $surge_proxy .= "[Proxy]\n";
-                    $surge_proxy .= "Proxy = custom," . $ary['server'] . "," . $ary['server_port'] . "," . $ary['method'] . "," . $ary['password'] . "," . Config::get('baseUrl') . "/downloads/SSEncrypt.module";
-                    return $this->view()->assign('ary', $ary)->assign('mu', $is_mu)->assign('node', $node)->assign('user', $user)->assign('json', $json)->assign('link1', Config::get('baseUrl')."/link/".$token_1)->assign('link2', Config::get('baseUrl')."/link/".$token_2)->assign('json_show', $json_show)->assign('ssqr', $ssqr)->assign('ssqr_s_new', $ssqr_s_new)->assign('ssqr_s', $ssqr_s)->assign('surge_base', $surge_base)->assign('surge_proxy', $surge_proxy)->assign('info_server', $ary['server'])->assign('info_port', $this->user->port)->assign('info_method', $ary['method'])->assign('info_pass', $this->user->passwd)->display('user/nodeinfo.tpl');
+                    return $this->view()->assign('node', $node)->assign('user', $user)->assign('mu', $mu)->assign('relay_rule_id', $relay_rule_id)->registerClass("URL", "App\Utils\URL")->display('user/nodeinfo.tpl');
                 }
             break;
 
@@ -830,102 +630,9 @@ class UserController extends BaseController
 
             case 10:
                 if ((($user->class>=$node->node_class&&($user->node_group==$node->node_group||$node->node_group==0))||$user->is_admin)&&($node->node_bandwidth_limit==0||$node->node_bandwidth<$node->node_bandwidth_limit)) {
-                    $relay_rule = Relay::where('id', $relay_rule_id)->where(
-                        function ($query) use ($user) {
-                            $query->Where("user_id", "=", $user->id)
-                                ->orWhere("user_id", "=", 0);
-                        }
-                    )->first();
-
-                    if ($relay_rule != null) {
-                        $node->name .= " - ".$relay_rule->dist_node()->name;
-                    }
-
-                    $ary['server'] = $node->server;
-                    $ary['local_address'] = '127.0.0.1';
-                    $ary['local_port'] = 1080;
-                    $ary['timeout'] = 300;
-                    $ary['workers'] = 1;
-
-                    $is_mu = 0;
-
-                    if ($mu == 0) {
-                        $ary['server_port'] = $this->user->port;
-                        $ary['password'] = $this->user->passwd;
-                        $ary['method'] = $node->method;
-                        if ($node->custom_method) {
-                            $ary['method'] = $this->user->method;
-                        }
-
-                        if ($node->custom_rss) {
-                            $ary['obfs'] = str_replace("_compatible", "", $this->user->obfs);
-                            $ary['protocol'] = str_replace("_compatible", "", $this->user->protocol);
-                        }
-                    } else {
-                        if ($node->mu_only == -1) {
-                            return;
-                        }
-
-                        $mu_user = User::where('port', '=', $mu)->where("is_multi_user", "<>", 0)->first();
-
-                        if ($mu_user == null) {
-                            return;
-                        }
-
-                        if (!($mu_user->class >= $node->node_class && ($node->node_group == 0 || $node->node_group == $mu_user->node_group))) {
-                            return;
-                        }
-                        $mu_user->obfs_param = $this->user->getMuMd5();
-                        $mu_user->protocol_param = $user->id.":".$user->passwd;
-                        $user = $mu_user;
-                        $node->name .= " - ".$mu." 端口单端口多用户";
-                        $ary['server_port'] = $mu_user->port;
-                        $ary['password'] = $mu_user->passwd;
-                        $ary['method'] = $node->method;
-
-                        if ($node->custom_method) {
-                            $ary['method'] = $mu_user->method;
-                        }
-
-                        if ($node->custom_rss) {
-                            $ary['obfs'] = str_replace("_compatible", "", $mu_user->obfs);
-                            if ($user->is_multi_user == 1) {
-                                $ary['obfs_param'] = $mu_user->obfs_param;
-                                $ary['protocol_param'] = $mu_user->protocol_param;
-                            } else {
-                                $ary['obfs_param'] = "";
-                                $ary['protocol_param'] = $mu_user->protocol_param;
-                                $mu_user->obfs_param = "";
-                            }
-                            $ary['protocol'] = str_replace("_compatible", "", $mu_user->protocol);
-                        }
-
-                        $is_mu = 1;
-                    }
-
-                    $json = json_encode($ary);
-                    $json_show = json_encode($ary, JSON_PRETTY_PRINT);
-
-                    $ssurl = str_replace("_compatible", "", $user->obfs).":".str_replace("_compatible", "", $user->protocol).":".$ary['method'] . ":" . $ary['password'] . "@" . $ary['server'] . ":" . $ary['server_port']."/".base64_encode($user->obfs_param);
-                    $ssqr_s = "ss://" . base64_encode($ssurl);
-                    $ssurl = $ary['server']. ":" . $ary['server_port'].":".str_replace("_compatible", "", $user->protocol).":".$ary['method'].":".str_replace("_compatible", "", $user->obfs).":".Tools::base64_url_encode($ary['password'])."/?obfsparam=".Tools::base64_url_encode($user->obfs_param)."&protoparam=".Tools::base64_url_encode($user->protocol_param)."&remarks=".Tools::base64_url_encode($node->name) . "&group=" . Tools::base64_url_encode(Config::get('appName'));
-                    $ssqr_s_new = "ssr://" . Tools::base64_url_encode($ssurl);
-                    $ssurl = $ary['method'] . ":" . $ary['password'] . "@" . $ary['server'] . ":" . $ary['server_port'];
-                    $ssqr = "ss://" . base64_encode($ssurl);
-
-                    $token_1 = LinkController::GenerateSurgeCode($ary['server'], $ary['server_port'], $this->user->id, 0, $ary['method']);
-                    $token_2 = LinkController::GenerateSurgeCode($ary['server'], $ary['server_port'], $this->user->id, 1, $ary['method']);
-
-                    $surge_base = Config::get('baseUrl') . "/downloads/ProxyBase.conf";
-                    $surge_proxy = "#!PROXY-OVERRIDE:ProxyBase.conf\n";
-                    $surge_proxy .= "[Proxy]\n";
-                    $surge_proxy .= "Proxy = custom," . $ary['server'] . "," . $ary['server_port'] . "," . $ary['method'] . "," . $ary['password'] . "," . Config::get('baseUrl') . "/downloads/SSEncrypt.module";
-                    return $this->view()->assign('ary', $ary)->assign('mu', $is_mu)->assign('node', $node)->assign('user', $user)->assign('json', $json)->assign('link1', Config::get('baseUrl')."/link/".$token_1)->assign('link2', Config::get('baseUrl')."/link/".$token_2)->assign('json_show', $json_show)->assign('ssqr', $ssqr)->assign('ssqr_s_new', $ssqr_s_new)->assign('ssqr_s', $ssqr_s)->assign('surge_base', $surge_base)->assign('surge_proxy', $surge_proxy)->assign('info_server', $ary['server'])->assign('info_port', $this->user->port)->assign('info_method', $ary['method'])->assign('info_pass', $this->user->passwd)->display('user/nodeinfo.tpl');
+                    return $this->view()->assign('node', $node)->assign('user', $user)->assign('mu', $mu)->assign('relay_rule_id', $relay_rule_id)->registerClass("URL", "App\Utils\URL")->display('user/nodeinfo.tpl');
                 }
-            break;
-
-
-
+                break;
             default:
                 echo "微笑";
 
@@ -934,29 +641,12 @@ class UserController extends BaseController
 
     public function GetPcConf($request, $response, $args)
     {
-        $without_mu = $request->getQueryParams()["without_mu"];
+        $is_mu = $request->getQueryParams()["is_mu"];
+        $is_ss = $request->getQueryParams()["is_ss"];
 
         $newResponse = $response->withHeader('Content-type', ' application/octet-stream')->withHeader('Content-Disposition', ' attachment; filename=gui-config.json');//->getBody()->write($builder->output());
-        if ($this->user->is_admin) {
-            $newResponse->getBody()->write(LinkController::GetPcConf(Node::where(
-                function ($query) {
-                    $query->where('sort', 0)
-                        ->orWhere('sort', 10);
-                }
-            )->where("type", "1")->get(), $this->user, $without_mu));
-        } else {
-            $newResponse->getBody()->write(LinkController::GetPcConf(Node::where(
-                function ($query) {
-                    $query->where('sort', 0)
-                        ->orWhere('sort', 10);
-                }
-            )->where("type", "1")->where(
-                function ($query) {
-                    $query->where("node_group", "=", $this->user->node_group)
-                        ->orWhere("node_group", "=", 0);
-                }
-            )->where("node_class", "<=", $this->user->class)->get(), $this->user, $without_mu));
-        }
+        $newResponse->getBody()->write(LinkController::GetPcConf($this->user, $is_mu, $is_ss));
+
         return $newResponse;
     }
 
@@ -1048,7 +738,8 @@ class UserController extends BaseController
 
         $config_service = new Config();
 
-        return $this->view()->assign('user', $this->user)->assign('themes', $themes)->assign('isBlock', $isBlock)->assign('Block', $Block)->assign('bind_token', $bind_token)->assign('telegram_bot', Config::get('telegram_bot'))->assign('config_service', $config_service)->display('user/edit.tpl');
+        return $this->view()->assign('user', $this->user)->assign('themes', $themes)->assign('isBlock', $isBlock)->assign('Block', $Block)->assign('bind_token', $bind_token)->assign('telegram_bot', Config::get('telegram_bot'))->assign('config_service', $config_service)
+                    ->registerClass("URL", "App\Utils\URL")->display('user/edit.tpl');
     }
 
 
@@ -1575,10 +1266,28 @@ class UserController extends BaseController
             return $this->echoJson($response, $res);
         }
 
+        if(!URL::SSCanConnect($user) && !URL::SSRCanConnect($user)) {
+            $res['ret'] = 0;
+            $res['msg'] = "您这样设置之后，就没有客户端能连接上了，所以系统拒绝了您的设置，请您检查您的设置之后再进行操作。";
+            return $this->echoJson($response, $res);
+        }
+
         $user->save();
 
-        $res['ret'] = 1;
-        $res['msg'] = "修改成功";
+        if(!URL::SSCanConnect($user)) {
+            $res['ret'] = 0;
+            $res['msg'] = "设置成功，但您目前的协议，混淆，加密方式设置会导致 Shadowsocks原版客户端无法连接，请您自行更换到 ShadowsocksR 客户端。";
+            return $this->echoJson($response, $res);
+        }
+
+        if(!URL::SSRCanConnect($user)) {
+            $res['ret'] = 0;
+            $res['msg'] = "设置成功，但您目前的协议，混淆，加密方式设置会导致 ShadowsocksR 客户端无法连接，请您自行更换到 Shadowsocks 客户端。";
+            return $this->echoJson($response, $res);
+        }
+
+        $res['ret'] = 0;
+        $res['msg'] = "设置成功，您可自由选用客户端来连接。";
         return $this->echoJson($response, $res);
     }
 
@@ -1702,8 +1411,28 @@ class UserController extends BaseController
             return $this->echoJson($response, $res);
         }
 
+        if(!URL::SSCanConnect($user) && !URL::SSRCanConnect($user)) {
+            $res['ret'] = 0;
+            $res['msg'] = "您这样设置之后，就没有客户端能连接上了，所以系统拒绝了您的设置，请您检查您的设置之后再进行操作。";
+            return $this->echoJson($response, $res);
+        }
+
         $user->updateMethod($method);
-        $res['ret'] = 1;
+
+        if(!URL::SSCanConnect($user)) {
+            $res['ret'] = 0;
+            $res['msg'] = "设置成功，但您目前的协议，混淆，加密方式设置会导致 Shadowsocks原版客户端无法连接，请您自行更换到 ShadowsocksR 客户端。";
+            return $this->echoJson($response, $res);
+        }
+
+        if(!URL::SSRCanConnect($user)) {
+            $res['ret'] = 0;
+            $res['msg'] = "设置成功，但您目前的协议，混淆，加密方式设置会导致 ShadowsocksR 客户端无法连接，请您自行更换到 Shadowsocks 客户端。";
+            return $this->echoJson($response, $res);
+        }
+
+        $res['ret'] = 0;
+        $res['msg'] = "设置成功，您可自由选用两种客户端来进行连接。";
         return $this->echoJson($response, $res);
     }
 
@@ -1808,6 +1537,14 @@ class UserController extends BaseController
         $user->telegram_id = 0;
         $user->save();
         $newResponse = $response->withStatus(302)->withHeader('Location', '/user/edit');
+        return $newResponse;
+    }
+
+    public function resetURL($request, $response, $args)
+    {
+        $user = $this->user;
+        $user->clean_link();
+        $newResponse = $response->withStatus(302)->withHeader('Location', '/user');
         return $newResponse;
     }
 }
