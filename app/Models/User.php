@@ -310,7 +310,7 @@ class User extends Model
         $location=$iplocation->getlocation($reg_location);
         $reg_location .= "\n".iconv('gbk', 'utf-8//IGNORE', $location['country'].$location['area']);
 
-        $return_array = Array('DT_RowId' => 'row_user_'.$id, $id, $id,
+        $return_array = Array('DT_RowId' => 'row_1_'.$id, $id, $id,
                               $this->attributes['user_name'], $this->attributes['remark'],
                               $this->attributes['email'], $this->attributes['money'],
                               $im_type, $im_value,

@@ -141,7 +141,7 @@ class Tools
 
     public static function base64_url_encode($input)
     {
-        return strtr(base64_encode($input), '+/', '-_');
+        return strtr(base64_encode($input), array('+' => '-', '/' => '_', '=' => ''));
     }
 
     public static function base64_url_decode($input)

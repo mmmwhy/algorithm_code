@@ -260,12 +260,19 @@ class URL
                 $personal_info = $item['method'].':'.$item['passwd'];
                 $ssurl = "ss://".Tools::base64_url_encode($personal_info)."@".$item['address'].":".$item['port'];
 
+                $plugin = '';
                 if(in_array($item['obfs'], $ss_obfs_list)) {
                     if(strpos($item['obfs'], 'http') !== FALSE) {
-                        $ssurl .= "?plugin=obfs-local%3Bobfs%3Dhttp";
+                        $plugin .= "obfs-local;obfs=http";
                     } else {
-                        $ssurl .= "?plugin=obfs-local%3Bobfs%3Dtls";
+                        $plugin .= "obfs-local;obfs=tls";
                     }
+
+                    if($item['obfs_param'] != '') {
+                        $plugin .= ";obfs-host=".$item['obfs_param'];
+                    }
+
+                    $ssurl .= "?plugin=".rawurlencode($plugin);
                 }
 
                 $ssurl .= "#".rawurlencode(Config::get('appName')." - ".$item['remark']);

@@ -143,7 +143,7 @@
 								<div class="card-main">
 									<div class="card-inner">
 											<h2 class="content-sub-heading">致谢</h2>
-											<p>本站使用<a href="https://v2no.com/">v2no.com</a>教程搭建</p>
+											<p>本站使用<a href="https://91vps.us/">91vps</a>教程搭建</p>
 									</div>
 								</div>
 							</div>
