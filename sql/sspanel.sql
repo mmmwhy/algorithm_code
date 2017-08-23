@@ -371,6 +371,7 @@ CREATE TABLE IF NOT EXISTS `ss_node` (
 INSERT INTO `ss_node` (`id`, `name`, `type`, `server`, `method`, `info`, `status`, `sort`, `custom_method`, `traffic_rate`, `node_class`, `node_speedlimit`, `node_connector`, `node_bandwidth`, `node_bandwidth_limit`, `bandwidthlimit_resetday`, `node_heartbeat`, `node_ip`, `node_group`, `custom_rss`, `mu_only`) VALUES
 (1, '统一验证登陆', 0, 'zhaojin97.cn', 'radius', '统一登陆验证', '可用', 999, 0, 1, 0, '0.00', 0, 0, 0, 0, 0, '', 0, 0, 0),
 (2, 'VPN 统一流量结算', 0, 'zhaojin97.cn', 'radius', 'VPN 统一流量结算', '可用', 999, 0, 1, 0, '0.00', 0, 0, 0, 0, 0, NULL, 0, 0, 0);
+(3, '第一个节点', 1, '103.74.192.11', 'rc4-md5', '可用', '点击查看二维码', 0, 1, 1, 0, '0.00', 0, 0, 0, 0, 0, '103.74.192.11', 0, 1, 0);
 
 -- --------------------------------------------------------
 

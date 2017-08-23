@@ -5,7 +5,7 @@
 // !!! 修改此key为随机字符串确保网站安全 !!!
 $System_Config['key'] = 'randomkey';
 $System_Config['debug'] =  'false';  //  正式环境请确保为false
-$System_Config['appName'] = 'v2no.com';             //站点名称
+$System_Config['appName'] = '91vps.us';             //站点名称
 $System_Config['baseUrl'] = 'https://zhaojin97.cn';            // 站点地址
 $System_Config['timeZone'] = 'PRC';        // PRC 天朝时间  UTC 格林时间
 $System_Config['pwdMethod'] = 'sha256';       // 密码加密   可选 md5,sha256
@@ -31,7 +31,7 @@ $System_Config['checkinMax'] = '8964';       // 签到最多流量
 $System_Config['defaultTraffic'] = '100';      // 用户初始流量 单位GB
 
 // 注册后获得的邀请码数量
-$System_Config['inviteNum'] = '0';
+$System_Config['inviteNum'] = '5';
 
 # database 数据库配置
 $System_Config['db_driver'] = 'mysql';
