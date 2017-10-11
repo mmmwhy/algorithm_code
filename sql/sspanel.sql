@@ -524,7 +524,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `user_name`, `email`, `pass`, `passwd`, `t`, `u`, `d`, `plan`, `transfer_enable`, `port`, `switch`, `enable`, `type`, `last_get_gift_time`, `last_check_in_time`, `last_rest_pass_time`, `reg_date`, `invite_num`, `money`, `ref_by`, `expire_time`, `method`, `is_email_verify`, `reg_ip`, `node_speedlimit`, `node_connector`, `is_admin`, `im_type`, `im_value`, `last_day_t`, `sendDailyMail`, `class`, `class_expire`, `expire_in`, `theme`, `ga_token`, `ga_enable`, `pac`, `remark`, `node_group`, `auto_reset_day`, `auto_reset_bandwidth`, `protocol`, `protocol_param`, `obfs`, `obfs_param`, `forbidden_ip`, `forbidden_port`, `disconnect_ip`, `is_hide`, `is_multi_user`, `telegram_id`) VALUES
-(1, 'admin', 'ss@feiyang.li', '25f5e13433dccbb8d6eb680c4ac831ec6a0cd1d6c4bc8f68f11e7cd328dbc6fc', 'nHHpgf', 0, 0, 0, 'A', 107374182400, 1025, 1, 1, 1, 0, 0, 0, '2017-05-26 20:04:42', 0, '0.00', 0, 0, 'rc4-md5', 0, '127.0.0.1', '0.00', 0, 1, 1, '', 0, 1, 0, '1989-06-04 00:05:00', '2291-03-10 20:04:42', 'material', '2TFGSYHQ3FJLZSWX', 0, NULL, NULL, 0, 0, '0.00', 'origin', NULL, 'plain', NULL, NULL, NULL, NULL, 0, 0, NULL);
+(1, 'admin', '91vps', '572b4a99cb8ba30268882e356832e1b13e4ccf3de191718b6aa2ebcc631d9cf6', 'nHHpgf', 0, 0, 0, 'A', 107374182400, 1025, 1, 1, 1, 0, 0, 0, '2017-05-26 20:04:42', 0, '0.00', 0, 0, 'rc4-md5', 0, '127.0.0.1', '0.00', 0, 1, 1, '', 0, 1, 0, '1989-06-04 00:05:00', '2291-03-10 20:04:42', 'material', '2TFGSYHQ3FJLZSWX', 0, NULL, NULL, 0, 0, '0.00', 'origin', NULL, 'plain', NULL, NULL, NULL, NULL, 0, 0, NULL);
 
 -- --------------------------------------------------------
 
