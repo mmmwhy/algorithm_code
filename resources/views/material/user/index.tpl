@@ -253,7 +253,17 @@
 											{else}
 											<dd>不限速</dd>
 											{/if}</p>
-
+                                          
+                                            <p><dt>在线设备数量</dt>
+											<dd>{$user->online_ip_count()}</dd></p>
+                                          
+                                            <p><dt>设备数量限制</dt>
+											{if $user->node_connector!=0}
+											<dd>{$user->node_connector}个</dd>
+											{else}
+                                            <dd>不限制</dd>
+											{/if}</p>
+                                          
 											<p><dt>上次使用</dt>
 											<dd>{$user->lastSsTime()}</dd></p>
 										</dl>

@@ -345,7 +345,7 @@ class LinkController extends BaseController
                                         "password"=>$item['passwd'],
                                         "tcp_over_udp"=>false,
                                         "udp_over_tcp"=>false,
-                                        "group"=>Config::get('appName'),
+                                        "group"=>$item['group'],
                                         "protocol"=>$item['protocol'],
                                         "protoparam"=>$item['protocol_param'],
                                         "obfs_udp"=>false,
@@ -1740,6 +1740,7 @@ FINAL,Proxy';
                 $bash .= 'nvram set rt_ss_port_x'.$count.'='.$item['port']."\n";
                 $bash .= 'nvram set rt_ss_password_x'.$count.'="'.$item['passwd']."\"\n";
                 $bash .= 'nvram set rt_ss_server_x'.$count.'='.$item['address']."\n";
+                $bash .= 'nvram set rt_ss_usage_x'.$count.'=""'."\n";
                 $bash .= 'nvram set rt_ss_method_x'.$count.'='.$item['method']."\n";
                 $count += 1;
             }

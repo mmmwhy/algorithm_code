@@ -225,6 +225,12 @@ class User extends Model
         $total = Ip::where("datetime", ">=", time()-90)->where('userid', $uid)->orderBy('userid', 'desc')->get();
         $unique_ip_list = array();
         foreach ($total as $single_record) {
+            $single_record->ip = Tools::getRealIp($single_record->ip);
+            $is_node = Node::where("node_ip", $single_record->ip)->first();
+            if($is_node) {
+                continue;
+            }
+
             if (!in_array($single_record->ip, $unique_ip_list)) {
                 array_push($unique_ip_list, $single_record->ip);
             }

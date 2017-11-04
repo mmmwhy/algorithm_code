@@ -38,7 +38,7 @@
 										<input class="form-control" id="node_ip" name="node_ip" type="text" value="{$node->node_ip}">
 									</div>
 
-									<div class="form-group form-group-label">
+									<div class="form-group form-group-label" hidden="hidden">
 										<label class="floating-label" for="method">加密方式</label>
 										<input class="form-control" id="method" name="method" type="text" value="{$node->method}">
 									</div>
@@ -49,7 +49,7 @@
 									</div>
 
 
-									<div class="form-group form-group-label">
+									<div class="form-group form-group-label" hidden="hidden">
 										<div class="checkbox switch">
 											<label for="custom_method">
 												<input {if $node->custom_method==1}checked{/if} class="access-hide" id="custom_method" name="custom_method" type="checkbox"><span class="switch-toggle"></span>自定义加密
@@ -57,7 +57,7 @@
 										</div>
 									</div>
 
-									<div class="form-group form-group-label">
+									<div class="form-group form-group-label" hidden="hidden">
 										<div class="checkbox switch">
 											<label for="custom_rss">
 												<input {if $node->custom_rss==1}checked{/if} class="access-hide" id="custom_rss" type="checkbox" name="custom_rss"><span class="switch-toggle"></span>自定义协议&混淆

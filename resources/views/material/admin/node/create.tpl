@@ -36,9 +36,9 @@
 										<input class="form-control" id="node_ip" name="node_ip" type="text">
 									</div>
 
-									<div class="form-group form-group-label">
+									<div class="form-group form-group-label" hidden="hidden">
 										<label class="floating-label" for="method">加密方式</label>
-										<input class="form-control" id="method" type="text" name="method">
+										<input class="form-control" id="method" type="text" name="method" value="aes-256-cfb">
 									</div>
 
 									<div class="form-group form-group-label">
@@ -46,7 +46,7 @@
 										<input class="form-control" id="rate" type="text" name="rate">
 									</div>
 
-									<div class="form-group form-group-label">
+									<div class="form-group form-group-label" hidden="hidden">
 										<div class="checkbox switch">
 											<label for="custom_method">
 												<input  class="access-hide" id="custom_method" type="checkbox" name="custom_method" checked="checked" disabled><span class="switch-toggle"></span>自定义加密
@@ -54,7 +54,7 @@
 										</div>
 									</div>
 
-									<div class="form-group form-group-label">
+									<div class="form-group form-group-label" hidden="hidden">
 										<div class="checkbox switch">
 											<label for="custom_rss">
 												<input  class="access-hide" id="custom_rss" type="checkbox" name="custom_rss" checked="checked" disabled><span class="switch-toggle"></span>自定义协议&混淆

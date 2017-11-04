@@ -111,10 +111,9 @@ class UserController extends BaseController
                 $user = User::find($user_id);
 
                 if($user == NULL) {
-                	continue;
-
+                    continue;
                 }
-                
+
                 $user->t = time();
                 $user->u += $u * $node->traffic_rate;
                 $user->d += $d * $node->traffic_rate;

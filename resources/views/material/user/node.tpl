@@ -89,31 +89,6 @@
 																				</span></p>
 
 																			{if $node->sort == 0||$node->sort==7||$node->sort==8||$node->sort==10}
-																				<p>加密方式：<span class="label label-brand">
-																					{if $node->custom_method == 1}
-																						{$user->method}
-																					{else}
-																						{$node->method}
-																					{/if}
-																				</span></p>
-
-																				{if ($node->sort==0||$node->sort==10)&&$node->custom_rss==1}
-																					<p>协议：<span class="label label-brand-accent">
-																						{$user->protocol}
-																					</span></p>
-
-																					<p>协议参数：<span class="label label-red">
-																						{$user->protocol_param}
-																					</span></p>
-
-																					<p>混淆方式：<span class="label label-brand">
-																						{$user->obfs}
-																					</span></p>
-
-																					<p>混淆参数：<span class="label label-green">
-																						{$user->obfs_param}
-																					</span></p>
-																				{/if}
 
 
 																				<p>流量比例：<span class="label label-red">

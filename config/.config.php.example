@@ -5,8 +5,8 @@
 // !!! 修改此key为随机字符串确保网站安全 !!!
 $System_Config['key'] = 'randomkey';
 $System_Config['debug'] =  'false';  //  正式环境请确保为false
-$System_Config['appName'] = '91vps.us';             //站点名称
-$System_Config['baseUrl'] = 'https://zhaojin97.cn';            // 站点地址
+$System_Config['appName'] = '91vps';             //站点名称
+$System_Config['baseUrl'] = 'https://91vps.win';            // 站点地址
 $System_Config['timeZone'] = 'PRC';        // PRC 天朝时间  UTC 格林时间
 $System_Config['pwdMethod'] = 'sha256';       // 密码加密   可选 md5,sha256
 $System_Config['salt'] = '';               // 密码加密用，从旧版升级请留空
@@ -23,12 +23,32 @@ $System_Config['muKey'] = 'mupass';
 // 邮件
 $System_Config['mailDriver'] = 'mailgun';   // mailgun or smtp or sendgrid
 
+#用户等级过期时间，在注册时设置。（小时）  此部分功能解释：https://91vps.win/2017/09/12/little_point/
+$System_Config['user_class_expire_default']='2';
+
+#用户注册等级，在注册时设置。
+$System_Config['user_class_default']='9';
+
+#用户注册客户端数量限制，0为不限制
+$System_Config['user_conn']='2';
+
+
+#用户注册速度默认限制，0为不限制
+$System_Config['user_speedlimit']='2';
+
+
+#邀请新用户获得流量奖励，单位G
+$System_Config['invite_gift']='2';
+
+#新用户通过私人邀请链接注册，获得奖励金额（鼓励消费）
+$System_Config['invite_get_money']='10';
+
 // 用户签到设置
-$System_Config['checkinMin'] = '1989';       // 签到最少流量 单位MB
-$System_Config['checkinMax'] = '8964';       // 签到最多流量
+$System_Config['checkinMin'] = '100';       // 签到最少流量 单位MB
+$System_Config['checkinMax'] = '200';       // 签到最多流量
 
 //
-$System_Config['defaultTraffic'] = '100';      // 用户初始流量 单位GB
+$System_Config['defaultTraffic'] = '10';      // 用户初始流量 单位GB
 
 // 注册后获得的邀请码数量
 $System_Config['inviteNum'] = '5';
@@ -37,7 +57,7 @@ $System_Config['inviteNum'] = '5';
 $System_Config['db_driver'] = 'mysql';
 $System_Config['db_host'] = 'localhost';
 $System_Config['db_database'] = 'sspanel';
-$System_Config['db_username'] = 'root';
+$System_Config['db_username'] = 'sspanel';
 $System_Config['db_password'] = 'root';
 $System_Config['db_charset'] = 'utf8';
 $System_Config['db_collation'] = 'utf8_general_ci';
@@ -181,19 +201,19 @@ $System_Config['email_verify_iplimit']='10';
 
 
 #注册时默认加密方式
-$System_Config['reg_method']='rc4-md5';
+$System_Config['reg_method']='chacha20-ietf';
 
 #注册时默认协议
-$System_Config['reg_protocol']='origin';
+$System_Config['reg_protocol']='auth_aes128_md5';
 
 #注册时默认协议参数
 $System_Config['reg_protocol_param']='';
 
 #注册时默认混淆方式
-$System_Config['reg_obfs']='plain';
+$System_Config['reg_obfs']='http_simple';
 
 #注册时默认混淆参数
-$System_Config['reg_obfs_param']='';
+$System_Config['reg_obfs_param']='baidu.com';
 
 #注册时默认禁止访问IP列表，半角英文逗号分割
 $System_Config['reg_forbidden_ip']='127.0.0.0/8,::1/128';

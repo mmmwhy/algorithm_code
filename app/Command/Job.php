@@ -17,6 +17,7 @@ use App\Models\TrafficLog;
 use App\Models\DetectLog;
 use App\Models\BlockIp;
 use App\Models\TelegramSession;
+use App\Models\EmailVerify;
 use App\Services\Config;
 use App\Utils\Radius;
 use App\Utils\Wecenter;
@@ -139,6 +140,8 @@ class Job
         NodeOnlineLog::where("log_time", "<", time()-86400*3)->delete();
         TrafficLog::where("log_time", "<", time()-86400*3)->delete();
         DetectLog::where("datetime", "<", time()-86400*3)->delete();
+        Speedtest::where("datetime", "<", time()-86400*3)->delete();
+        EmailVerify::where("expire_in", "<", time()-86400*3)->delete();
         Telegram::Send("姐姐姐姐，数据库被清理了，感觉身体被掏空了呢~");
 
         //auto reset
@@ -273,11 +276,17 @@ class Job
         //在线人数检测
         $users = User::where('node_connector', '>', 0)->get();
 
-        $full_alive_ips = Ip::where("datetime", ">=", time()-60)->get();
+        $full_alive_ips = Ip::where("datetime", ">=", time()-60)->orderBy("ip")->get();
 
         $alive_ipset = array();
 
         foreach ($full_alive_ips as $full_alive_ip) {
+            $full_alive_ip->ip = Tools::getRealIp($full_alive_ip->ip);
+            $is_node = Node::where("node_ip", $full_alive_ip->ip)->first();
+            if($is_node) {
+                continue;
+            }
+
             if (!isset($alive_ipset[$full_alive_ip->userid])) {
                 $alive_ipset[$full_alive_ip->userid] = new \ArrayObject();
             }

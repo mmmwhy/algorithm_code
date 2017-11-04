@@ -145,7 +145,7 @@ $(document).ready(function(){
 			next = 1;
 			$.getJSON("user/ajax?page=" + page, function( data ) {
 					if (data.next == 0) {
-							next = 0;
+						next = 0;
 					}
 					for ( var i=0, ien=data.data.length ; i<ien ; i++ ) {
 						data.data[i][0] = '<a class="btn btn-brand" href="/admin/user/' + data.data[i][0] + '/edit">编辑</a>' +
