@@ -318,7 +318,7 @@ $System_Config['sendgrid_sender'] = '';
 #支付系统
 
 #取值 paymentwall,zfbjk,spay,f2fpay,none
-$System_Config['payment_system']='none';
+$System_Config['payment_system']='f2fpay';
 
 #PaymentWall
 $System_Config['pmw_publickey']='';
@@ -335,7 +335,7 @@ $System_Config['zfbjk_pid']='';
 $System_Config['zfbjk_key']='';
 $System_Config['zfbjk_qrcodeurl']='https://www.zhaojin97.cn/wp-content/uploads/2016/01/630c50ab52bc139b2a33af8cc64e47ad2016010111570425541.jpg';
 
-#alipay,f2fpay ---> https://91vps.club/2017/06/09/alipay_f2f_ss_panel_mod/
+#alipay,f2fpay ---> https://91vps.win/2017/06/09/alipay_f2f_ss_panel_mod/
 $System_Config['f2fpay_app_id']='';
 $System_Config['f2fpay_p_id']='';
 $System_Config['alipay_public_key']='';
