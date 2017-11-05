@@ -14,6 +14,8 @@ class Pay
     {
         $driver = Config::get("payment_system");
         switch ($driver) {
+            case "pay91":
+                return Pay::pay91($user);
             case "paymentwall":
                 return Pay::pmw_html($user);
             case 'spay':
@@ -75,6 +77,28 @@ class Pay
 				
 				}
         
+    }
+  
+  	private static function pay91($user)
+    {
+			return '
+						<p class="card-heading">选择您喜欢的方式充值</p>
+						<label for="number">请选择充值金额：</label>
+       					<form name="alipayment" action="/codepay.php" method="post">
+						<select class="form-control" id="price" name="price">
+                        <option value="1">1元</option>
+                        <option value="10">10元</option>
+                        <option value="20">20元</option>
+                        <option value="50">50元</option>
+                        <option value="100">100元</option>
+                        <option value="200">200元</option>
+                        </select>
+                        <br>
+                        <input type="hidden" name="user" value="'.$user->id.'">
+                        <button class="btn btn-flat waves-attach" id="btnSubmit" type="submit" name="type" value="1"><span class="icon">money</span>&nbsp;支付宝充值</button>
+                        <button class="btn btn-flat waves-attach" id="btnSubmit" type="submit" name="type" value="3"><span class="icon">chat</span>&nbsp;微信充值（正在开发中）</button>
+                        </form>                 	
+';	
     }
     
     private static function pmw_html($user)
@@ -730,7 +754,133 @@ class Pay
 			echo "fail";	//请不要修改或删除
 		}
     }
-	
+
+    private static function pay91_callback(){
+    	//系统订单号
+		$trade_no = $_GET['pay_no'];        
+		//交易用户
+      	$trade_id = strtok($_GET['pay_id'], "@");
+      	//金额
+      	$trade_num = $_GET['price'];
+				//更新用户账户
+				$user=User::find($trade_id);
+                $user->money=$user->money+$trade_num;
+				if ($user->class==0) {
+                    $user->class_expire=date("Y-m-d H:i:s", time());
+                    $user->class_expire=date("Y-m-d H:i:s", strtotime($user->class_expire)+86400);
+					$user->class=1;
+				}
+                $user->save();
+                $codeq=new Code();
+                $codeq->code="91pay".$trade_no;
+                $codeq->isused=1;
+                $codeq->type=-1;
+                $codeq->number=$_GET['price'];
+                $codeq->usedatetime=date("Y-m-d H:i:s");
+                $codeq->userid=$user->id;
+                $codeq->save();
+
+				//更新返利
+                if ($user->ref_by!=""&&$user->ref_by!=0&&$user->ref_by!=null) {
+                    $gift_user=User::where("id", "=", $user->ref_by)->first();
+                    $gift_user->money=($gift_user->money+($codeq->number*(Config::get('code_payback')/100)));
+                    $gift_user->save();
+                        
+                    $Payback=new Payback();
+                    $Payback->total=$trade_num;
+                    $Payback->userid=$user->id;
+                    $Payback->ref_by=$user->ref_by;
+                    $Payback->ref_get=$codeq->number*(Config::get('code_payback')/100);
+                    $Payback->datetime=time();
+                    $Payback->save();
+				}
+				
+				if (Config::get('enable_donate') == 'true') {
+                    if ($user->is_hide == 1) {
+                        Telegram::Send("一位不愿透露姓名的大老爷给我们捐了 ".$trade_num." 元!");
+                    } else {
+                        Telegram::Send($user->user_name." 大老爷给我们捐了 ".$trade_num." 元！");
+                    }
+                } 
+      			echo '
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Language" content="zh-cn">
+    <meta name="apple-mobile-web-app-capable" content="no"/>
+    <meta name="apple-touch-fullscreen" content="yes"/>
+    <meta name="format-detection" content="telephone=no,email=no"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="white">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>支付详情</title>
+    <link href="css/wechat_pay.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" type="text/css" media="screen" href="css/font-awesome.min.css">
+    <style>
+        .text-success {
+            color: #468847;
+            font-size: 2.33333333em;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+<div class="body">
+    <h1 class="mod-title">
+        <span class="ico_log ico-1"></span>
+    </h1>
+
+    <div class="mod-ct">
+        <div class="order">
+        </div>
+        <div class="amount" id="money">￥'.(float)$_GET["price"].'</div>
+        <h1 class="text-center text-success"><strong><i class="fa fa-check fa-lg"></i> 支付成功</strong></h1>
+
+        <div class="detail detail-open" id="orderDetail" style="display: block;">
+            <dl class="detail-ct" id="desc">
+                <dt>金额</dt>
+                <dd>'.(float)$_GET["price"].'</dd>
+                <dt>用户ID：</dt>
+                <dd>'.(float)$_GET["pay_id"].'</dd>
+                <dt>流水号：</dt>
+                <dd>'.(float)$_GET["pay_no"].'</dd>
+                <dt>付款时间：</dt>
+                <dd>'.date("Y-m-d H:i:s", (int)$_GET["pay_time"]).'</dd>
+                <dt>状态</dt>
+                <dd>支付成功</dd>
+            </dl>
+
+
+        </div>
+
+        <div class="tip-text">
+        </div>
+
+
+    </div>
+    <div class="foot">
+        <div class="inner">
+            <p>如未到账请联系我们</p>
+        </div>
+    </div>
+
+</div>
+<script>
+    alert("支付成功 如未到账请联系我们");
+    window.location.href="/user/code";
+</script>
+</body>
+</html>
+';
+      
+      
+    }  
+  
     public static function callback($request)
     {
         $driver = Config::get("payment_system");
@@ -743,6 +893,8 @@ class Pay
                 return Pay::zfbjk_callback($request);
 			case 'f2fpay':
                 return Pay::f2fpay_callback();
+			case 'pay91':
+                return Pay::pay91_callback();
             default:
                 return "";
         }

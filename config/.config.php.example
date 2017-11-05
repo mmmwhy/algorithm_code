@@ -57,7 +57,7 @@ $System_Config['inviteNum'] = '5';
 $System_Config['db_driver'] = 'mysql';
 $System_Config['db_host'] = 'localhost';
 $System_Config['db_database'] = 'sspanel';
-$System_Config['db_username'] = 'sspanel';
+$System_Config['db_username'] = 'root';
 $System_Config['db_password'] = 'root';
 $System_Config['db_charset'] = 'utf8';
 $System_Config['db_collation'] = 'utf8_general_ci';
@@ -317,23 +317,8 @@ $System_Config['sendgrid_sender'] = '';
 
 #支付系统
 
-#取值 paymentwall,zfbjk,spay,f2fpay,none
-$System_Config['payment_system']='f2fpay';
-
-#PaymentWall
-$System_Config['pmw_publickey']='';
-$System_Config['pmw_privatekey']='';
-$System_Config['pmw_widget']='m2_1';
-$System_Config['pmw_height']='350px';
-
-#alipay,spay
-$System_Config['alipay_id']='';
-$System_Config['alipay_key']='';
-
-#alipay,zfbjk.com
-$System_Config['zfbjk_pid']='';
-$System_Config['zfbjk_key']='';
-$System_Config['zfbjk_qrcodeurl']='https://www.zhaojin97.cn/wp-content/uploads/2016/01/630c50ab52bc139b2a33af8cc64e47ad2016010111570425541.jpg';
+#取值 f2fpay,none,91pay
+$System_Config['payment_system']='pay91';
 
 #alipay,f2fpay ---> https://91vps.win/2017/06/09/alipay_f2f_ss_panel_mod/
 $System_Config['f2fpay_app_id']='';

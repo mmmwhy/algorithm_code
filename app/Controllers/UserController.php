@@ -86,7 +86,6 @@ class UserController extends BaseController
     }
 
 
-
     public function lookingglass($request, $response, $args)
     {
         $Speedtest=Speedtest::where("datetime", ">", time()-Config::get('Speedtest_duration')*3600)->orderBy('datetime', 'desc')->get();

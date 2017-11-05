@@ -72,6 +72,7 @@ $app->get('/404', 'App\Controllers\HomeController:page404');
 $app->get('/405', 'App\Controllers\HomeController:page405');
 $app->get('/500', 'App\Controllers\HomeController:page500');
 $app->get('/pwm_pingback', 'App\Controllers\HomeController:pay_callback');
+$app->get('/pay91', 'App\Controllers\HomeController:pay_callback');
 $app->post('/alipay_callback', 'App\Controllers\HomeController:pay_callback');
 $app->post('/pay_callback', 'App\Controllers\HomeController:pay_callback');
 $app->get('/pay_callback', 'App\Controllers\HomeController:pay_callback');
@@ -137,6 +138,7 @@ $app->group('/user', function () {
     $this->get('/logout', 'App\Controllers\UserController:logout');
     $this->get('/code', 'App\Controllers\UserController:code');
     $this->get('/alipay', 'App\Controllers\UserController:alipay');
+    $this->get('/code/pay91', 'App\Controllers\pay91');
     $this->post('/code/f2fpay', 'App\Controllers\UserController:f2fpay');
     $this->get('/code/f2fpay', 'App\Controllers\UserController:f2fpayget');
     $this->get('/code_check', 'App\Controllers\UserController:code_check');
