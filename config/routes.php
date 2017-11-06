@@ -251,10 +251,12 @@ $app->group('/admin', function () {
     $this->post('/auto/ajax', 'App\Controllers\Admin\AutoController:ajax');
 
     // IP Mange
+    $this->get('/alive', 'App\Controllers\Admin\IpController:alive');
     $this->get('/block', 'App\Controllers\Admin\IpController:block');
     $this->get('/unblock', 'App\Controllers\Admin\IpController:unblock');
     $this->post('/unblock', 'App\Controllers\Admin\IpController:doUnblock');
     $this->get('/login', 'App\Controllers\Admin\IpController:index');
+    $this->post('/alive/ajax', 'App\Controllers\Admin\IpController:ajax_alive');
     $this->post('/block/ajax', 'App\Controllers\Admin\IpController:ajax_block');
     $this->post('/unblock/ajax', 'App\Controllers\Admin\IpController:ajax_unblock');
     $this->post('/login/ajax', 'App\Controllers\Admin\IpController:ajax_login');
