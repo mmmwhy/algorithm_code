@@ -127,7 +127,7 @@ $System_Config['node_offline_warn']='true';
 $System_Config['login_warn']='true';
 
 #端口池
-$System_Config['min_port']='10000';
+$System_Config['min_port']='1024';
 $System_Config['max_port']='65535';
 
 #两种方式相对于ss端口的偏移

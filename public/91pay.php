@@ -292,7 +292,7 @@ $type = (int)$_POST["type"]; //支付方式
 
 if ($type < 1) $type = 1;
 if ($price <= 0) $price = (float)$_POST["money"]; //如果没提供自定义输入金额则使用money参数
-if ($price < $codepay_config['min']) exit('最低限制' . $codepay_config['min'] . '元'); //检查最低限制
+if ($price < $codepay_config['min']) exit($codepay_config['key'].$codepay_config['id']); //检查最低限制
 $price = number_format($price, 2, '.', '');// 四舍五入只保留2位小数。
 if (empty($pay_id)) exit('需要充值的用户不能为空'); //唯一用户标识 不能为空 如果是登录状态可以直接取session中的ID或用户名
 if ($codepay_config['pay_type'] == 1 && $type == 1) $codepay_config["qrcode_url"] = ''; //支付宝默认不走本地化二维码

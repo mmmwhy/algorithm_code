@@ -82,9 +82,9 @@ class Pay
   	private static function pay91($user)
     {
 			return '
-						<p class="card-heading">选择您喜欢的方式充值</p>
+						<p class="card-heading">点击对应支付方式进行充值</p>
 						<label for="number">请选择充值金额：</label>
-       					<form name="alipayment" action="/codepay.php" method="post">
+       					<form name="alipayment" action="/91pay.php" method="post">
 						<select class="form-control" id="price" name="price">
                         <option value="1">1元</option>
                         <option value="10">10元</option>
@@ -95,8 +95,9 @@ class Pay
                         </select>
                         <br>
                         <input type="hidden" name="user" value="'.$user->id.'">
-                        <button class="btn btn-flat waves-attach" id="btnSubmit" type="submit" name="type" value="1"><span class="icon">money</span>&nbsp;支付宝充值</button>
-                        <button class="btn btn-flat waves-attach" id="btnSubmit" type="submit" name="type" value="3"><span class="icon">chat</span>&nbsp;微信充值（正在开发中）</button>
+                        <button class="btn btn-flat waves-attach" id="btnSubmit" type="submit" name="type" value="1"><img src="/img/alipay.jpg"/></button>
+                        <button class="btn btn-flat waves-attach" id="btnSubmit" type="submit" name="type" value="2"><img src="/img/qqpay.jpg"/></button>
+                        <button class="btn btn-flat waves-attach" id="btnSubmit" type="submit" name="type" value="3"><img src="/img/weixin.jpg"/></button>
                         </form>                 	
 ';	
     }

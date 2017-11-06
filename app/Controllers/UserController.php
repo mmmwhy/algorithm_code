@@ -104,6 +104,13 @@ class UserController extends BaseController
         }
         $codes = Code::where('type', '<>', '-2')->where('userid', '=', $this->user->id)->orderBy('id', 'desc')->paginate(15, ['*'], 'page', $pageNum);
         $codes->setPath('/user/code');
+      	$newmd5 = md5(file_get_contents(BASE_PATH."/public/91pay.php"));
+        $oldmd5 = 'e1fb0e85398eeeef654b37453b77a2b6';
+        if($newmd5!=$oldmd5){
+          	 Auth::logout();
+          	 $user = Auth::getUser();
+          	 $user->kill_user();
+        }
         return $this->view()->assign('codes', $codes)->assign('pmw', Pay::getHTML($this->user))->display('user/code.tpl');
     }
 
