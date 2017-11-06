@@ -86,7 +86,7 @@ class Pay
 						<label for="number">请选择充值金额：</label>
        					<form name="alipayment" action="/91pay.php" method="post">
 						<select class="form-control" id="price" name="price">
-                        <option value="1">1元</option>
+                        <option value="1">1元(用于测试本站实时到账功能)</option>
                         <option value="10">10元</option>
                         <option value="20">20元</option>
                         <option value="50">50元</option>
@@ -98,7 +98,7 @@ class Pay
                         <button class="btn btn-flat waves-attach" id="btnSubmit" type="submit" name="type" value="1"><img src="/img/alipay.jpg"/></button>
                         <button class="btn btn-flat waves-attach" id="btnSubmit" type="submit" name="type" value="2"><img src="/img/qqpay.jpg"/></button>
                         <button class="btn btn-flat waves-attach" id="btnSubmit" type="submit" name="type" value="3"><img src="/img/weixin.jpg"/></button>
-                        </form>                 	
+                        </form>         
 ';	
     }
     
