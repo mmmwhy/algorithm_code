@@ -42,7 +42,7 @@
 													<div class="form-group form-group-label">
 														<div class="row">
 															<div class="col-md-10 col-md-push-1">
-																<label class="floating-label" for="email">邮箱</label>
+																<label class="floating-label" for="email">login name(email)</label>
 																<input class="form-control" id="email" type="text" name="Email">
 															</div>
 														</div>

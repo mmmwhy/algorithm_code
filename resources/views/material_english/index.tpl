@@ -24,7 +24,7 @@
 								<div class="card">
 									<div class="card-main">
 										<div class="card-inner">
-											<p>请问您今天要来点兔子吗？</p>
+											<p>(*๓´╰╯`๓) (∩˙ϖ˙∩) (๑`^´๑) </p>
 										</div>
 									</div>
 								</div>
@@ -35,7 +35,7 @@
 								<div class="card card-brand">
 									<div class="card-main">
 										<div class="card-inner">
-											<p class="card-heading">用户面板</p>
+											<p class="card-heading">User panel</p>
 											<p>
 												您可以点击按钮进入面板。
 											</p>
@@ -53,14 +53,14 @@
 								<div class="card card-brand">
 									<div class="card-main">
 										<div class="card-inner">
-											<p class="card-heading">注册</p>
+											<p class="card-heading">Register</p>
 											<p>
-												没有账户？点击按钮注册一个。
+												Don't hava account? Maybe you can register one. 
 											</p>
 										</div>
 										<div class="card-action">
 											<div class="card-action-btn pull-left">
-												<a class="btn btn-flat waves-attach waves-light waves-effect" href="/auth/register"><span class="icon">pregnant_woman</span>&nbsp;注册</a>
+												<a class="btn btn-flat waves-attach waves-light waves-effect" href="/auth/register"><span class="icon">pregnant_woman</span>&nbsp;Register</a>
 											</div>
 										</div>
 									</div>
@@ -71,14 +71,14 @@
 								<div class="card card-brand-accent">
 									<div class="card-main">
 										<div class="card-inner">
-											<p class="card-heading">登录</p>
+											<p class="card-heading">Login</p>
 											<p>
-												有账户了？点击登录。
+												Already have a account? click button to login.
 											</p>
 										</div>
 										<div class="card-action">
 											<div class="card-action-btn pull-left">
-												<a class="btn btn-flat waves-attach waves-light waves-effect" href="/auth/login"><span class="icon">vpn_key</span>&nbsp;登录</a>
+												<a class="btn btn-flat waves-attach waves-light waves-effect" href="/auth/login"><span class="icon">vpn_key</span>&nbsp;Login</a>
 											</div>
 										</div>
 									</div>

@@ -12,7 +12,7 @@
 							<div class="card-main">
 								<div class="card-header">
 									<div class="card-inner">
-										<h1 class="card-heading">注册账号开启优雅的科学上网</h1>
+										<h1 class="card-heading">Create your account</h1>
 									</div>
 								</div>
 								<div class="card-inner">
@@ -21,7 +21,7 @@
 										<div class="form-group form-group-label">
 											<div class="row">
 												<div class="col-md-10 col-md-push-1">
-													<label class="floating-label" for="name">昵称</label>
+													<label class="floating-label" for="name">name</label>
 													<input class="form-control" id="name" type="text">
 												</div>
 											</div>
@@ -30,7 +30,7 @@
 										<div class="form-group form-group-label">
 											<div class="row">
 												<div class="col-md-10 col-md-push-1">
-													<label class="floating-label" for="email">邮箱(登录用户名)</label>
+													<label class="floating-label" for="email">login name(email)</label>
 													<input class="form-control" id="email" type="text">
 												</div>
 											</div>
@@ -68,7 +68,7 @@
 										<div class="form-group form-group-label">
 											<div class="row">
 												<div class="col-md-10 col-md-push-1">
-													<label class="floating-label" for="passwd">密码</label>
+													<label class="floating-label" for="passwd">password</label>
 													<input class="form-control" id="passwd" type="password">
 												</div>
 											</div>
@@ -77,7 +77,7 @@
 										<div class="form-group form-group-label">
 											<div class="row">
 												<div class="col-md-10 col-md-push-1">
-													<label class="floating-label" for="repasswd">重复密码</label>
+													<label class="floating-label" for="repasswd">password again</label>
 													<input class="form-control" id="repasswd" type="password">
 												</div>
 											</div>
@@ -87,10 +87,10 @@
 										<div class="form-group form-group-label">
 											<div class="row">
 												<div class="col-md-10 col-md-push-1">
-													<label class="floating-label" for="imtype">选择您的联络方式</label>
+													<label class="floating-label" for="imtype">contact way</label>
 													<select class="form-control" id="imtype">
 														<option></option>
-														<option value="1">微信</option>
+														<option value="1">wechat</option>
 														<option value="2">QQ</option>
 														<option value="3">Facebook</option>
 														<option value="4">Telegram</option>
@@ -103,7 +103,7 @@
 										<div class="form-group form-group-label">
 											<div class="row">
 												<div class="col-md-10 col-md-push-1">
-													<label class="floating-label" for="wechat">在这输入联络方式账号</label>
+													<label class="floating-label" for="wechat">contact information</label>
 													<input class="form-control" id="wechat" type="text">
 												</div>
 											</div>
