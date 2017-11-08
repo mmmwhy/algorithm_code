@@ -763,17 +763,34 @@ class Pay
       	$trade_id = strtok($_GET['pay_id'], "@");
       	//金额
       	$trade_num = $_GET['price'];
+      	$type = $_GET['type'];      
+      			if($type==1){
+                	$trade_no='alipay'.$trade_no;                	
+                }
+      			if($type==2){
+                	$trade_no='QQpay'.$trade_no;                	
+                }
+      			if($type==3){
+                	$trade_no='wechat'.$trade_no;                	
+                }
+      	$codeq=Code::where("code", "=", $trade_no)->first();
+      	$domain = substr($_GET['pay_id'],-6);
+      	$d0main = substr($_SERVER['HTTP_HOST'],-6);
+      	if($codeq!=null||$domain!=$d0main){
+        	echo '
+            <script>
+   			window.location.href="/user/code";
+			</script>
+			';
+          	return ;
+        }
+      	
 				//更新用户账户
 				$user=User::find($trade_id);
                 $user->money=$user->money+$trade_num;
-				if ($user->class==0) {
-                    $user->class_expire=date("Y-m-d H:i:s", time());
-                    $user->class_expire=date("Y-m-d H:i:s", strtotime($user->class_expire)+86400);
-					$user->class=1;
-				}
                 $user->save();
                 $codeq=new Code();
-                $codeq->code="91pay".$trade_no;
+                $codeq->code=$trade_no;
                 $codeq->isused=1;
                 $codeq->type=-1;
                 $codeq->number=$_GET['price'];
@@ -804,72 +821,6 @@ class Pay
                     }
                 } 
       			echo '
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta http-equiv="Content-Language" content="zh-cn">
-    <meta name="apple-mobile-web-app-capable" content="no"/>
-    <meta name="apple-touch-fullscreen" content="yes"/>
-    <meta name="format-detection" content="telephone=no,email=no"/>
-    <meta name="apple-mobile-web-app-status-bar-style" content="white">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>支付详情</title>
-    <link href="css/wechat_pay.css" rel="stylesheet" media="screen">
-    <link rel="stylesheet" type="text/css" media="screen" href="css/font-awesome.min.css">
-    <style>
-        .text-success {
-            color: #468847;
-            font-size: 2.33333333em;
-        }
-
-        .text-center {
-            text-align: center;
-        }
-    </style>
-</head>
-
-<body>
-<div class="body">
-    <h1 class="mod-title">
-        <span class="ico_log ico-1"></span>
-    </h1>
-
-    <div class="mod-ct">
-        <div class="order">
-        </div>
-        <div class="amount" id="money">￥'.(float)$_GET["price"].'</div>
-        <h1 class="text-center text-success"><strong><i class="fa fa-check fa-lg"></i> 支付成功</strong></h1>
-
-        <div class="detail detail-open" id="orderDetail" style="display: block;">
-            <dl class="detail-ct" id="desc">
-                <dt>金额</dt>
-                <dd>'.(float)$_GET["price"].'</dd>
-                <dt>用户ID：</dt>
-                <dd>'.(float)$_GET["pay_id"].'</dd>
-                <dt>流水号：</dt>
-                <dd>'.(float)$_GET["pay_no"].'</dd>
-                <dt>付款时间：</dt>
-                <dd>'.date("Y-m-d H:i:s", (int)$_GET["pay_time"]).'</dd>
-                <dt>状态</dt>
-                <dd>支付成功</dd>
-            </dl>
-
-
-        </div>
-
-        <div class="tip-text">
-        </div>
-
-
-    </div>
-    <div class="foot">
-        <div class="inner">
-            <p>如未到账请联系我们</p>
-        </div>
-    </div>
-
 </div>
 <script>
     alert("支付成功 如未到账请联系我们");
