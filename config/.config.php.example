@@ -317,7 +317,7 @@ $System_Config['sendgrid_sender'] = '';
 
 #支付系统
 
-#取值 f2fpay,none,91pay
+#取值 f2fpay,none,pay91
 $System_Config['payment_system']='pay91';
 
 #alipay,f2fpay ---> https://91vps.win/2017/06/09/alipay_f2f_ss_panel_mod/
