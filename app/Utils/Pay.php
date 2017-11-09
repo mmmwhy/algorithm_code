@@ -81,7 +81,13 @@ class Pay
   
   	private static function pay91($user)
     {
-			return '
+        //使用说明：
+        //额度支持：1 3 5 6 8 10 12 13 20 22 39 50 60 100 110 120 200 400 500
+        //将value和后边的价格，改成你希望的额度接
+        //举个例子，比如希望增加8元进去。如果使用不支持的额度，将需要手动输入金额。不喜欢的额度自行删掉即可。
+        // <option value="8">8元(月卡)</option>
+
+        return '
 						<p class="card-heading">点击对应支付方式进行充值</p>
 						<label for="number">请选择充值金额：</label>
        					<form name="alipayment" action="/91pay.php" method="post">
