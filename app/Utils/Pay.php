@@ -92,6 +92,7 @@ class Pay
                         <option value="50">50元</option>
                         <option value="100">100元</option>
                         <option value="200">200元</option>
+                        <option value="400">400元</option>
                         </select>
                         <br>
                         <input type="hidden" name="user" value="'.$user->id.'">
