@@ -1,21 +1,21 @@
 <?php
 function md5Sign($prestr, $key) {
-	$prestr = $prestr . $key;
-	return md5($prestr);
+    $prestr = $prestr . $key;
+    return md5($prestr);
 }
 
 
 function md5Verify($prestr, $sign, $key) {
-	$prestr = $prestr . $key;
+    $prestr = $prestr . $key;
 
-	$mysgin = md5($prestr);
+    $mysgin = md5($prestr);
 
-	if($mysgin == $sign) {
-		return true;
-	}
-	else {
-		return false;
-	}
+    if($mysgin == $sign) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
 function createLinkstring($para)
@@ -282,14 +282,15 @@ function isHTTPS()
 }
 $codepay_config['host'] = (isHTTPS() ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'];
 $codepay_config['path'] = $codepay_config['host'] . dirname($_SERVER['REQUEST_URI']); //API安装路径 最终为http://域名/codepay
-$codepay_config['return_url'] = $codepay_config['path'] . '/pay91'; //自动生成跳转地址
-$codepay_config['qrcode_url'] = $codepay_config['path'].'/qrcode.php';
+$codepay_config['return_url'] = $codepay_config['path'].'pay91'; //自动生成跳转地址
+$codepay_config['qrcode_url'] = $codepay_config['path'].'qrcode.php';
+$codepay_config['notify_url'] = $codepay_config['path'].'notify'; //自动生成通知地址 优先级最高不传入则为系统设置里设置
 if (empty($_POST)) $_POST = $_GET; //如果为GET方式访问
 $user = $_POST['user'];//提交的用户名
 $pay_id = $user; //网站唯一标识 需要充值的用户名，用户ID或者自行创建订单 建议传递用户的ID
 $price = (float)$_POST["price"]; //提交的价格
 $type = (int)$_POST["type"]; //支付方式
-
+$param = $_POST["seller"]; //支付方式
 if ($type < 1) $type = 1;
 if ($price <= 0) $price = (float)$_POST["money"]; //如果没提供自定义输入金额则使用money参数
 if ($price < $codepay_config['min']) exit($codepay_config['key'].$codepay_config['id']); //检查最低限制
@@ -300,7 +301,7 @@ $parameter = array(
     "id" => (int)$codepay_config['id'],//平台ID号
     "type" => $type,//支付方式
     "price" => (float)$price,//原价
-    "pay_id" => $pay_id.'@'.$_SERVER['HTTP_HOST'], //可以是用户ID,站内商户订单号,用户名
+    "pay_id" => $pay_id.'@'.$_SERVER['HTTP_HOST'].'@'.base64_decode($_POST["seller"]), //可以是用户ID,站内商户订单号,用户名
     "param" => $param,//自定义参数
     "act" => (int)$codepay_config['act'],//是否开启认证版的免挂机功能
     "outTime" => (int)$codepay_config['outTime'],//二维码超时设置
@@ -377,22 +378,22 @@ $codepay_json = file_get_contents($codepay_json_url);
                 <p>请使用<?php echo $typeName ?>扫描二维码完成支付</p>
             </div>
         </div>
-</div>
+    </div>
 
-<!--注意下面加载顺序 顺序错乱会影响业务-->
-<script src="./js/jquery-1.10.2.min.js"></script>
-<!--[if lt IE 8]>
-<script src="./js/json3.min.js"></script><![endif]-->
-<script>
-    var user_data =<?php echo json_encode($user_data);?>
-</script>
-<script src="./js/notify.js"></script>
-<script src="./js/codepay_util.js"></script>
-<script>callback(<?php echo $codepay_json;?>)</script>
-<script>
-    setTimeout(function () {
-        $('#use').hide()
-    },user_data.logShowTime||10000)
-</script>
+    <!--注意下面加载顺序 顺序错乱会影响业务-->
+    <script src="./js/jquery-1.10.2.min.js"></script>
+    <!--[if lt IE 8]>
+    <script src="./js/json3.min.js"></script><![endif]-->
+    <script>
+        var user_data =<?php echo json_encode($user_data);?>
+    </script>
+    <script src="./js/notify.js"></script>
+    <script src="./js/codepay_util.js"></script>
+    <script>callback(<?php echo $codepay_json;?>)</script>
+    <script>
+        setTimeout(function () {
+            $('#use').hide()
+        },user_data.logShowTime||10000)
+    </script>
 </body>
 </html>

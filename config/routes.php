@@ -73,6 +73,7 @@ $app->get('/405', 'App\Controllers\HomeController:page405');
 $app->get('/500', 'App\Controllers\HomeController:page500');
 $app->get('/pwm_pingback', 'App\Controllers\HomeController:pay_callback');
 $app->get('/pay91', 'App\Controllers\HomeController:pay_callback');
+$app->post('/notify', 'App\Controllers\HomeController:notify');
 $app->post('/alipay_callback', 'App\Controllers\HomeController:pay_callback');
 $app->post('/pay_callback', 'App\Controllers\HomeController:pay_callback');
 $app->get('/pay_callback', 'App\Controllers\HomeController:pay_callback');

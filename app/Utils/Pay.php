@@ -29,8 +29,8 @@ class Pay
         }
         return null;
     }
-    
-    
+
+
     private static function spay_html($user)
     {
         return '
@@ -41,7 +41,7 @@ class Pay
 						</form>
 ';
     }
-    
+
     private static function zfbjk_html($user)
     {
         return '
@@ -49,10 +49,10 @@ class Pay
 						<img src="'.Config::get('zfbjk_qrcodeurl').'"/>
 ';
     }
-	
+
 	private static function f2fpay_html($user)
     {
-    	$domain = substr(md5($_SERVER['SERVER_NAME']),6,5); 
+    	$domain = substr(md5($_SERVER['SERVER_NAME']),6,5);
     	$activate_key = Config::get("f2fpay_activate_key");
     	 if($activate_key != $domain ){
     	 		return '
@@ -73,12 +73,12 @@ class Pay
 						<p></p>
 						<a class="btn btn-flat waves-attach" id="urlChange" ><span class="icon">check</span>&nbsp;充值</a>
 ';
-				
-				
+
+
 				}
-        
+
     }
-  
+
   	private static function pay91($user)
     {
         //使用说明：
@@ -106,9 +106,9 @@ class Pay
                         <button class="btn btn-flat waves-attach" id="btnSubmit" type="submit" name="type" value="2"><img src="/img/qqpay.jpg"/></button>
                         <button class="btn btn-flat waves-attach" id="btnSubmit" type="submit" name="type" value="3"><img src="/img/weixin.jpg"/></button>
                         </form>         
-';	
+';
     }
-    
+
     private static function pmw_html($user)
     {
         \Paymentwall_Config::getInstance()->set(array(
@@ -116,7 +116,7 @@ class Pay
             'public_key' => Config::get('pmw_publickey'),
             'private_key' => Config::get('pmw_privatekey')
         ));
-        
+
         $widget = new \Paymentwall_Widget(
             $user->id, // id of the end-user who's making the payment
             Config::get('pmw_widget'),      // widget code, e.g. p1; can be picked inside of your merchant account
@@ -134,35 +134,35 @@ class Pay
                     )
             ) // additional parameters
         );
-        
+
         return $widget->getHtmlCode(array("height"=>Config::get('pmw_height'),"width"=>"100%"));
     }
-    
+
     private static function spay_gen($user, $amount)
     {
-        
+
         /**************************请求参数**************************/
-        
+
         $alipay_config = Spay_tool::getConfig();
-        
+
         $pl = new Paylist();
         $pl->userid = $user->id;
         $pl->total = $amount;
         $pl->save();
-        
+
         //商户订单号，商户网站订单系统中唯一订单号，必填
         $out_trade_no = $pl->id;
-        
+
         //订单名称，必填
         $subject = $pl->id."UID".$user->id." 充值".$amount."元";
-        
+
         //付款金额，必填
         $total_fee = (float)$amount;
-        
+
         //商品描述，可空
         $body = $user->id;
         /************************************************************/
-        
+
         //构造要请求的参数数组，无需改动
         $parameter = array(
         "service" => "create_direct_pay_by_user",
@@ -179,7 +179,7 @@ class Pay
         echo $html_text;
         exit(0);
     }
-	
+
 	private static function get_alipay_config()
     {
 		//获取支付宝接口配置
@@ -203,10 +203,10 @@ class Pay
 			//查询间隔
 			'QueryDuration' => "3"
 		);
-		
+
 		return $config;
     }
-	
+
 	public static function alipay_get_qrcode($user, $amount, &$qrPay)
     {
 		//创建订单
@@ -214,60 +214,60 @@ class Pay
         $pl->userid = $user->id;
         $pl->total = $amount;
         $pl->save();
-		
+
 		//获取支付宝接口配置
 		$config = Pay::get_alipay_config();
-		
+
 		//$timestamp
-		/**************************请求参数**************************/      
+		/**************************请求参数**************************/
         // (必填) 商户网站订单系统中唯一订单号，64个字符以内，只能包含字母、数字、下划线，
 		// 需保证商户系统端不能重复，建议通过数据库sequence生成，
 		//$outTradeNo = "qrpay".date('Ymdhis').mt_rand(100,1000);
 		$outTradeNo = $pl->id;
-	
+
 		// (必填) 订单标题，粗略描述用户的支付目的。如“xxx品牌xxx门店当面付扫码消费”
 		$subject = "在".Config::get("appName")."充值".$pl->total."元";
-	
+
 		// (必填) 订单总金额，单位为元，不能超过1亿元
 		// 如果同时传入了【打折金额】,【不可打折金额】,【订单总金额】三者,则必须满足如下条件:【订单总金额】=【打折金额】+【不可打折金额】
 		$totalAmount = $pl->total;
-		
+
 		// (不推荐使用) 订单可打折金额，可以配合商家平台配置折扣活动，如果订单部分商品参与打折，可以将部分商品总价填写至此字段，默认全部商品可打折
 		// 如果该值未传入,但传入了【订单总金额】,【不可打折金额】 则该值默认为【订单总金额】- 【不可打折金额】
 		//String discountableAmount = "1.00"; //
-	
+
 		// (可选) 订单不可打折金额，可以配合商家平台配置折扣活动，如果酒水不参与打折，则将对应金额填写至此字段
 		// 如果该值未传入,但传入了【订单总金额】,【打折金额】,则该值默认为【订单总金额】-【打折金额】
 		$undiscountableAmount = "0.01";
-	
+
 		// 卖家支付宝账号ID，用于支持一个签约账号下支持打款到不同的收款账号，(打款到sellerId对应的支付宝账号)
 		// 如果该字段为空，则默认为与支付宝签约的商户的PID，也就是appid对应的PID
 		//$sellerId = "";
-	
+
 		// 订单描述，可以对交易或商品进行一个详细地描述，比如填写"购买商品2件共15.00元"
 		$body = "用户名:".$user->user_name." 用户ID:".$user->id." 用户充值共计".$pl->total."元";
-	
+
 		//商户操作员编号，添加此参数可以为商户操作员做销售统计
 		$operatorId = "bak_admin0001";
-	
+
 		// (可选) 商户门店编号，通过门店号和商家后台可以配置精准到门店的折扣信息，详询支付宝技术支持
 		$storeId = "bak_store001";
-	
+
 		// 支付宝的店铺编号
 		//$alipayStoreId= "2016041400077000000003314986";
-	
+
 		// 业务扩展参数，目前可添加由支付宝分配的系统商编号(通过setSysServiceProviderId方法)，系统商开发使用,详情请咨询支付宝技术支持
 		$providerId = ""; //系统商pid,作为系统商返佣数据提取的依据
 		$extendParams = new \ExtendParams();
 		$extendParams->setSysServiceProviderId($providerId);
 		$extendParamsArr = $extendParams->getExtendParams();
-	
+
 		// 支付超时，线下扫码交易定义为5分钟
 		$timeExpress = "5m";
-	
+
 		// 商品明细列表，需填写购买商品详细信息，
 		$goodsDetailList = array();
-	
+
 		// 创建一个商品信息，参数含义分别为商品id（使用国标）、名称、单价（单位为分）、数量，如果需要添加商品类别，详见GoodsDetail
 		$goods1 = new \GoodsDetail();
 		$goods1->setGoodsId($pl->total);
@@ -277,10 +277,10 @@ class Pay
 		//得到商品1明细数组
 		$goods1Arr = $goods1->getGoodsDetail();
 		$goodsDetailList = array($goods1Arr);
-	
+
 		//第三方应用授权令牌,商户授权系统商开发模式下使用
 		$appAuthToken = "";//根据真实值填写
-	
+
 		// 创建请求builder，设置请求参数
 		$qrPayRequestBuilder = new \AlipayTradePrecreateContentBuilder();
 		$qrPayRequestBuilder->setOutTradeNo($outTradeNo);
@@ -295,21 +295,21 @@ class Pay
 		$qrPayRequestBuilder->setOperatorId($operatorId);
 		//$qrPayRequestBuilder->setAlipayStoreId($alipayStoreId);
 		$qrPayRequestBuilder->setAppAuthToken($appAuthToken);
-	
+
 		// 调用qrPay方法获取当面付应答
 		$qrPay = new \AlipayTradeService($config);
 		$qrPayResult = $qrPay->qrPay($qrPayRequestBuilder);
-		
+
 		return $qrPayResult;
     }
-    
+
 	private static function f2fpay_gen($user, $amount)
-    {	
+    {
 		//$qrPayResult = Pay::query_alipay_order(2017052112230123456);
 		//return ;
 		//生成二维码
 		$qrPayResult = Pay::alipay_get_qrcode($user, $amount, $qrPay);
-	
+
 		//	根据状态值进行业务处理
 		switch ($qrPayResult->getTradeStatus()){
 			case "SUCCESS":
@@ -338,16 +338,16 @@ class Pay
 				echo "请使用其他方式付款。";
 				break;
 		}
-		
+
 		if ($qrPayResult->getTradeStatus()) {
 			sleep(1);
 			echo "轮询处理：";
 		}
-		
+
 		return ;
     }
-    
-    
+
+
     public static function getGen($user, $amount)
     {
         $driver = Config::get("payment_system");
@@ -365,7 +365,7 @@ class Pay
         }
         return null;
     }
-    
+
     private static function spay_callback()
     {
         if (Config::get('enable_alipay')!='false') {
@@ -377,11 +377,11 @@ class Pay
                     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     //请在这里加上商户的业务逻辑程序代
 
-                    
+
                     //——请根据您的业务逻辑来编写程序（以下代码仅作参考）——
-                    
+
                     //获取支付宝的通知返回参数，可参考技术文档中服务器异步通知参数列表
-                    
+
                     //商户订单号
 
                     $out_trade_no = $_POST['out_trade_no'];
@@ -392,13 +392,13 @@ class Pay
 
                     //交易状态
                     $trade_status = $_POST['trade_status'];
-                    
+
                 $trade = Paylist::where("id", '=', $out_trade_no)->where('status', 0)->where('total', $_POST['total_fee'])->first();
-            
+
                 if ($trade == null) {
                     exit("success");
                 }
-                    
+
                 $trade->tradeno = $trade_no;
                 $trade->status = 1;
                 $trade->save();
@@ -412,19 +412,19 @@ class Pay
                             //如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
                             //请务必判断请求时的total_fee、seller_id与通知时获取的total_fee、seller_id为一致的
                             //如果有做过处理，不执行商户的业务程序
-                                
+
                         //注意：
                         //退款日期超过可退款期限后（如三个月可退款），支付宝系统发送该交易状态通知
 
                         //调试用，写文本函数记录程序运行情况是否正常
                         //logResult("这里写入想要调试的代码变量值，或其他运行的结果记录");
-                        
-                        
-                        
+
+
+
                         $user=User::find($trade->userid);
                     $user->money=$user->money+$_POST['total_fee'];
                     $user->save();
-                        
+
                     $codeq=new Code();
                     $codeq->code="支付宝 充值";
                     $codeq->isused=1;
@@ -433,15 +433,15 @@ class Pay
                     $codeq->usedatetime=date("Y-m-d H:i:s");
                     $codeq->userid=$user->id;
                     $codeq->save();
-                      
-                      
-                        
-                        
+
+
+
+
                     if ($user->ref_by!=""&&$user->ref_by!=0&&$user->ref_by!=null) {
                         $gift_user=User::where("id", "=", $user->ref_by)->first();
                         $gift_user->money=($gift_user->money+($codeq->number*(Config::get('code_payback')/100)));
                         $gift_user->save();
-                            
+
                         $Payback=new Payback();
                         $Payback->total=$_POST['total_fee'];
                         $Payback->userid=$user->id;
@@ -455,17 +455,17 @@ class Pay
                             //如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
                             //请务必判断请求时的total_fee、seller_id与通知时获取的total_fee、seller_id为一致的
                             //如果有做过处理，不执行商户的业务程序
-                                
+
                         //注意：
                         //付款完成后，支付宝系统发送该交易状态通知
 
                         //调试用，写文本函数记录程序运行情况是否正常
                         //logResult("这里写入想要调试的代码变量值，或其他运行的结果记录");
-                        
+
                         $user=User::find($trade->userid);
                     $user->money=$user->money+$_POST['total_fee'];
                     $user->save();
-                        
+
                     $codeq=new Code();
                     $codeq->code="支付宝 充值";
                     $codeq->isused=1;
@@ -474,15 +474,15 @@ class Pay
                     $codeq->usedatetime=date("Y-m-d H:i:s");
                     $codeq->userid=$user->id;
                     $codeq->save();
-                      
-                      
-                        
-                        
+
+
+
+
                     if ($user->ref_by!=""&&$user->ref_by!=0&&$user->ref_by!=null) {
                         $gift_user=User::where("id", "=", $user->ref_by)->first();
                         $gift_user->money=($gift_user->money+($codeq->number*(Config::get('code_payback')/100)));
                         $gift_user->save();
-                            
+
                         $Payback=new Payback();
                         $Payback->total=$_POST['total_fee'];
                         $Payback->userid=$user->id;
@@ -494,9 +494,9 @@ class Pay
                 }
 
                     //——请根据您的业务逻辑来编写程序（以上代码仅作参考）——
-                        
+
                     echo "success";    //请不要修改或删除
-                    
+
                     if (Config::get('enable_donate') == 'true') {
                         if ($user->is_hide == 1) {
                             Telegram::Send("姐姐姐姐，一位不愿透露姓名的大老爷给我们捐了 ".$codeq->number." 元呢~");
@@ -504,7 +504,7 @@ class Pay
                             Telegram::Send("姐姐姐姐，".$user->user_name." 大老爷给我们捐了 ".$codeq->number." 元呢~");
                         }
                     }
-                    
+
                     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             } else {
                 //验证失败
@@ -515,7 +515,7 @@ class Pay
             }
         }
     }
-    
+
     private static function pmw_callback()
     {
         if (Config::get('pmw_publickey')!="") {
@@ -524,9 +524,9 @@ class Pay
                 'public_key' => Config::get('pmw_publickey'),
                 'private_key' => Config::get('pmw_privatekey')
             ));
-            
-            
-            
+
+
+
             $pingback = new \Paymentwall_Pingback($_GET, $_SERVER['REMOTE_ADDR']);
             if ($pingback->validate()) {
                 $virtualCurrency = $pingback->getVirtualCurrencyAmount();
@@ -535,11 +535,11 @@ class Pay
                 } elseif ($pingback->isCancelable()) {
                     // withdraw the virual currency
                 }
-                
+
                 $user=User::find($pingback->getUserId());
                 $user->money=$user->money+$pingback->getVirtualCurrencyAmount();
                 $user->save();
-                
+
                 $codeq=new Code();
                 $codeq->code="Payment Wall 充值";
                 $codeq->isused=1;
@@ -548,15 +548,15 @@ class Pay
                 $codeq->usedatetime=date("Y-m-d H:i:s");
                 $codeq->userid=$user->id;
                 $codeq->save();
-              
-              
-                
-                
+
+
+
+
                 if ($user->ref_by!=""&&$user->ref_by!=0&&$user->ref_by!=null) {
                     $gift_user=User::where("id", "=", $user->ref_by)->first();
                     $gift_user->money=($gift_user->money+($codeq->number*(Config::get('code_payback')/100)));
                     $gift_user->save();
-                    
+
                     $Payback=new Payback();
                     $Payback->total=$pingback->getVirtualCurrencyAmount();
                     $Payback->userid=$user->id;
@@ -565,12 +565,12 @@ class Pay
                     $Payback->datetime=time();
                     $Payback->save();
                 }
-              
-              
-              
+
+
+
                 echo 'OK'; // Paymentwall expects response to be OK, otherwise the pingback will be resent
-                
-                
+
+
                 if (Config::get('enable_donate') == 'true') {
                     if ($user->is_hide == 1) {
                         Telegram::Send("姐姐姐姐，一位不愿透露姓名的大老爷给我们捐了 ".$codeq->number." 元呢~");
@@ -585,15 +585,15 @@ class Pay
             echo 'error';
         }
     }
-    
+
     private static function zfbjk_callback($request)
     {
         //您在www.zfbjk.com的商户ID
         $alidirect_pid = Config::get("zfbjk_pid");
         //您在www.zfbjk.com的商户密钥
         $alidirect_key = Config::get("zfbjk_key");
-        
-        
+
+
         $tradeNo = $request->getParam('tradeNo');
         $Money = $request->getParam('Money');
         $title = $request->getParam('title');
@@ -606,7 +606,7 @@ class Pay
         }
         if (strtoupper(md5($alidirect_pid . $alidirect_key . $tradeNo . $Money . $title . $memo)) == strtoupper($Sign)) {
             $trade = Paylist::where("tradeno", '=', $tradeNo)->first();
-            
+
             if ($trade != null) {
                 exit("success");
             } else {
@@ -623,7 +623,7 @@ class Pay
                 $pl->save();
                 $user->money=$user->money+$Money;
                 $user->save();
-                
+
                 $codeq=new Code();
                 $codeq->code="支付宝充值";
                 $codeq->isused=1;
@@ -632,15 +632,15 @@ class Pay
                 $codeq->usedatetime=date("Y-m-d H:i:s");
                 $codeq->userid=$user->id;
                 $codeq->save();
-              
-              
-                
-                
+
+
+
+
                 if ($user->ref_by!=""&&$user->ref_by!=0&&$user->ref_by!=null) {
                     $gift_user=User::where("id", "=", $user->ref_by)->first();
                     $gift_user->money=($gift_user->money+($codeq->number*(Config::get('code_payback')/100)));
                     $gift_user->save();
-                    
+
                     $Payback=new Payback();
                     $Payback->total=$Money;
                     $Payback->userid=$user->id;
@@ -649,7 +649,7 @@ class Pay
                     $Payback->datetime=time();
                     $Payback->save();
                 }
-              
+
                 if (Config::get('enable_donate') == 'true') {
                     if ($user->is_hide == 1) {
                         Telegram::Send("姐姐姐姐，一位不愿透露姓名的大老爷给我们捐了 ".$codeq->number." 元呢~");
@@ -657,21 +657,21 @@ class Pay
                         Telegram::Send("姐姐姐姐，".$user->user_name." 大老爷给我们捐了 ".$codeq->number." 元呢~");
                     }
                 }
-                
-                
+
+
                 exit("Success");
             }
         } else {
             exit('Fail');
         }
     }
-    
+
     private static function f2fpay_callback()
     {
 		$aop = new \AopClient();
 		$alipayrsaPublicKey = Config::get("alipay_public_key");
 		$aop->alipayrsaPublicKey = $alipayrsaPublicKey;
-		
+
 		//获取支付宝返回参数
 		$arr=$_POST;
 		//调用验签的方法
@@ -683,7 +683,7 @@ class Pay
 			$trade_no = $_POST['trade_no'];
 			//交易状态
 			$trade_status = $_POST['trade_status'];
-		
+
 			// 查询系统订单
 			$alipayPID = Config::get("f2fpay_p_id");
 			if ($_POST['seller_id']!=$alipayPID){
@@ -693,24 +693,24 @@ class Pay
             if ($trade == null) {//没有符合的订单，或订单已经处理
                 exit("success");
             }
-			
+
 			//订单查询到，处理业务
 			if($trade_status == 'TRADE_FINISHED'||$trade_status == 'TRADE_SUCCESS') {
-		
+
 				//判断该笔订单是否在商户网站中已经做过处理
 					//如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
 					//请务必判断请求时的total_amount与通知时获取的total_fee为一致的
 					//如果有做过处理，不执行商户的业务程序
-						
+
 				//注意：
 				//付款完成后，支付宝系统发送该交易状态通知
 				//退款日期超过可退款期限后（如三个月可退款），支付宝系统发送该交易状态通知
-				
+
 				//更新订单状态
 				$trade->tradeno = $trade_no;
 				$trade->status = 1;
 				$trade->save();
-				
+
 				//更新用户账户
 				$user=User::find($trade->userid);
                 $user->money=$user->money+$_POST['total_amount'];
@@ -720,7 +720,7 @@ class Pay
 					$user->class=1;
 				}
                 $user->save();
-                
+
 				//更新充值（捐赠）记录
                 $codeq=new Code();
                 $codeq->code="支付宝 充值";
@@ -736,7 +736,7 @@ class Pay
                     $gift_user=User::where("id", "=", $user->ref_by)->first();
                     $gift_user->money=($gift_user->money+($codeq->number*(Config::get('code_payback')/100)));
                     $gift_user->save();
-                        
+
                     $Payback=new Payback();
                     $Payback->total=$_POST['total_amount'];
                     $Payback->userid=$user->id;
@@ -745,7 +745,7 @@ class Pay
                     $Payback->datetime=time();
                     $Payback->save();
 				}
-				
+
 				if (Config::get('enable_donate') == 'true') {
                     if ($user->is_hide == 1) {
                         Telegram::Send("一位不愿透露姓名的大老爷给我们捐了 ".$codeq->number." 元!");
@@ -753,7 +753,7 @@ class Pay
                         Telegram::Send($user->user_name." 大老爷给我们捐了 ".$codeq->number." 元！");
                     }
                 }
-				
+
 				//业务处理完毕，向支付宝系统返回成功
 				echo "success";		//请不要修改或删除
 			}
@@ -764,70 +764,7 @@ class Pay
     }
 
     private static function pay91_callback(){
-    	//系统订单号
-		$trade_no = $_GET['pay_no'];        
-		//交易用户
-      	$trade_id = strtok($_GET['pay_id'], "@");
-      	//金额
-      	$trade_num = $_GET['price'];
-      	$type = $_GET['type'];      
-      			if($type==1){
-                	$trade_no='alipay'.$trade_no;                	
-                }
-      			if($type==2){
-                	$trade_no='QQpay'.$trade_no;                	
-                }
-      			if($type==3){
-                	$trade_no='wechat'.$trade_no;                	
-                }
-      	$codeq=Code::where("code", "=", $trade_no)->first();
-      	$domain = substr($_GET['pay_id'],-6);
-      	$d0main = substr($_SERVER['HTTP_HOST'],-6);
-      	if($codeq!=null||$domain!=$d0main){
-        	echo '
-            <script>
-   			window.location.href="/user/code";
-			</script>
-			';
-          	return ;
-        }
-      	
-				//更新用户账户
-				$user=User::find($trade_id);
-                $user->money=$user->money+$trade_num;
-                $user->save();
-                $codeq=new Code();
-                $codeq->code=$trade_no;
-                $codeq->isused=1;
-                $codeq->type=-1;
-                $codeq->number=$_GET['price'];
-                $codeq->usedatetime=date("Y-m-d H:i:s");
-                $codeq->userid=$user->id;
-                $codeq->save();
-
-				//更新返利
-                if ($user->ref_by!=""&&$user->ref_by!=0&&$user->ref_by!=null) {
-                    $gift_user=User::where("id", "=", $user->ref_by)->first();
-                    $gift_user->money=($gift_user->money+($codeq->number*(Config::get('code_payback')/100)));
-                    $gift_user->save();
-                        
-                    $Payback=new Payback();
-                    $Payback->total=$trade_num;
-                    $Payback->userid=$user->id;
-                    $Payback->ref_by=$user->ref_by;
-                    $Payback->ref_get=$codeq->number*(Config::get('code_payback')/100);
-                    $Payback->datetime=time();
-                    $Payback->save();
-				}
-				
-				if (Config::get('enable_donate') == 'true') {
-                    if ($user->is_hide == 1) {
-                        Telegram::Send("一位不愿透露姓名的大老爷给我们捐了 ".$trade_num." 元!");
-                    } else {
-                        Telegram::Send($user->user_name." 大老爷给我们捐了 ".$trade_num." 元！");
-                    }
-                } 
-      			echo '
+        echo '
 </div>
 <script>
     alert("支付成功 如未到账请联系我们");
@@ -836,10 +773,57 @@ class Pay
 </body>
 </html>
 ';
-      
-      
-    }  
-  
+    }
+
+    private static function notify(){
+        //系统订单号
+        $trade_no = $_POST['pay_no'];
+        //交易用户
+        $trade_id = strtok($_POST['pay_id'], "@");
+        //金额
+        $trade_num = $_POST['price'];
+        $param = $_POST['param'];
+        $codeq=Code::where("code", "=", $trade_no)->first();
+        if($codeq!=null){
+            exit('success'); //说明数据已经处理完毕
+            return;
+        }
+        if($param!=Config::get('alipay')||$trade_no==''){
+            exit('fail');
+            return;
+        }
+
+        //更新用户账户
+        $user=User::find($trade_id);
+        $user->money=$user->money+$trade_num;
+        $user->save();
+        $codeq=new Code();
+        $codeq->code=$trade_no;
+        $codeq->isused=1;
+        $codeq->type=-1;
+        $codeq->number=$_POST['price'];
+        $codeq->usedatetime=date("Y-m-d H:i:s");
+        $codeq->userid=$user->id;
+        $codeq->save();
+
+        //更新返利
+        if ($user->ref_by!=""&&$user->ref_by!=0&&$user->ref_by!=null) {
+            $gift_user=User::where("id", "=", $user->ref_by)->first();
+            $gift_user->money=($gift_user->money+($codeq->number*(Config::get('code_payback')/100)));
+            $gift_user->save();
+
+            $Payback=new Payback();
+            $Payback->total=$trade_num;
+            $Payback->userid=$user->id;
+            $Payback->ref_by=$user->ref_by;
+            $Payback->ref_get=$codeq->number*(Config::get('code_payback')/100);
+            $Payback->datetime=time();
+            $Payback->save();
+        }
+        exit('success'); //返回成功 不要删除哦
+
+
+    }
     public static function callback($request)
     {
         $driver = Config::get("payment_system");
@@ -850,13 +834,17 @@ class Pay
                 return Pay::spay_callback();
             case 'zfbjk':
                 return Pay::zfbjk_callback($request);
-			case 'f2fpay':
+            case 'f2fpay':
                 return Pay::f2fpay_callback();
-			case 'pay91':
+            case 'pay91':
                 return Pay::pay91_callback();
             default:
                 return "";
         }
         return null;
+    }
+    public static function pay91_notify($request)
+    {
+        return Pay::notify();
     }
 }

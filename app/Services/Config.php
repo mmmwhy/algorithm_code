@@ -27,6 +27,7 @@ class Config
             "checkinMax" => self::get("checkinMax"),
             "wecenter_url" => self::get("wecenter_url"),
             "payment_system" => self::get("payment_system"),
+            "alipay" => self::get("alipay"),
             "enable_wecenter" => self::get("enable_wecenter"),
             "jump_delay" => self::get("jump_delay"),
             "enable_analytics_code" => self::get("enable_analytics_code"),

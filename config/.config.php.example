@@ -320,6 +320,9 @@ $System_Config['sendgrid_sender'] = '';
 #取值 f2fpay,none,pay91
 $System_Config['payment_system']='pay91';
 
+#91pay,alipay为你的支付宝账号的base64加密后的内容（为了安全）请将编译之后的支付宝账号复制于下方 http://tool.chinaz.com/Tools/Base64.aspx
+$System_Config['alipay']=''; #比如你支付宝账号是：mmmwhy，则密文为： bW1td2h5
+
 #alipay,f2fpay ---> https://91vps.win/2017/06/09/alipay_f2f_ss_panel_mod/
 $System_Config['f2fpay_app_id']='';
 $System_Config['f2fpay_p_id']='';
