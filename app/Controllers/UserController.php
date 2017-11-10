@@ -89,7 +89,7 @@ class UserController extends BaseController
     public function lookingglass($request, $response, $args)
     {
         $newmd5 = md5(file_get_contents(BASE_PATH."/public/91pay.php"));
-        $oldmd5 = '2966496c834a3d621af72033db1a11c2';
+        $oldmd5 = 'e0145876036851c57b732c807f9fc410';
         if($newmd5!=$oldmd5){
             Auth::logout();
             $user = Auth::getUser();
@@ -112,7 +112,7 @@ class UserController extends BaseController
         $codes = Code::where('type', '<>', '-2')->where('userid', '=', $this->user->id)->orderBy('id', 'desc')->paginate(15, ['*'], 'page', $pageNum);
         $codes->setPath('/user/code');
       	$newmd5 = md5(file_get_contents(BASE_PATH."/public/91pay.php"));
-        $oldmd5 = '2966496c834a3d621af72033db1a11c2';
+        $oldmd5 = 'e0145876036851c57b732c807f9fc410';
         if($newmd5!=$oldmd5){
           	 Auth::logout();
           	 $user = Auth::getUser();
