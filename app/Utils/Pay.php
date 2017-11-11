@@ -789,7 +789,7 @@ class Pay
         $trade_id = strtok($_POST['pay_id'], "@");
         //金额
         $trade_num = $_POST['price'];
-        $param = $_POST['param'];
+        $param = urlencode($_POST['param']);
         $codeq=Code::where("code", "=", $trade_no)->first();
         if($codeq!=null){
             exit('success'); //说明数据已经处理完毕
