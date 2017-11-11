@@ -12,7 +12,7 @@
 	<main class="content">
 		<div class="content-header ui-content-header">
 			<div class="container">
-				<h1 class="content-heading">View the W/O</h1>
+				<h1 class="content-heading">View the ticket</h1>
 			</div>
 		</div>
 		<div class="container">
@@ -46,7 +46,7 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col-md-10 col-md-push-1">
-											<button id="submit" type="submit" class="btn btn-block btn-brand waves-attach waves-light">Add</button><button id="close" type="submit" class="btn btn-block btn-brand-accent waves-attach waves-light">Add and close</button>
+											<button id="submit" type="submit" class="btn btn-block btn-brand waves-attach waves-light">Send</button><button id="close" type="submit" class="btn btn-block btn-brand-accent waves-attach waves-light">Add and close</button>
 										</div>
 									</div>
 								</div>

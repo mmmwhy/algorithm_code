@@ -13,7 +13,7 @@
 	<main class="content">
 		<div class="content-header ui-content-header">
 			<div class="container">
-				<h1 class="content-heading">   Edit rules #{$rule->id}</h1>
+				<h1 class="content-heading">   Edit rule #{$rule->id}</h1>
 			</div>
 		</div>
 		<div class="container">
@@ -26,7 +26,7 @@
 									<div class="form-group form-group-label">
 										<label class="floating-label" for="source_node">Origin node</label>
 										<select id="source_node" class="form-control" name="source_node">
-											<option value="0">Please select the origin node</option>
+											<option value="0">Please select the original server</option>
 											{foreach $source_nodes as $source_node}
 												<option value="{$source_node->id}" {if $rule->source_node_id == $source_node->id}selected{/if}>{$source_node->name}</option>
 											{/foreach}
@@ -35,7 +35,7 @@
 
 
 									<div class="form-group form-group-label">
-										<label class="floating-label" for="dist_node">Target node</label>
+										<label class="floating-label" for="dist_node">Target server</label>
 										<select id="dist_node" class="form-control" name="dist_node">
 											<option value="-1">Not in transit</option>
 											{foreach $dist_nodes as $dist_node}

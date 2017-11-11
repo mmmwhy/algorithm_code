@@ -12,7 +12,7 @@
 	<main class="content">
 		<div class="content-header ui-content-header">
 			<div class="container">
-				<h1 class="content-heading">User Center</h1>
+				<h1 class="content-heading">Dashboard</h1>
 			</div>
 		</div>
 		<div class="container">
@@ -24,8 +24,8 @@
 							<div class="card">
 								<div class="card-main">
 									<div class="card-inner margin-bottom-no">
-										<p class="card-heading">latest announcement in the system</p>
-										<p>Please refer to the <a href="/user/announcement"/>announcement</a>  for other announcements.</p>
+										<p class="card-heading">Latest Announcements</p>
+										<p><a href="/user/announcement"/>Click here</a>  for other announcements.</p>
 										{if $ann != null}
 										<p>{$ann->content}</p>
 										{/if}
@@ -37,8 +37,8 @@
 							<div class="card">
 								<div class="card-main">
 									<div class="card-inner margin-bottom-no">
-										<p class="card-heading">Download and Configure Center</p>
-										<p>You can view your connection information here.<br>At the same time, here to provide you with an automated configuration file generation, including all the Shadowsocks server information, allowing you to quickly add a lot of servers, fast switching.</p>
+										<p class="card-heading">Download and Configurations Center</p>
+										<p>You can view your Shadowsocks connection details here.<br>You will also find the setup instructions for all common OS, as well as the downloadable app files.</p>
 										<nav class="tab-nav margin-top-no">
 											<ul class="nav nav-list">
 												<li {if $ssr_prefer}class="active"{/if}>
@@ -94,23 +94,23 @@
 															<p><dt>Custom protocol</dt>
 															<dd>{$user->protocol}</dd></p>
 
-															<p><dt>Custom confusion</dt>
+															<p><dt>Custom Obfuscation</dt>
 															<dd>{$user->obfs}</dd></p>
 														</dl>
 														{else}
-															<p>Hello, your current encryption method, confusing, or protocol settings can not be connected under the ShadowsocksR client. Please use the Shadowsocks client to connect, or to the data editing page to modify and then check here.</p>
+															<p>Your current encryption type, obfuscation type, or protocol will not work with the ShadowsocksR client. Please use the Shadowsocks client to connect, or to the edit details page to change them to compatible types before coming back here.</p>
 
-															<p>At the same time, ShadowsocksR single-port multi-user connection is not affected by your settings, you can use the corresponding client to connect here ~</p>
+															<p>If you are using the ShadowsocksR single-port multi-user connection type, then it will not be affected by your settings, and you can use the corresponding client to connect without problem~</p>
 
-															<p>Please note that your current SSR subscription link has expired in the current state and you can not import the node in this way.</p>
+															<p>In addition, please note that your current SSR subscription link has expired in the current state and you can not import the server details using the link until you change the settings to a mode compatible with SSR.</p>
 														{/if}
 													</div>
 													<div class="tab-pane fade" id="all_ssr_windows">
-														<p><a href="/ssr-download/ssr-win.7z">download</a>，Unzip, run the program, and then you have three ways to import all nodes<br>
-															(1)Download<a href="/user/getpcconf?is_mu=0&is_ss=0">This (ordinary port)</a>or<a href="/user/getpcconf?is_mu=1&is_ss=0">This (single-port multi-user)</a>,Right-click the small aircraft server - from the configuration file into the server, select this file,<br>
-															(2)Click on<a class="copy-text" data-clipboard-text="{$ssr_url_all}">This (ordinary port)</a>or<a class="copy-text" data-clipboard-text="{$ssr_url_all}">This (single-port multi-user)</a>, Then right-click the airplane - copy the address from the clipboard<br>
-															(3)(Recommended) Right-click Aircraft-Server-SSR Server Subscription Settings, set the subscription address to the following address, leave the other parameters blank, and then update the SSR server subscription.<br>
-															And then select a suitable server, proxy rules selected "bypass the LAN and the mainland", and then you can access.</p>
+														<p><a href="/ssr-download/ssr-win.7z">Download</a>，then unzip the file. Next, run the program. You now have three ways to import all servers.<br>
+															(1)Download <a href="/user/getpcconf?is_mu=0&is_ss=0">This (ordinary port)</a> or <a href="/user/getpcconf?is_mu=1&is_ss=0">This (single-port multi-user)</a>, then right-click on the small paper airplane icon on the bottom right corner of your screen. Select "import from configuration file" and select this file,<br>
+															(2)Click on <a class="copy-text" data-clipboard-text="{$ssr_url_all}">This (ordinary port)</a> or <a class="copy-text" data-clipboard-text="{$ssr_url_all}">This (single-port multi-user)</a>. Then right-click the paper airplane icon. Select "import from clipboard"<br>
+															(3)(Recommended) Right-click the paper airplane icon. Go to server -> SSR Server Subscription Settings. Set the subscription address to the following address, leave the other parameters blank, and then refresh the SSR server subscription.<br>
+															Once you have entered all the servers, select a suitable server, set proxy rules to "bypass LAN and mainland", and you will be connected.</p>
 
 														<p>SSR Subscription address:<br>
 															Ordinary port address:<code>{$baseUrl}/link/{$ssr_sub_token}?mu=0</code><br>
@@ -118,24 +118,24 @@
 														</p>
 													</div>
 													<div class="tab-pane fade" id="all_ssr_mac">
-														<p><a href="/ssr-download/ssr-mac.dmg">Download</a>, Install, and then download<a href="/user/getpcconf?is_mu=0&is_ss=0">This (ordinary port)</a>or<a  href="/user/getpcconf?is_mu=1&is_ss=0">This (single-port multi-user)</a>, Run the program, the small aircraft on the right server list submenu "import server configuration file ..." import this file, and then select a suitable server, update the PAC, and then open the system agent to the Internet.</p>
+														<p><a href="/ssr-download/ssr-mac.dmg">Download</a>, install, and then download <a href="/user/getpcconf?is_mu=0&is_ss=0">This (ordinary port)</a> or <a  href="/user/getpcconf?is_mu=1&is_ss=0">This (single-port multi-user)</a>. Then run the program, find the small paper airplane icon on the top right of the screen, open the server list submenu and find the button that says "import server configuration file ...". Click on it and import this file, and then select a suitable server, update the PAC, and then use your favorite browser to surf the net.</p>
 													</div>
 													<div class="tab-pane fade" id="all_ssr_ios">
-														<p>Recommended download<a href="https://itunes.apple.com/cn/app/shadowrocket/id932747118?mt=8">Shadowrocket</a>, Has purchased this software for the US store Apple ID:<code>shz7348@icloud.com</code> password<code>Qq654321.</code>Pay attention to special symbols and case, switch the store account to download and install, and then click in Safari<a href="{$ssr_url_all}">This (ordinary port)</a>or<a href="{$ssr_url_all_mu}">This (single-port multi-user)</a>, And then click OK, you can add nodes in bulk.</p>
+														<p>We recommend you download <a href="https://itunes.apple.com/cn/app/shadowrocket/id932747118?mt=8">Shadowrocket</a>. It is third party and costs an additional $3 if you want to purchase it for yourself. If not, we have already purchased it on the US APP STORE with the Apple ID:<code>shz7348@icloud.com</code> and password <code>Qq654321.</code>Pay attention to special symbols and case, login to the store account to download and install, and then open in Safari <a href="{$ssr_url_all}">This (ordinary port)</a> or <a href="{$ssr_url_all_mu}">This (single-port multi-user)</a>, then click OK, and you will be able to add servers in bulk.</p>
 														<p>SSR Subscription address:<br>
-															Ordinary port address:<code>{$baseUrl}/link/{$ssr_sub_token}?mu=0</code><br>
+															Normal port and address:<code>{$baseUrl}/link/{$ssr_sub_token}?mu=0</code><br>
 															Single port multiuser port address:<code>{$baseUrl}/link/{$ssr_sub_token}?mu=1</code>
 														</p>
 													</div>
 													<div class="tab-pane fade" id="all_ssr_android">
-														<p><a href="/ssr-download/ssr-android.apk">download</a>, Install, and then click on the default browser on the<a href="{$ssr_url_all}">This link (Ordinary port)</a>or<a href="{$ssr_url_all_mu}">This link (single port multiuser)</a>, And then click OK, batch add nodes, and then select the routing around the mainland, the upper right corner can open the Internet. While providing an ACL address,<a href="/link/{$acl_token}">Long press to copy the address</a>To the client can be applied.</p>
-														<p>SSR Subscription address:You can add a subscription at the node list to automatically update the node:<br>
+														<p><a href="/ssr-download/ssr-android.apk">Download</a>, install, and then open your default browser and click on <a href="{$ssr_url_all}">This link (Ordinary port)</a> or <a href="{$ssr_url_all_mu}">This link (single port multiuser)</a>. Afterward, click OK, batch add servers, and then select the server you want, and connect by clicking the paper airplane icon.</p>
+														<p>SSR Subscription address: You can add a server subscription list to automatically update the servers:<br>
 															Ordinary port address:<code>{$baseUrl}/link/{$ssr_sub_token}?mu=0</code><br>
 															Single port multiuser port address:<code>{$baseUrl}/link/{$ssr_sub_token}?mu=1</code>
 														</p>
 													</div>
 													<div class="tab-pane fade" id="all_ssr_router">
-														<p>router is brushed<a href="http://www.right.com.cn/forum/thread-161324-1-1.html">this firmware</a>, Then SSH login router, execute the following command (import ordinary port)<br>
+														<p>Flash your router with <a href="http://www.right.com.cn/forum/thread-161324-1-1.html">this firmware</a>, Then SSH login into your router and execute the following command (import ordinary port)<br>
 														<code>wget -O- {$baseUrl}/link/{$router_token}?is_ss=0 | bash && echo -e "\n0 */3 * * * wget -O- {$baseUrl}/link/{$router_token}?is_ss=0 | bash\n">> /etc/storage/cron/crontabs/admin && killall crond && crond </code><br>
 														Or this single-port multi-user<br>
 														<code>wget -O- {$baseUrl}/link/{$router_token_without_mu}?is_ss=0 | bash && echo -e "\n0 */3 * * * wget -O- {$baseUrl}/link/{$router_token_without_mu}?is_ss=0 | bash\n">> /etc/storage/cron/crontabs/admin && killall crond && crond </code><br>
@@ -174,7 +174,7 @@
 
 														{if URL::SSCanConnect($user)}
 														<dl class="dl-horizontal">
-															<p>The address of each node, please go to the node list to see!</p>
+															<p>To get indovidual servers' addresses, please go to the server list!</p>
 
 
 															<p><dt>port</dt>
@@ -186,35 +186,35 @@
 															<p><dt>Custom encryption</dt>
 															<dd>{$user->method}</dd></p>
 
-															<p><dt>Custom confusion</dt>
+															<p><dt>Custom Obfuscation</dt>
 															<dd>{$user->obfs}</dd></p>
 														</dl>
 														{else}
-															<p>Hello, your current encryption method, confusion, or protocol settings can not be connected under the SS client. Please use the SSR client to connect, or to the data editing page to modify and then check here.</p>
-															<p>At the same time, Shadowsocks single-port multi-user connection is not affected by your settings, you can use the corresponding client to connect here ~</p>
+															<p>Your current encryption type, obfuscation type, or protocol will not work with the Shadowsocks client. Please use the ShadowsocksR client to connect, or to the edit details page to change them to compatible types before coming back here.</p>
+															<p>If you are using the Shadowsocks single-port multi-user connection type, then it will not be affected by your settings, and you can use the corresponding client to connect without problem ~</p>
 														{/if}
 													</div>
 													<div class="tab-pane fade" id="all_ss_windows">
-														<p><a href="/ssr-download/ss-win.zip">download</a>, Extract, run the program, and then you have two ways to import all nodes<br>
-															(1)Download<a href="/user/getpcconf?is_mu=0&is_ss=1">This (ordinary port) </a>, placed in the directory of small aircraft, and then open the small plane.<br>
-															(2)Click<a class="copy-text" data-clipboard-text="{$ss_url_all_win}">Here (ordinary port)</a>, Then right click on the small aircraft - import the URL from the clipboard<br>
+														<p><a href="/ssr-download/ss-win.zip">Download</a>, extract, and run the program. You have two ways to import all nodes:<br>
+															(1)Downloa <a href="/user/getpcconf?is_mu=0&is_ss=1">This (ordinary port) </a>, and place it in the same directory of the app you just downloaded. Open the app.<br>
+															(2)Click<a class="copy-text" data-clipboard-text="{$ss_url_all_win}"> Here (ordinary port)</a>, then right click on the small paper airplane icon and click on "import the URL from the clipboard".<br>
 													</div>
 													<div class="tab-pane fade" id="all_ss_mac">
-														<p><a href="/ssr-download/ss-mac.zip">download</a>, Install, and then download<a href="/user/getpcconf?is_mu=0&is_ss=1">This (ordinary port)</a>or<a href="/user/getpcconf?is_mu=1&is_ss=1">This (single-port multi-user)</a>, Run the program, the small aircraft on the right server list submenu "import server configuration file ..." import this file, and then select a suitable server, update the PAC, and then open the system agent to the Internet.</p>
+														<p><a href="/ssr-download/ss-mac.zip">Download</a>, Install, and then download<a href="/user/getpcconf?is_mu=0&is_ss=1"> This (ordinary port)</a>or <a href="/user/getpcconf?is_mu=1&is_ss=1">This (single-port multi-user)</a>. Run the program, then right click on the small paper airplane icon on the right. Select from the server list submenu "import server configuration file ...". Import this file, and then select a suitable server, and update the PAC.</p>
 													</div>
 													<div class="tab-pane fade" id="all_ss_ios">
-														<p>Recommended download<a href="https://itunes.apple.com/cn/app/shadowrocket/id932747118?mt=8">Shadowrocket</a>, Has purchased this software for the US store Apple ID:<code>shz7348@icloud.com</code> password<code>Qq654321.</code>Pay attention to special symbols and case, switch the store account to download and install, and then click in Safari<a href="{$ss_url_all}">This (ordinary port)</a>or<a href="{$ss_url_all_mu}">This (single-port multi-user)</a>, And then click OK, you can add nodes in bulk.</p>
-														<p>iOS download<a href="/link/{$ios_token}?is_ss=1">This (ordinary port）</a>or<a href="/link/{$ios_token}?is_ss=1&is_mu=1">This (single-port multi-user)</a>, Into the Surge, and then you can freely switch the server online.</p>
+														<p>We recommend you download <a href="https://itunes.apple.com/cn/app/shadowrocket/id932747118?mt=8">Shadowrocket</a>. It is a third party app that costs an additional $3. If you don't want to purchase it for yourself, we have purchased this software from the US store. You can login using this Apple ID:<code>shz7348@icloud.com</code> and password <code>Qq654321.</code> Pay attention to special symbols and case, login to download and install, and then open this page in Safari and open <a href="{$ss_url_all}">This (ordinary port)</a>or<a href="{$ss_url_all_mu}"> This (single-port multi-user)</a>, And then click OK, you can add nodes in bulk.</p>
+														<p>iOS download <a href="/link/{$ios_token}?is_ss=1">This (ordinary port）</a>or <a href="/link/{$ios_token}?is_ss=1&is_mu=1">This (single-port multi-user)</a>. Paste it into the app, and all the servers will be automatically added.</p>
 													</div>
 													<div class="tab-pane fade" id="all_ss_android">
-														<p><a href="/ssr-download/ss-android.apk">download</a>，and<a href="/ssr-download/ss-android-obfs.apk">download</a>, Then install, and then click on the phone<a class="copy-text" data-clipboard-text="{$ss_url_all}">This link (normal port)</a>or<a class="copy-text" data-clipboard-text="{$ss_url_all_mu}">This link (single port multi-user port)</a>Copy to the clipboard, open the Shadowsocks client, select from the clipboard import, and then select a node, set the route to bypass the mainland, click on the plane can access the Internet.</p>
+														<p>Download <a href="/ssr-download/ss-android.apk">the basic version</a> or <a href="/ssr-download/ss-android-obfs.apk">the one with obfuscation</a>. Install, and then click on <a class="copy-text" data-clipboard-text="{$ss_url_all}">this link (normal port)</a> or <a class="copy-text" data-clipboard-text="{$ss_url_all_mu}">This link (single port multi-user port)</a>Copy to the clipboard, then open the Shadowsocks client, select from "import from clipboard" from the top menu to import all the servers. Finally, select a server and click on the paper airplane icon to connect.</p>
 													</div>
 													<div class="tab-pane fade" id="all_ss_router">
-														<p>The router is brushed<a href="http://www.right.com.cn/forum/thread-161324-1-1.html">This firmware</a>, Then SSH login router, execute the following command (import ordinary port)<br>
+														<p>Flash the router with <a href="http://www.right.com.cn/forum/thread-161324-1-1.html">This firmware</a>, Then SSH login router, execute the following command (import ordinary port)<br>
 														<code>wget -O- {$baseUrl}/link/{$router_token}?is_ss=1 | bash && echo -e "\n0 */3 * * * wget -O- {$baseUrl}/link/{$router_token}?is_ss=1 | bash\n">> /etc/storage/cron/crontabs/admin && killall crond && crond </code><br>
 														Or this single-port multi-user<br>
 														<code>wget -O- {$baseUrl}/link/{$router_token_without_mu}?is_ss=1 | bash && echo -e "\n0 */3 * * * wget -O- {$baseUrl}/link/{$router_token_without_mu}?is_ss=1 | bash\n">> /etc/storage/cron/crontabs/admin && killall crond && crond </code><br>
-														After the implementation of the router can be set up the panel to choose Shadowsocks server to connect.</p>
+														After the router has been installed, you can choose a Shadowsocks server to connect.</p>
 													</div>
 												</div>
 											</div>
@@ -236,15 +236,15 @@
 							<div class="card">
 								<div class="card-main">
 									<div class="card-inner margin-bottom-no">
-										<p class="card-heading">Account usage</p>
+										<p class="card-heading">Account Details</p>
 										<dl class="dl-horizontal">
 											<p><dt>Account level</dt>
 											<dd>{$user->class}</dd></p>
 
-											<p><dt>Level expiration time</dt>
+											<p><dt>Level expiration date</dt>
 											<dd>{$user->class_expire}</dd></p>
 
-											<p><dt>Account expiration time</dt>
+											<p><dt>Account expiration date</dt>
 											<dd>{$user->expire_in}</dd>
 
 											<p><dt>Speed ​​limit</dt>
@@ -254,7 +254,7 @@
 											<dd>Not limited</dd>
 											{/if}</p>
 
-											<p><dt>Last used</dt>
+											<p><dt>Last connected</dt>
 											<dd>{$user->lastSsTime()}</dd></p>
 										</dl>
 									</div>
@@ -273,7 +273,7 @@
 											var chart = new CanvasJS.Chart("traffic_chart",
 											{
 												title:{
-													text: "Data Flow usage",
+													text: "Data Usage",
 													fontFamily: "Impact",
 													fontWeight: "normal"
 												},
@@ -301,7 +301,7 @@
 															y: {($user->u+$user->d-$user->last_day_t)/$user->transfer_enable*100}, legendText:"Today {number_format(($user->u+$user->d-$user->last_day_t)/$user->transfer_enable*100,2)}% {$user->TodayusedTraffic()}", indexLabel: "Today {number_format(($user->u+$user->d-$user->last_day_t)/$user->transfer_enable*100,2)}% {$user->TodayusedTraffic()}"
 														},
 														{
-															y: {($user->transfer_enable-($user->u+$user->d))/$user->transfer_enable*100}, legendText:"Margin {number_format(($user->transfer_enable-($user->u+$user->d))/$user->transfer_enable*100,2)}% {$user->unusedTraffic()}", indexLabel: "Margin {number_format(($user->transfer_enable-($user->u+$user->d))/$user->transfer_enable*100,2)}% {$user->unusedTraffic()}"
+															y: {($user->transfer_enable-($user->u+$user->d))/$user->transfer_enable*100}, legendText:"Margin {number_format(($user->transfer_enable-($user->u+$user->d))/$user->transfer_enable*100,2)}% {$user->unusedTraffic()}", indexLabel: "Left {number_format(($user->transfer_enable-($user->u+$user->d))/$user->transfer_enable*100,2)}% {$user->unusedTraffic()}"
 														}
 														{/if}
 													]
@@ -322,12 +322,12 @@
 							<div class="card">
 								<div class="card-main">
 									<div class="card-inner margin-bottom-no">
-										<p class="card-heading">Check to get Flow</p>
-											<p>Flow will not be reset, you can get through the check to get Flow.</p>
+										<p class="card-heading">Check in to get Additional Data</p>
+											<p>Data will not be reset, but you will get additional free data.</p>
 
-											<p>Each check can get {$config['checkinMin']}~{$config['checkinMax']}MB Data Flow。</p>
+											<p>Each time you check in, you can get {$config['checkinMin']}~{$config['checkinMax']}MB Data.</p>
 
-											<p>Check once every day. You can click the button or shake the phone to Check.</p>
+											<p>You can only check in once every day. You can click the button below or shake the phone to check in.</p>
 
 											<p>Last check-in ：<code>{$user->lastCheckInTime()}</code></p>
 
@@ -343,10 +343,10 @@
 										<div class="card-action-btn pull-left">
 											{if $user->isAbleToCheckin() }
 												<p id="checkin-btn">
-													<button id="checkin" class="btn btn-brand btn-flat waves-attach"><span class="icon">check</span>&nbsp;Check</button>
+													<button id="checkin" class="btn btn-brand btn-flat waves-attach"><span class="icon">check</span>&nbsp;Check in</button>
 												</p>
 											{else}
-												<p><a class="btn btn-brand disabled btn-flat waves-attach" href="#"><span class="icon">check</span>&nbsp;Has been checked</a></p>
+												<p><a class="btn btn-brand disabled btn-flat waves-attach" href="#"><span class="icon">check</span>&nbsp;Already checked in</a></p>
 											{/if}
 										</div>
 									</div>

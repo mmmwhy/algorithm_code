@@ -25,7 +25,7 @@
 					<div class="card">
 						<div class="card-main">
 							<div class="card-inner">
-								<p>List of all items in the system. When you purchase a grade class, the period of validity is calculated from the current time.</p>
+								<p>List of all items in the system. When you purchase a grade class, the period of validity is calculated from the current date.</p>
 								<p>Current balance：{$user->money} CNY</p>
 							</div>
 						</div>
@@ -35,7 +35,7 @@
 						{$shops->render()}
 						<table class="table ">
                             <tr>
-								<th>Operate</th>
+								<th>Action</th>
                                 <th>ID</th>
                                 <th>Name</th>
 								<th>Price</th>
@@ -56,13 +56,13 @@
 								{if $shop->auto_renew==0}
                                 <td>Not auto renew</td>
 								{else}
-								<td>Optional free after {$shop->auto_renew} days</td>
+								<td>Automatically renew after {$shop->auto_renew} days</td>
 								{/if}
 								
 								{if $shop->auto_reset_bandwidth==0}
                                 <td>Not reset automatically</td>
 								{else}
-								<td>Automatic reset</td>
+								<td>Automaticly reset</td>
 								{/if}
                                 
                             </tr>
@@ -81,7 +81,7 @@
 								</div>
 								<div class="modal-inner">
 									<div class="form-group form-group-label">
-										<label class="floating-label" for="coupon">Yes, please enter here. If not, click OK.</label>
+										<label class="floating-label" for="coupon">If yes, please enter here. If not, click OK.</label>
 										<input class="form-control" id="coupon" type="text">
 									</div>
 								</div>

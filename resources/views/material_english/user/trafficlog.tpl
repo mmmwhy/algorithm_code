@@ -15,7 +15,7 @@
 	<main class="content">
 		<div class="content-header ui-content-header">
 			<div class="container">
-				<h1 class="content-heading">Flow record</h1>
+				<h1 class="content-heading">Data Usage</h1>
 			</div>
 		</div>
 		<div class="container">
@@ -27,7 +27,7 @@
 								<div class="card-main">
 									<div class="card-inner margin-bottom-no">
 										<p class="card-heading">Warning!</p>
-										<p>Some nodes do not support flow logging.</p>
+										<p>Some servers do not support data logging.</p>
 										<p>Only the last 72 hours of records are shown here, with a granularity of minutes.</p>
 									</div>
 									
@@ -49,7 +49,7 @@
 												{
 													zoomEnabled: true,
 													title:{
-														text: "Your last 72 hours of traffic is consumed",
+														text: "Your last 72 hours of data usage",
 														fontSize: 20
 														
 													},  

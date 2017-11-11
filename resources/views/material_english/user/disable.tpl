@@ -15,7 +15,7 @@
 	<main class="content">
 		<div class="content-header ui-content-header">
 			<div class="container">
-				<h1 class="content-heading">虚空之地</h1>
+				<h1 class="content-heading">NO DATA</h1>
 			</div>
 		</div>
 		<div class="container">
@@ -28,7 +28,7 @@
 							<div class="card">
 								<div class="card-main">
 									<div class="card-inner">
-										<p>您由于某些原因而被管理员禁用了账户，请联系管理员。</p>
+										<p>You have been restricted from using our services. Please contact the administrator for more info. </p>
 									</div>
 								</div>
 							</div>

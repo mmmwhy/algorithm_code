@@ -90,7 +90,7 @@
 																<td>#{$code->id}</td>
 																<td>{$code->code}</td>
 																{if $code->type==-1}
-																<td>amount of recharge</td>
+																<td>amount to recharge</td>
 																{/if}
 																{if $code->type==10001}
 																<td>Traffic recharge</td>

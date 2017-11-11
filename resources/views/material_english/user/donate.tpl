@@ -18,7 +18,7 @@
 	<main class="content">
 		<div class="content-header ui-content-header">
 			<div class="container">
-				<h1 class="content-heading">Donate publicity</h1>
+				<h1 class="content-heading">Donate</h1>
 			</div>
 		</div>
 		<div class="container">
@@ -30,9 +30,9 @@
 						<div class="card margin-bottom-no">
 							<div class="card-main">
 								<div class="card-inner">
-									<p>Thank you for donating to support the daily expenses of the server! You can recharge the <a href="/user/code"> recharge interface </a>, which is equivalent to donating.</p>
+									<p>Thank you for donating to support the daily expenses of the server! You can also recharge your account <a href="/user/code">here</a>, which is equivalent to donating.</p>
 									{if $user->isAdmin()}
-									<p>Total revenue: {$total_in} CNY</p>
+									<p>Total donated so far: {$total_in} CNY </p>
 									{/if}
 								
 								</div>

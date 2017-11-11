@@ -12,7 +12,7 @@
 	<main class="content">
 		<div class="content-header ui-content-header">
 			<div class="container">
-				<h1 class="content-heading">Account</h1>
+				<h1 class="content-heading">My Account</h1>
 			</div>
 		</div>
 		<div class="container">
@@ -27,7 +27,7 @@
 										<dl class="dl-horizontal">
 											<dt>Username</dt>
 											<dd>{$user->user_name}</dd>
-											<dt>Mail</dt>
+											<dt>E-mail</dt>
 											<dd>{$user->email}</dd>
 										</dl>
 									</div>
@@ -43,15 +43,15 @@
 						<div class="card">
 							<div class="card-main">
 								<div class="card-inner margin-bottom-no">
-									<p class="card-heading">The last five minutes use IP</p>
-									<p>Please confirm for their own IP, if any abnormal please modify the connection password.</p>
+									<p class="card-heading">Connected IPs in the last 5 minutes</p>
+									<p>Please confirm that the IPs are yours, if younotice anything abnormal, please modify your password.</p>
 									<div class="card-table">
 										<div class="table-responsive">
 											<table class="table">
 												<tr>
 
 													<th>IP</th>
-													<th>Attribution</th>
+													<th>Location</th>
 												</tr>
 												{foreach $userip as $single=>$location}
 													<tr>
@@ -71,15 +71,15 @@
 						<div class="card">
 							<div class="card-main">
 								<div class="card-inner margin-bottom-no">
-									<p class="card-heading">Last 10 logon IP</p>
-									<p>Please confirm for their own IP, if any, please change the password in time.</p>
+									<p class="card-heading">Last 10 login IPs</p>
+									<p>Please confirm that the IPs are yours, if younotice anything abnormal, please modify your password.</p>
 									<div class="card-table">
 										<div class="table-responsive">
 											<table class="table">
 												<tr>
 
 													<th>IP</th>
-													<th>Attribution</th>
+													<th>Location</th>
 												</tr>
 												{foreach $userloginip as $single=>$location}
 													<tr>
@@ -102,7 +102,7 @@
 							<div class="card-main">
 								<div class="card-inner">
 									<div class="card-inner">
-										<p class="card-heading">Rebate record</p>
+										<p class="card-heading">Rebate records</p>
 										<div class="card-table">
 											<div class="table-responsive">
 											{$paybacks->render()}
@@ -111,7 +111,7 @@
 													<tr>
 														<th>###</th>
 														<th>Rebate user</th>
-														<th>Amount of rebate</th>
+														<th>Rebate Amount</th>
 													</tr>
 													</thead>
 													<tbody>
@@ -122,7 +122,7 @@
 																<td>{$payback->user()->user_name}
 																</td>
 																{else}
-																<td>Has been canceled
+																<td>Canceled
 																</td>
 															{/if}
 															</td>

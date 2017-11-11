@@ -196,7 +196,7 @@
 		<ul class="nav nav-list pull-left">
 			<div>
 				<a data-toggle="menu" href="#ui_menu">
-					<span class="icon icon-lg text-white">menu</span>
+					<span class="icon icon-lg text-white">Menu</span>
 				</a>
 			</div>
 		</ul>
@@ -210,14 +210,14 @@
 					</a>
 					<ul class="dropdown-menu dropdown-menu-right">
 						<li>
-							<a class="padding-right-lg waves-attach" href="/user/"><span class="icon icon-lg margin-right">account_box</span>User Center</a>
+							<a class="padding-right-lg waves-attach" href="/user/"><span class="icon icon-lg margin-right">account_box</span>Dashboard</a>
 						</li>
 						<li>
 							<a class="padding-right-lg waves-attach" href="/user/logout"><span class="icon icon-lg margin-right">exit_to_app</span>Sign out</a>
 						</li>
 					</ul>
 				{else}
-					<span class="access-hide">Not logged</span>
+					<span class="access-hide">Not logged in</span>
 					<span class="avatar avatar-sm"><img alt="alt text for John Smith avatar" src="/theme/material/images/users/avatar-001.jpg"></span>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-right">
@@ -225,7 +225,7 @@
 							<a class="padding-right-lg waves-attach" href="/auth/login"><span class="icon icon-lg margin-right">account_box</span>Login</a>
 						</li>
 						<li>
-							<a class="padding-right-lg waves-attach" href="/auth/register"><span class="icon icon-lg margin-right">pregnant_woman</span>Registered</a>
+							<a class="padding-right-lg waves-attach" href="/auth/register"><span class="icon icon-lg margin-right">pregnant_woman</span>Register</a>
 						</li>
 					</ul>
 				{/if}
@@ -236,43 +236,43 @@
 	<nav aria-hidden="true" class="menu menu-left nav-drawer nav-drawer-md" id="ui_menu" tabindex="-1">
 		<div class="menu-scroll">
 			<div class="menu-content">
-				<a class="menu-logo" href="/"><i class="icon icon-lg">language</i>&nbsp;Click to Home page</a>
+				<a class="menu-logo" href="/"><i class="icon icon-lg">language</i>&nbsp;Home</a>
 				<ul class="nav">
 					<li>
-						<a class="waves-attach" data-toggle="collapse" href="#ui_menu_me">Mine</a>
+						<a class="waves-attach" data-toggle="collapse" href="#ui_menu_me">My Account</a>
 						<ul class="menu-collapse collapse in" id="ui_menu_me">
 							<li>
 								<a href="/user">
-									<i class="icon icon-lg">view_compact</i>&nbsp;Dash board
+									<i class="icon icon-lg">view_compact</i>&nbsp;Dashboard
 								</a>
 							</li>
 							
 							<li>
 								<a href="/user/profile">
-									<i class="icon icon-lg">account_box</i>&nbsp;Account information
+									<i class="icon icon-lg">account_box</i>&nbsp;Account Details
 								</a>
 							</li>
 							
 							<li>
 								<a href="/user/edit">
-									<i class="icon icon-lg">sync_problem</i>&nbsp;Information editor
+									<i class="icon icon-lg">sync_problem</i>&nbsp;Edit My Account
 								</a>
 							</li>
 							
 						<!--	<li>
 								<a href="/user/invite">
-									<i class="icon icon-lg">loyalty</i>&nbsp;Invitation code
+									<i class="icon icon-lg">loyalty</i>&nbsp;Invitation Codes
 								</a>
 							</li> -->
 							
 							<li>
 								<a href="/user/announcement">
-									<i class="icon icon-lg">announcement</i>&nbsp;Announcement
+									<i class="icon icon-lg">announcement</i>&nbsp;Announcements
 								</a>
 							</li>
                           <li>
 								<a href="/user/ticket">
-									<i class="icon icon-lg">question_answer</i>&nbsp;W/O
+									<i class="icon icon-lg">question_answer</i>&nbsp;Donations
 								</a>
 							</li>
 							
@@ -283,37 +283,39 @@
 						</ul>
 						
 						
-						<a class="waves-attach" data-toggle="collapse" href="#ui_menu_use">Use</a>
+						<a class="waves-attach" data-toggle="collapse" href="#ui_menu_use">Usage</a>
 						<ul class="menu-collapse collapse in" id="ui_menu_use">
 							<li>
 								<a href="/user/node">
-									<i class="icon icon-lg">airplanemode_active</i>&nbsp;Node list
+									<i class="icon icon-lg">airplanemode_active</i>&nbsp;Server List
 								</a>
 							</li>
 							
 							<li>
 								<a href="/user/relay">
-									<i class="icon icon-lg">compare_arrows</i>&nbsp;Transit rules
+									<i class="icon icon-lg">compare_arrows</i>&nbsp;Data Transit Rules
 								</a>
 							</li>
 							
 							<li>
 								<a href="/user/trafficlog">
-									<i class="icon icon-lg">low_priority</i>&nbsp;Flow record
+									<i class="icon icon-lg">low_priority</i>&nbsp;Data Usage
 								</a>
 							</li>
 							
 							<li>
 								<a href="/user/lookingglass">
-									<i class="icon icon-lg">sort</i>&nbsp;Speed test
+									<i class="icon icon-lg">sort</i>&nbsp;Server Looking-glass
 								</a>
+								<!––
 								<a target="_blank" href="/Course.html">
-									<i class="icon icon-lg">start</i>&nbsp;Course - Development
-								</a>
+									<i class="icon icon-lg">start</i>&nbsp;
+								</a> 
+								-->
 							</li>
 						</ul>
 
-					<!--	<a class="waves-attach" data-toggle="collapse" href="#ui_menu_detect">Audit</a>
+						<a class="waves-attach" data-toggle="collapse" href="#ui_menu_detect">Audit</a>
 						<ul class="menu-collapse collapse in" id="ui_menu_detect">
 							<li><a href="/user/detect"><i class="icon icon-lg">account_balance</i>&nbsp;Audit rules</a></li>
 							<li><a href="/user/detect/log"><i class="icon icon-lg">assignment_late</i>&nbsp;Audit record</a></li>
@@ -327,13 +329,13 @@
 									<i class="icon icon-lg">help</i>&nbsp;Q & A system
 								</a>
 							</li>
-							{/if}-->
+							{/if}
 							
 
 					
 
 						
-						<a class="waves-attach" data-toggle="collapse" href="#ui_menu_help">Donate</a>
+						<a class="waves-attach" data-toggle="collapse" href="#ui_menu_help">Your Subsciption</a>
 						<ul class="menu-collapse collapse in" id="ui_menu_help">
 						
 						
@@ -350,14 +352,14 @@
 
 							<li>
 								<a href="/user/code">
-									<i class="icon icon-lg">code</i>&nbsp;Recharge
+									<i class="icon icon-lg">code</i>&nbsp;Recharge 
 								</a>
 							</li>
                           
                           {if $config['enable_donate']=='true'}
 							<li>
 								<a href="/user/donate">
-									<i class="icon icon-lg">attach_money</i>&nbsp;Donate publicity
+									<i class="icon icon-lg">attach_money</i>&nbsp;Donations
 								</a>
 							</li>
 							{/if}

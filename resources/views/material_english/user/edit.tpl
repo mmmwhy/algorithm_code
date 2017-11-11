@@ -12,7 +12,7 @@
 	<main class="content">
 		<div class="content-header ui-content-header">
 			<div class="container">
-				<h1 class="content-heading">Modify the information</h1>
+				<h1 class="content-heading">Edit your account details</h1>
 			</div>
 		</div>
 		<div class="container">
@@ -25,7 +25,7 @@
 							<div class="card-main">
 								<div class="card-inner">
 									<div class="card-inner">
-										<p class="card-heading">Change Password</p>
+										<p class="card-heading">Change Login Password</p>
 										<div class="form-group form-group-label">
 											<label class="floating-label" for="oldpwd">Current password</label>
 											<input class="form-control" id="oldpwd" type="password">
@@ -37,7 +37,7 @@
 										</div>
 
 										<div class="form-group form-group-label">
-											<label class="floating-label" for="repwd">Confirm the new password</label>
+											<label class="floating-label" for="repwd">Confirm new password</label>
 											<input class="form-control" id="repwd" type="password">
 										</div>
 									</div>
@@ -54,10 +54,10 @@
 							<div class="card-main">
 								<div class="card-inner">
 									<div class="card-inner">
-										<p class="card-heading">Connection password modification</p>
-										<p>Current connection password: {$user->passwd}</p>
+										<p class="card-heading">Change VPN/Shadowsocks Password</p>
+										<p>Current password: {$user->passwd}</p>
 										<div class="form-group form-group-label">
-											<label class="floating-label" for="sspwd">Connection password</label>
+											<label class="floating-label" for="sspwd">New password</label>
 											<input class="form-control" id="sspwd" type="text">
 										</div>
 
@@ -75,15 +75,15 @@
 							<div class="card-main">
 								<div class="card-inner">
 									<div class="card-inner">
-										<p class="card-heading">Encryption mode modification</p>
-										<p>Note: SS and SSR support the encryption method is different, according to the actual situation to choose!</p>
+										<p class="card-heading">Change encryption type</p>
+										<p>Note: Some encryption types may not be supported by both Shadowsocks and ShadowsocksR.</p>
 										<p>Current encryption:{$user->method}</p>
 										<div class="form-group form-group-label">
 											<label class="floating-label" for="method">Encryption</label>
 											<select id="method" class="form-control">
 												{$method_list = $config_service->getSupportParam('method')}
 												{foreach $method_list as $method}
-													<option value="{$method}" {if $user->method == $method}selected="selected"{/if}>[{if URL::CanMethodConnect($method) == 2}SS{else}SS/SSR{/if} Can be connected] {$method}</option>
+													<option value="{$method}" {if $user->method == $method}selected="selected"{/if}>[Supports {if URL::CanMethodConnect($method) == 2}SS{else}SS/SSR{/if}] {$method}</option>
 												{/foreach}
 											</select>
 										</div>
@@ -102,7 +102,7 @@
 							<div class="card-main">
 								<div class="card-inner">
 									<div class="card-inner">
-										<p class="card-heading">Contact Modification</p>
+										<p class="card-heading">Change Contact Details</p>
 										<p>Current contact：
 										{if $user->im_type==1}
 										Wechat
@@ -122,7 +122,7 @@
 
 										{$user->im_value}</p>
 										<div class="form-group form-group-label">
-											<label class="floating-label" for="imtype">Choose your contact information</label>
+											<label class="floating-label" for="imtype">Choose the way of contacting you</label>
 											<select class="form-control" id="imtype">
 												<option></option>
 												<option value="1">Wechat</option>
@@ -133,7 +133,7 @@
 										</div>
 
 										<div class="form-group form-group-label">
-											<label class="floating-label" for="wechat">Enter the contact number here</label>
+											<label class="floating-label" for="wechat">Enter your contact number here</label>
 											<input class="form-control" id="wechat" type="text">
 										</div>
 
@@ -153,16 +153,16 @@
 							<div class="card-main">
 								<div class="card-inner">
 									<div class="card-inner">
-										<p class="card-heading">Protocol & confusing settings</p>
-										<p>Current agreement：{$user->protocol}</p>
-										<p>Note 1: If you need to be compatible with the original version of the SS Please choose with _compatible compatibility options!</p>
-										<p>Note 2: If you use the original SS client here please set it directly as origin!</p>
+										<p class="card-heading">Protocol & Obfuscation</p>
+										<p>Current protocol：{$user->protocol}</p>
+										<p>Note 1: If you need the protocol to be compatible with the original version of Shadowsocks, Please only choose  _compatible options!</p>
+										<p>Note 2: If you only use the original Shadowsocks client here please set it directly as origin!</p>
 										<div class="form-group form-group-label">
 											<label class="floating-label" for="protocol">Protocol</label>
 											<select id="protocol" class="form-control">
 												{$protocol_list = $config_service->getSupportParam('protocol')}
 												{foreach $protocol_list as $protocol}
-													<option value="{$protocol}" {if $user->protocol == $protocol}selected="selected"{/if}>[{if URL::CanProtocolConnect($protocol) == 3}SS/SSR{else}SSR{/if} Can be connected] {$protocol}</option>
+													<option value="{$protocol}" {if $user->protocol == $protocol}selected="selected"{/if}>[Supports {if URL::CanProtocolConnect($protocol) == 3}SS/SSR{else}SSR{/if}] {$protocol}</option>
 												{/foreach}
 											</select>
 										</div>
@@ -170,15 +170,15 @@
 									</div>
 
 									<div class="card-inner">
-										<p>Current confusing:{$user->obfs}</p>
-										<p>Note 1: If you need to be compatible with the original version of the SS Please choose with _compatible compatibility options!</p>
-										<p>Note 2: SS and SSR support the confusion type is different, simple_obfs_ * for the original SS confusing way, the other for the SSR confusing way!</p>
+										<p>Current obfuscation:{$user->obfs}</p>
+										<p>Note 1: If you need it to be compatible with the original version of Shadowsocks, Please onky choose _compatible options!</p>
+										<p>Note 2: SS and SSR support different obfuscation types, simple_obfs_ * types will only work with the original version of Shadowsocks, the rest will only work on ShadowsocksR!</p>
 										<div class="form-group form-group-label">
-											<label class="floating-label" for="obfs">Confused way</label>
+											<label class="floating-label" for="obfs">Obfuscation type</label>
 											<select id="obfs" class="form-control">
 												{$obfs_list = $config_service->getSupportParam('obfs')}
 												{foreach $obfs_list as $obfs}
-													<option value="{$obfs}" {if $user->obfs == $obfs}selected="selected"{/if}>[{if URL::CanObfsConnect($obfs) >= 3}SS/SSR{else}{if URL::CanObfsConnect($obfs) == 1}SSR{else}SS{/if}{/if} Can be connected] {$obfs}</option>
+													<option value="{$obfs}" {if $user->obfs == $obfs}selected="selected"{/if}>[Supports {if URL::CanObfsConnect($obfs) >= 3}SS/SSR{else}{if URL::CanObfsConnect($obfs) == 1}SSR{else}SS{/if}{/if}] {$obfs}</option>
 												{/foreach}
 											</select>
 										</div>
@@ -203,7 +203,7 @@
 							<div class="card-main">
 								<div class="card-inner">
 									<div class="card-inner">
-										<p class="card-heading">Theme change</p>
+										<p class="card-heading">Change the website Theme</p>
 										<p>Current theme：{$user->theme}</p>
 										<div class="form-group form-group-label">
 											<label class="floating-label" for="theme">Theme</label>
@@ -233,7 +233,7 @@
 							<div class="card-main">
 								<div class="card-inner">
 									<div class="card-inner">
-										<p class="card-heading">IP decapsulation</p>
+										<p class="card-heading">IP Blocking</p>
 										<p>Current state：{$Block}</p>
 
 									</div>
@@ -252,7 +252,7 @@
 							<div class="card-main">
 								<div class="card-inner">
 									<div class="card-inner">
-										<p class="card-heading">Daily mail reception settings</p>
+										<p class="card-heading">Daily status updates by email</p>
 										<p>Current setting：{if $user->sendDailyMail==1} send {else} Do not send {/if}</p>
 										<div class="form-group form-group-label">
 											<label class="floating-label" for="mail">Send settings</label>
@@ -323,13 +323,13 @@
 							<div class="card-main">
 								<div class="card-inner">
 									<div class="card-inner">
-										<p class="card-heading">Reset the port</p>
+										<p class="card-heading">Change Connection Port</p>
 										<p>Current port：{$user->port}</p>
 
 									</div>
 									<div class="card-action">
 										<div class="card-action-btn pull-left">
-											<button class="btn btn-flat waves-attach" id="portreset" ><span class="icon">check</span>&nbsp;Reset the port</button>
+											<button class="btn btn-flat waves-attach" id="portreset" ><span class="icon">check</span>&nbsp;Change port</button>
 										</div>
 									</div>
 								</div>
@@ -341,11 +341,11 @@
 								<div class="card-inner">
 									<div class="card-inner">
 										<p class="card-heading">Customize ACL / PAC / Surge</p>
-										<p>You can add the Gfwlist rule here.</p>
-										<p>Format see<a href="https://adblockplus.org/zh_CN/filters">https://adblockplus.org/zh_CN/filters</a></p>
-										<p>IP segment Please use | 127.0.0.0/8 similar format</p>
+										<p>You can add Gfwlist rules here. PLEASE DO NOT EDIT THIS IF YOU DO NOT KNOW WHAT IT DOES!</p>
+										<p>Format see <a href="https://adblockplus.org/zh_CN/filters">https://adblockplus.org/zh_CN/filters</a></p>
+										<p>IP segment Please use | 127.0.0.0/8 format</p>
 										<div class="form-group form-group-label">
-											<label class="floating-label" for="pac">Rule writing area</label>
+											<label class="floating-label" for="pac">Additional rulea</label>
 											<textarea class="form-control" id="pac" rows="8">{$user->pac}</textarea>
 										</div>
 

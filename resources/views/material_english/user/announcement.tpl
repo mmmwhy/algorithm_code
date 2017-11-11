@@ -15,7 +15,7 @@
 	<main class="content">
 		<div class="content-header ui-content-header">
 			<div class="container">
-				<h1 class="content-heading">Announcement</h1>
+				<h1 class="content-heading">Announcements</h1>
 			</div>
 		</div>
 		<div class="container">
@@ -26,7 +26,7 @@
 							<div class="card">
 								<div class="card-main">
 									<div class="card-inner margin-bottom-no">
-										<p class="card-heading">Announcement</p>
+										<p class="card-heading">Announcements</p>
 										<div class="card-table">
 											<div class="table-responsive">
 												<table class="table">

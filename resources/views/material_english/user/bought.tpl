@@ -22,7 +22,7 @@
 					<div class="card">
 						<div class="card-main">
 							<div class="card-inner">
-								<p>purchase record in the system。</p>
+								<p>Your purchases</p>
 							</div>
 						</div>
 					</div>
@@ -36,7 +36,7 @@
                                 <th>Product name</th>
 								<th>Content</th>
 								<th>Price</th>
-                                <th>Renewal time</th>
+                                <th>Date of Remewal</th>
 								<th>Restores traffic when renewing</th>
                                 
                             </tr>
@@ -50,7 +50,7 @@
 								<td>{$shop->shop()->content()}</td>
 								<td>{$shop->price} Yuan</td>
 								{if $shop->renew==0}
-                                <td>Not automatically renew</td>
+                                <td>Not renewed automatically</td>
 								{else}
 								<td>在 {$shop->renew_date()} Renewal</td>
 								{/if}
@@ -79,7 +79,7 @@
 									<p>Please confirm.</p>
 								</div>
 								<div class="modal-footer">
-									<p class="text-right"><button class="btn btn-flat btn-brand-accent waves-attach waves-effect" data-dismiss="modal" type="button">Cancel</button><button class="btn btn-flat btn-brand-accent waves-attach" data-dismiss="modal" id="delete_input" type="button">Determine</button></p>
+									<p class="text-right"><button class="btn btn-flat btn-brand-accent waves-attach waves-effect" data-dismiss="modal" type="button">Cancel</button><button class="btn btn-flat btn-brand-accent waves-attach" data-dismiss="modal" id="delete_input" type="button">Yes, I'm sure</button></p>
 								</div>
 							</div>
 						</div>

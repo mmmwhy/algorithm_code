@@ -12,7 +12,7 @@
 	<main class="content">
 		<div class="content-header ui-content-header">
 			<div class="container">
-				<h1 class="content-heading">W/O</h1>
+				<h1 class="content-heading">Support Tickets</h1>
 			</div>
 		</div>
 		<div class="container">
@@ -22,7 +22,7 @@
 					<div class="card">
 						<div class="card-main">
 							<div class="card-inner">
-								<p>Have any questions please go directly to the lower right corner of the + to submit a new question</p>
+								<p>If you have any questions, please submit a new ticket.</p>
 							</div>
 						</div>
 					</div>
@@ -31,7 +31,7 @@
 						{$tickets->render()}
                         <table class="table">
                             <tr>
-								<th>Operating</th>
+								<th>Action</th>
                                 <th>ID</th>
                                 <th>Date</th>
                                 <th>Title</th>

@@ -12,7 +12,7 @@
 			chart{$id} = new CanvasJS.Chart("load{$id}_chart",
 			{
 				title:{
-					text: "Node load condition {$prefix}"
+					text: "Server load {$prefix}"
 				},
 				data: [
 				{
@@ -50,7 +50,7 @@
 			up_chart{$id} = new CanvasJS.Chart("up{$id}_chart",
 			{
 				title:{
-					text: "The last day of the node is online {$prefix} - Online {$point_node->getNodeUptime()}"
+					text: "Online rate for the last 24 hours for {$prefix} - Online for {$point_node->getNodeUptime()}"
 				},
 				data: [
 					{
@@ -78,7 +78,7 @@
 			alive_chart{$id} = new CanvasJS.Chart("alive{$id}_chart",
 			{
 				title:{
-					text: "The number of online nodes in the last day {$prefix}"
+					text: "Number of users online in the last 24 hours for {$prefix}"
 				},
 				data: [
 				{
@@ -117,7 +117,7 @@
 			speedtest_chart{$id} = new CanvasJS.Chart("speedtest{$id}_chart",
 			{
 				title:{
-					text: "Report of the latest node speed delay {$prefix}"
+					text: "Ping from major ISPs{$prefix}"
 				},
 				axisY: {				
 					suffix: " ms"
@@ -126,7 +126,7 @@
 				{
 					type: "line", 
 					showInLegend: true,
-					legendText: "China Telecom delay",
+					legendText: "China Telecom ping",
 					dataPoints: [
 						{$i=0}
 						{foreach $speedtests as $single_speedtest}
@@ -155,7 +155,7 @@
 				{
 					type: "line", 
 					showInLegend: true,
-					legendText: "China Unicom delay",
+					legendText: "China Unicom ping",
 					dataPoints: [
 						{$i=0}
 						{foreach $speedtests as $single_speedtest}
@@ -184,7 +184,7 @@
 				{
 					type: "line", 
 					showInLegend: true,
-					legendText:"China Mobile delay",
+					legendText:"China Mobile ping",
 					dataPoints: [
 						{$i=0}
 						{foreach $speedtests as $single_speedtest}
@@ -216,7 +216,7 @@
 			speedtest_ping_chart{$id} = new CanvasJS.Chart("speedtest{$id}_ping_chart",
 			{
 				title:{
-					text: "Recent Report on Speed ​​Velocity of Node {$prefix}"
+					text: "Server ​​Speed test {$prefix}"
 				},
 				axisY: {				
 					suffix: " Mbps"
@@ -312,7 +312,7 @@
 				{
 					type: "line", 
 					showInLegend: true,
-					legendText: "China Unicom update speed",
+					legendText: "China Unicom upload speed",
 					dataPoints: [
 						{$i=0}
 						{foreach $speedtests as $single_speedtest}

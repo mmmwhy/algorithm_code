@@ -12,7 +12,7 @@
 	<main class="content">
 		<div class="content-header ui-content-header">
 			<div class="container">
-				<h1 class="content-heading">Transfer rule management</h1>
+				<h1 class="content-heading">Transfer rules management</h1>
 			</div>
 		</div>
 		<div class="container">
@@ -24,8 +24,8 @@
 							<div class="card-inner">
 								<p>All your transit rules in the system.</p>
 								<p>Here, you can set your transit rules to redirect data from one server to another.</p>
-								<p>The higher the priority, the higher the priority, on behalf of its multiple conditions in the coexistence of the rules will be given priority, when the priority is consistent, the first rule will be added.</p>
-								<p>For a node does not set the transit, the node can be used as a common node to do the agent.</p>
+								<p>If its priority is higher, then that rule will take precedence over others with lower priority in the event of coexistence of conflicting rules.</p>
+								<p>If a server does not have transit rules, then that server can be used as a common server.</p>
 							</div>
 						</div>
 					</div>

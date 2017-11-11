@@ -12,11 +12,11 @@
 
 							{if $config['enable_telegram'] == 'true'}
 								<li>
-									<a class="waves-attach" data-toggle="tab" href="#qrcode_login">	TG QR Code</a>
+									<a class="waves-attach" data-toggle="tab" href="#qrcode_login">Login with QR code</a>
 								</li>
                                {/if}
                               	<li class="active">
-							   <a class="waves-attach" data-toggle="tab" href="#passwd_login">Password login</a>
+							   <a class="waves-attach" data-toggle="tab" href="#passwd_login">Login with password</a>
 								</li>
                               {if $config['enable_telegram'] == 'true'}
 								<li>
@@ -32,7 +32,7 @@
 										<div class="card-main">
 											<div class="card-header">
 												<div class="card-inner">
-													<h1 class="card-heading">Login to the user center</h1>
+													<h1 class="card-heading">Login to the Dashboard</h1>
 												</div>
 											</div>
 											<div class="card-inner">
@@ -50,7 +50,7 @@
 													<div class="form-group form-group-label">
 														<div class="row">
 															<div class="col-md-10 col-md-push-1">
-																<label class="floating-label" for="passwd">密码</label>
+																<label class="floating-label" for="passwd">Password</label>
 																<input class="form-control" id="passwd" type="password" name="Password">
 															</div>
 														</div>
@@ -71,7 +71,7 @@
 													<div class="form-group">
 														<div class="row">
 															<div class="col-md-10 col-md-push-1">
-																<button id="login" type="submit" class="btn btn-block btn-brand waves-attach waves-light">登录</button>
+																<button id="login" type="submit" class="btn btn-block btn-brand waves-attach waves-light">Login</button>
 															</div>
 														</div>
 													</div>
@@ -81,8 +81,8 @@
 															<div class="col-md-10 col-md-push-1">
 																<div class="checkbox checkbox-adv">
 																	<label for="remember_me">
-																		<input class="access-hide" value="week" id="remember_me" name="remember_me" type="checkbox">记住我
-																		<span class="checkbox-circle"></span><span class="checkbox-circle-check"></span><span class="checkbox-circle-icon icon">done</span>
+																		<input class="access-hide" value="week" id="remember_me" name="remember_me" type="checkbox">remember me
+																		<span class="checkbox-circle"></span><span class="checkbox-circle-check"></span><span class="checkbox-circle-icon icon">Done</span>
 																	</label>
 																</div>
 															</div>
@@ -100,11 +100,11 @@
 										<div class="card-main">
 											<div class="card-header">
 												<div class="card-inner">
-													<h1 class="card-heading">Telegram扫码登录</h1>
+													<h1 class="card-heading">Telegram QR Code</h1>
 												</div>
 											</div>
 											<div class="card-inner">
-												<p>添加机器人账号 <a href="https://t.me/{$telegram_bot}">@{$telegram_bot}</a>，拍下下面这张二维码发给它。</p>
+												<p>Add the bot number <a href="https://t.me/{$telegram_bot}">@{$telegram_bot}</a>，and send him this QR code。</p>
 												<div class="form-group form-group-label">
 													<div class="text-center">
 														<div id="telegram-qr"></div>
@@ -120,11 +120,11 @@
 										<div class="card-main">
 											<div class="card-header">
 												<div class="card-inner">
-													<h1 class="card-heading">Telegram数字登录</h1>
+													<h1 class="card-heading">Telegram Login</h1>
 												</div>
 											</div>
 											<div class="card-inner">
-												<p>添加机器人账号 <a href="https://t.me/{$telegram_bot}">@{$telegram_bot}</a>，发送下面的数字给它。</p>
+												<p>A the bot number <a href="https://t.me/{$telegram_bot}">@{$telegram_bot}</a>，and send him the login details below。</p>
 												<div class="form-group form-group-label">
 													<div class="text-center">
 														<h1><code id="code_number">{$login_number}</code></h1>
@@ -140,8 +140,8 @@
 
 
 						<div class="clearfix">
-							<p class="margin-no-top pull-left"><a class="btn btn-flat btn-brand waves-attach" href="/password/reset">忘记密码</a></p>
-							<p class="margin-no-top pull-right"><a class="btn btn-flat btn-brand waves-attach" href="/auth/register">注册帐号</a></p>
+							<p class="margin-no-top pull-left"><a class="btn btn-flat btn-brand waves-attach" href="/password/reset">I forgot my password.</a></p>
+							<p class="margin-no-top pull-right"><a class="btn btn-flat btn-brand waves-attach" href="/auth/register">REGISTER</a></p>
 						</div>
 
 
@@ -166,13 +166,13 @@
 			if(typeof validate == 'undefined')
 			{
 				$("#result").modal();
-                $("#msg").html("请滑动验证码来完成验证。");
+                $("#msg").html("Please enter your QR code");
 				return;
 			}
 
 			if (!validate) {
 				$("#result").modal();
-                $("#msg").html("请滑动验证码来完成验证。");
+                $("#msg").html("Please enter your QR code");
 				return;
 			}
 
@@ -210,7 +210,7 @@
                 error:function(jqXHR){
 			$("#msg-error").hide(10);
 			$("#msg-error").show(100);
-			$("#msg-error-p").html("发生错误："+jqXHR.status);
+			$("#msg-error-p").html("error："+jqXHR.status);
 					document.getElementById("login").disabled = false;
 			{if $geetest_html != null}
 			captcha.refresh();
@@ -272,28 +272,28 @@ $(document).ready(function () {
 						success: function (data) {
 							if (data.ret) {
 								$("#result").modal();
-								$("#msg").html("登录成功！");
+								$("#msg").html("SUCCESS！");
 								window.setTimeout("location.href=/user/", {$config['jump_delay']});
 							}
 						},
 						error: function (jqXHR) {
 							$("#result").modal();
-							$("#msg").html("发生错误：" + jqXHR.status);
+							$("#msg").html("error：" + jqXHR.status);
 						}
 					});
 
 				} else {
 					if(data.ret == -1)
 					{
-						jQuery('#telegram-qr').replaceWith('此二维码已经过期，请刷新页面后重试。');
-						jQuery('#code_number').replaceWith('<code id="code_number">此数字已经过期，请刷新页面后重试。</code>');
+						jQuery('#telegram-qr').replaceWith('This QR code has expired. Please refresh the page and try again.');
+						jQuery('#code_number').replaceWith('<code id="code_number"> These details have expired. Please refresh the page and try again.</code>');
 					}
 				}
 			},
 			error: function (jqXHR) {
 				if(jqXHR.status != 200 && jqXHR.status != 0) {
 					$("#result").modal();
-					$("#msg").html("发生错误：" + jqXHR.status);
+					$("#msg").html("error：" + jqXHR.status);
 				}
 			}
 		});

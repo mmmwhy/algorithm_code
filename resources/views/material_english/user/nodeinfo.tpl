@@ -12,7 +12,7 @@
 	<main class="content">
 		<div class="content-header ui-content-header">
 			<div class="container">
-				<h1 class="content-heading">Node information</h1>
+				<h1 class="content-heading">Server information</h1>
 			</div>
 		</div>
 		<div class="container">
@@ -23,8 +23,8 @@
 							<div class="card">
 								<div class="card-main">
 									<div class="card-inner margin-bottom-no">
-										<p class="card-heading">Warn!</p>
-										<p>Configuration file and QR Code do not leak！</p>
+										<p class="card-heading">Important!</p>
+										<p>Do not share/post these details and QR codes anywhere.</p>
 									</div>
 
 								</div>
@@ -36,7 +36,7 @@
 							<div class="card">
 								<div class="card-main">
 									<div class="card-inner margin-bottom-no">
-										<p class="card-heading">Configuration information</p>
+										<p class="card-heading">Server Configurations</p>
 										<div class="tab-content">
 
 											<nav class="tab-nav margin-top-no">
@@ -58,11 +58,11 @@
 													Password：{$ssr_item['passwd']}<br>
 													Protocol：{$ssr_item['protocol']}<br>
 													Protocol parameters：{$ssr_item['protocol_param']}<br>
-													Confused：{$ssr_item['obfs']}<br>
-													Confused parameters：{$ssr_item['obfs_param']}<br></p>
+													Obfuscation：{$ssr_item['obfs']}<br>
+													Obfuscation parameters：{$ssr_item['obfs_param']}<br></p>
 												{else}
-													<p>Hello, your current encryption method, confusing, or protocol settings can not be connected under the ShadowsocksR client. Please use the Shadowsocks client to connect, or to the data editing page to modify and then check here.</p>
-													<p>At the same time, ShadowsocksR single-port multi-user connection is not affected by your settings, you can use the corresponding client to connect here ~</p>
+													<p>Your current encryption type, obfuscation type, or protocol will not work with the ShadowsocksR client. Please use the Shadowsocks client to connect, or to the edit details page to change them to compatible types before coming back here.</p>
+													<p>If you are using the ShadowsocksR single-port multi-user connection type, then it will not be affected by your settings, and you can use the corresponding client to connect without problem ~</p>
 												{/if}
 											</div>
 											<div class="tab-pane fade {if !$ssr_prefer}active in{/if}" id="ss_info">
@@ -72,10 +72,10 @@
 													Server port：{$ss_item['port']}<br>
 													Encryption：{$ss_item['method']}<br>
 													Password：{$ss_item['passwd']}<br>
-													Confused：{$ss_item['obfs']}<br>
-													Confused parameters：{$ss_item['obfs_param']}<br></p>
+													Obfuscation：{$ss_item['obfs']}<br>
+													Obfuscation parameters：{$ss_item['obfs_param']}<br></p>
 												{else}
-													<p>Hello, your current encryption method, confusing, or protocol settings can not be connected under the Shadowsocks client. Please use the ShadowsocksR client to connect, or to the data editing page to modify and then check here.</p>
+													<p>Your current encryption type, obfuscation type, or protocol will not work with the Shadowsocks client. Please use the ShadowsocksR client to connect, or to the edit details page to change them to compatible types before coming back here.</p>
 												{/if}
 											</div>
 										</div>
@@ -90,7 +90,7 @@
 							<div class="card">
 								<div class="card-main">
 									<div class="card-inner margin-bottom-no">
-										<p class="card-heading">Client Downloads</p>
+										<p class="card-heading">App Downloads</p>
 
 
 										<nav class="tab-nav margin-top-no">
@@ -111,7 +111,7 @@
 												<p><i class="icon icon-lg">android</i>&nbsp;<a href="/ssr-download/ssr-android.apk">Android</a></p>
 												<p><i class="icon icon-lg">phone_iphone</i>&nbsp;<a href="https://itunes.apple.com/us/app/shadowrocket/id932747118">iOS</a></p>
 											{else}
-												<p>Hello, your current encryption method, confusing, or protocol settings can not be connected under the ShadowsocksR client. Please use the Shadowsocks client to connect, or to the data editing page to modify and then check here.</p>
+												<p>Your current encryption type, obfuscation type, or protocol will not work with the ShadowsocksR client. Please use the Shadowsocks client to connect, or to the edit details page to change them to compatible types before coming back here.</p>
 											{/if}
 										</div>
 										<div class="tab-pane fade {if !$ssr_prefer}active in{/if}" id="ss_download">
@@ -123,7 +123,7 @@
 												<p><i class="icon icon-lg">android</i>&nbsp;<a href="/ssr-download/ss-android-obfs.apk">Android Obfs Plugin</a></p>
 												<p><i class="icon icon-lg">phone_iphone</i>&nbsp;<a href="https://itunes.apple.com/us/app/shadowrocket/id932747118">iOS</a></p>
 											{else}
-												<p>Hello, your current encryption method, confusing, or protocol settings can not be connected under the Shadowsocks client. Please use the ShadowsocksR client to connect, or to the data editing page to modify and then check here.</p>
+												<p>Your current encryption type, obfuscation type, or protocol will not work with the Shadowsocks client. Please use the ShadowsocksR client to connect, or to the edit details page to change them to compatible types before coming back here.</p>
 											{/if}
 										</div>
 
@@ -137,7 +137,7 @@
 							<div class="card">
 								<div class="card-main">
 									<div class="card-inner margin-bottom-no">
-										<p class="card-heading">Configure Json</p>
+										<p class="card-heading">Configuration Json File</p>
 
 										<nav class="tab-nav margin-top-no">
 											<ul class="nav nav-list">
@@ -168,7 +168,7 @@
 }
 												</textarea>
 											{else}
-												<p>Hello, your current encryption method, confusing, or protocol settings can not be connected under the ShadowsocksR client. Please use the Shadowsocks client to connect, or to the data editing page to modify and then check here.</p>
+												<p>Your current encryption type, obfuscation type, or protocol will not work with the ShadowsocksR client. Please use the Shadowsocks client to connect, or to the edit details page to change them to compatible types before coming back here.</p>
 											{/if}
 										</div>
 										<div class="tab-pane fade {if !$ssr_prefer}active in{/if}" id="ss_json">
@@ -187,7 +187,7 @@
 }
 											</textarea>
 											{else}
-												<p>Hello, your current encryption method, confusing, or protocol settings can not be connected under the Shadowsocks client. Please use the ShadowsocksR client to connect, or to the data editing page to modify and then check here.</p>
+												<p>Your current encryption type, obfuscation type, or protocol will not work with the Shadowsocks client. Please use the ShadowsocksR client to connect, or to the edit details page to change them to compatible types before coming back here.</p>
 											{/if}
 										</div>
 
@@ -215,18 +215,18 @@
 										</nav>
 										<div class="tab-pane fade {if $ssr_prefer}active in{/if}" id="ssr_url">
 											{if URL::SSRCanConnect($user, $mu)}
-												<p><a href="{URL::getItemUrl($ssr_item, 0)}"/>Android phone with the default browser to open the point I can directly add (to ShadowsocksR APP)</a></p>
-												<p><a href="{URL::getItemUrl($ssr_item, 0)}"/>iOS with Safari open point I can directly add (to Shadowrocket)</a></p>
+												<p><a href="{URL::getItemUrl($ssr_item, 0)}"/>For Android: open this link in your default browser to enter your servers into the app (to ShadowsocksR APP)</a></p>
+												<p><a href="{URL::getItemUrl($ssr_item, 0)}"/>For iOS: open with Safari and open the link in (to Shadowrocket)</a></p>
 											{else}
-												<p>Hello, your current encryption method, confusing, or protocol settings can not be connected under the ShadowsocksR client. Please use the Shadowsocks client to connect, or to the data editing page to modify and then check here.</p>
+												<p>Your current encryption type, obfuscation type, or protocol will not work with the ShadowsocksR client. Please use the Shadowsocks client to connect, or to the edit details page to change them to compatible types before coming back here.</p>
 											{/if}
 										</div>
 										<div class="tab-pane fade {if !$ssr_prefer}active in{/if}" id="ss_url">
 											{if URL::SSCanConnect($user, $mu)}
-												<p><a href="{URL::getItemUrl($ss_item, 1)}"/>Android phone with the default browser to open the point I can directly add (to ShadowsocksR APP)</a></p>
-												<p><a href="{URL::getItemUrl($ss_item, 1)}"/>iOS with Safari open point I can directly add (to Shadowrocket)</a></p>
+												<p><a href="{URL::getItemUrl($ss_item, 1)}"/>For Android: open this link in your default browser to enter your servers into the app (to ShadowsocksR APP)</a></p>
+												<p><a href="{URL::getItemUrl($ss_item, 1)}"/>For iOS: open with Safari and open the link in (to Shadowrocket)</a></p>
 											{else}
-												<p>Hello, your current encryption method, confusing, or protocol settings can not be connected under the Shadowsocks client. Please use the ShadowsocksR client to connect, or to the data editing page to modify and then check here.</p>
+												<p>Your current encryption type, obfuscation type, or protocol will not work with the Shadowsocks client. Please use the ShadowsocksR client to connect, or to the edit details page to change them to compatible types before coming back here.</p>
 											{/if}
 										</div>
 									</div>
@@ -258,7 +258,7 @@
 													<div id="ss-qr-n"></div>
 												</div>
 											{else}
-												<p>Hello, your current encryption method, confusing, or protocol settings can not be connected under the ShadowsocksR client. Please use the Shadowsocks client to connect, or to the data editing page to modify and then check here.</p>
+												<p>Your current encryption type, obfuscation type, or protocol will not work with the ShadowsocksR client. Please use the Shadowsocks client to connect, or to the edit details page to change them to compatible types before coming back here.</p>
 											{/if}
 										</div>
 										<div class="tab-pane fade {if !$ssr_prefer}active in{/if}" id="ss_qrcode">
@@ -284,7 +284,7 @@
 													</div>
 												</div>
 											{else}
-												<p>Hello, your current encryption method, confusing, or protocol settings can not be connected under the Shadowsocks client. Please use the ShadowsocksR client to connect, or to the data editing page to modify and then check here.</p>
+												<p>Your current encryption type, obfuscation type, or protocol will not work with the Shadowsocks client. Please use the ShadowsocksR client to connect, or to the edit details page to change them to compatible types before coming back here.</p>
 											{/if}
 										</div>
 									</div>
