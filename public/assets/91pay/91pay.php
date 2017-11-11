@@ -1,21 +1,21 @@
 <?php
 function md5Sign($prestr, $key) {
-	$prestr = $prestr . $key;
-	return md5($prestr);
+    $prestr = $prestr . $key;
+    return md5($prestr);
 }
 
 
 function md5Verify($prestr, $sign, $key) {
-	$prestr = $prestr . $key;
+    $prestr = $prestr . $key;
 
-	$mysgin = md5($prestr);
+    $mysgin = md5($prestr);
 
-	if($mysgin == $sign) {
-		return true;
-	}
-	else {
-		return false;
-	}
+    if($mysgin == $sign) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
 function createLinkstring($para)
@@ -291,6 +291,9 @@ $pay_id = $user; //网站唯一标识 需要充值的用户名，用户ID或者�
 $price = (float)$_POST["price"]; //提交的价格
 $type = (int)$_POST["type"]; //支付方式
 $param = $_POST["seller"]; //支付方式
+if($param==""){
+    $param = 'noalipay'; //支付方式
+}
 if ($type < 1) $type = 1;
 if ($price <= 0) $price = (float)$_POST["money"]; //如果没提供自定义输入金额则使用money参数
 if ($price < $codepay_config['min']) exit($codepay_config['key'].$codepay_config['id']); //检查最低限制
@@ -378,22 +381,22 @@ $codepay_json = file_get_contents($codepay_json_url);
                 <p>请使用<?php echo $typeName ?>扫描二维码完成支付</p>
             </div>
         </div>
-</div>
+    </div>
 
-<!--注意下面加载顺序 顺序错乱会影响业务-->
-<script src="./js/jquery-1.10.2.min.js"></script>
-<!--[if lt IE 8]>
-<script src="./js/json3.min.js"></script><![endif]-->
-<script>
-    var user_data =<?php echo json_encode($user_data);?>
-</script>
-<script src="./js/notify.js"></script>
-<script src="./js/codepay_util.js"></script>
-<script>callback(<?php echo $codepay_json;?>)</script>
-<script>
-    setTimeout(function () {
-        $('#use').hide()
-    },user_data.logShowTime||10000)
-</script>
+    <!--注意下面加载顺序 顺序错乱会影响业务-->
+    <script src="./js/jquery-1.10.2.min.js"></script>
+    <!--[if lt IE 8]>
+    <script src="./js/json3.min.js"></script><![endif]-->
+    <script>
+        var user_data =<?php echo json_encode($user_data);?>
+    </script>
+    <script src="./js/notify.js"></script>
+    <script src="./js/codepay_util.js"></script>
+    <script>callback(<?php echo $codepay_json;?>)</script>
+    <script>
+        setTimeout(function () {
+            $('#use').hide()
+        },user_data.logShowTime||10000)
+    </script>
 </body>
 </html>
