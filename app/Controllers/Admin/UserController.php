@@ -2,32 +2,35 @@
 
 namespace App\Controllers\Admin;
 
-use App\Services\Auth;
-use App\Services\Config;
-use App\Utils\Hash;
-use App\Utils\Tools;
-use App\Utils\Radius;
-use App\Utils\Wecenter;
-use voku\helper\AntiXSS;
 use App\Models\User;
 use App\Models\Ip;
+use App\Models\RadiusBan;
 use App\Models\Relay;
-use App\Utils\GA;
 use App\Controllers\AdminController;
-
+use App\Utils\Hash;
+use App\Utils\Radius;
+use App\Utils\QQWry;
+use App\Utils\Wecenter;
+use App\Utils\Tools;
 
 class UserController extends AdminController
 {
     public function index($request, $response, $args)
     {
-        $table_config['total_column'] = array("op" => "操作", "id" => "ID", 
-                            "port" => "连接端口","user_name" => "用户名",
-                            "remark" => "备注", "method" => "加密方式",                           
-                            "online_ip_count" => "在线IP数", 
-                            "used_traffic" => "已用流量/GB",
-                            "reg_date" => "注册时间","account_expire_in" => "账户过期时间"
-                            );
-        $table_config['default_show_column'] = array("op", "id","port", "user_name", "remark", "method","online_ip_count","used_traffic","reg_date","account_expire_in");
+        $table_config['total_column'] = array("op" => "操作", "id" => "ID", "user_name" => "用户名",
+            "remark" => "备注", "email" => "邮箱", "money" => "金钱",
+            "im_type" => "联络方式类型", "im_value" => "联络方式详情",
+            "node_group" => "群组", "account_expire_in" => "账户过期时间",
+            "class" => "等级", "class_expire" => "等级过期时间",
+            "passwd" => "连接密码","port" => "连接端口", "method" => "加密方式",
+            "protocol" => "连接协议", "obfs" => "连接混淆方式",
+            "online_ip_count" => "在线IP数", "last_ss_time" => "上次使用时间",
+            "used_traffic" => "已用流量/GB", "enable_traffic" => "总流量/GB",
+            "last_checkin_time" => "上次签到时间", "today_traffic" => "今日流量/MB",
+            "is_enable" => "是否启用", "reg_date" => "注册时间",
+            "reg_location" => "注册IP", "auto_reset_day" => "自动重置流量日",
+            "auto_reset_bandwidth" => "自动重置流量/GB", "ref_by" => "邀请人ID", "ref_by_user_name" => "邀请人用户名");
+        $table_config['default_show_column'] = array("op", "id", "user_name", "remark", "email");
         $table_config['ajax_url'] = 'user/ajax';
         return $this->view()->assign('table_config', $table_config)->display('admin/user/index.tpl');
     }
@@ -184,6 +187,7 @@ class UserController extends AdminController
         $user->node_group = $request->getParam('group');
         $user->ref_by = $request->getParam('ref_by');
         $user->remark = $request->getParam('remark');
+        $user->money = $request->getParam('money');
         $user->class = $request->getParam('class');
         $user->class_expire = $request->getParam('class_expire');
         $user->expire_in = $request->getParam('expire_in');
@@ -232,218 +236,12 @@ class UserController extends AdminController
         } else {
             $res['next'] = 1;
         }
+
         $res['data'] = array();
-        $c = Auth::getUser();
         foreach ($users as $user) {
-          array_push($res['data'], $user->get_table_json_array());
+            array_push($res['data'], $user->get_table_json_array());
         }
-        
 
         return $this->echoJson($response, $res);
     }
-
-    public function createuser($request, $response, $next)
-    {
-        $c = Auth::getUser();
-        $name =  $request->getParam('name');
-        $email =  $name;
-        $email = strtolower($email);
-        $passwd = $name;
-        $imtype = $request->getParam('imtype');
-        $wechat = 1;
-        // check pwd length
-        if (strlen($passwd)<3) {
-            $res['ret'] = 0;
-            $res['msg'] = "密码最少4位";
-            return $response->getBody()->write(json_encode($res));
-        }
-        if($wechat==1){
-            // check email
-            $user = User::where('email', $email)->first();
-            if ($user != null) {
-                $res['ret'] = 0;
-                $res['msg'] = $email."被注册了";
-                return $response->getBody()->write(json_encode($res));
-            }
-            // do reg user
-            $user = new User();
-            $antiXss = new AntiXSS();
-            $user->user_name = $antiXss->xss_clean($name);
-            $user->email = $email;
-            $user->pass = Hash::passwordHash($passwd);
-            $user->passwd = $passwd;
-            $user->port = Tools::getAvPort();
-            $user->t = 0;
-            $user->u = 0;
-            $user->d = 0;
-            $user->method = Config::get('reg_method');
-            $user->protocol = Config::get('reg_protocol');
-            $user->protocol_param = Config::get('reg_protocol_param');
-            $user->obfs = Config::get('reg_obfs');
-            $user->obfs_param = Config::get('reg_obfs_param');
-            $user->forbidden_ip = Config::get('reg_forbidden_ip');
-            $user->forbidden_port = Config::get('reg_forbidden_port');
-            $user->im_type =  $imtype;
-            $user->im_value =  $antiXss->xss_clean($wechat);
-            $user->transfer_enable = Tools::toGB(Config::get('defaultTraffic'));
-            $user->invite_num = Config::get('inviteNum');
-            $user->auto_reset_day = Config::get('reg_auto_reset_day');
-            $user->auto_reset_bandwidth = Config::get('reg_auto_reset_bandwidth');
-            $user->ref_by = $c->id;
-            $user->expire_in=date("Y-m-d H:i:s", time()+$imtype*30*86400);
-            $user->reg_date=date("Y-m-d H:i:s");
-            $user->reg_ip=$_SERVER["REMOTE_ADDR"];
-            $user->node_connector=4;
-            $user->money=0;
-            $user->class=0;
-            $user->plan='A';
-            $user->node_speedlimit=0;
-            $user->theme=Config::get('theme');
-            $group=Config::get('ramdom_group');
-            $Garray=explode(",", $group);
-            $user->node_group=$Garray[rand(0, count($group)-1)];
-            $ga = new GA();
-            $secret = $ga->createSecret();
-            $user->ga_token=$secret;
-            $user->ga_enable=0;
-            if ($user->save()) {
-                $res['ret'] = 1;
-                $res['msg'] = "成功生成".$wechat."个账号";
-                return $response->getBody()->write(json_encode($res));
-            }
-
-        }
-        for ($x=1; $x<=$wechat; $x++) {
-            // check email
-            $email = $email.$x;
-            $user = User::where('email', $email)->first();
-            if ($user != null) {
-                $res['ret'] = 0;
-                $res['msg'] = $email."被注册了";
-                return $response->getBody()->write(json_encode($res));
-            }
-            // do reg user
-            $user = new User();
-            $antiXss = new AntiXSS();
-            $user->user_name = $antiXss->xss_clean($name).$x;
-            $user->email = $email;
-            $user->pass = Hash::passwordHash($passwd);
-            $user->passwd = Tools::genRandomChar(4);
-            $user->port = Tools::getAvPort();
-            $user->t = 0;
-            $user->u = 0;
-            $user->d = 0;
-            $user->method = Config::get('reg_method');
-            $user->protocol = Config::get('reg_protocol');
-            $user->protocol_param = Config::get('reg_protocol_param');
-            $user->obfs = Config::get('reg_obfs');
-            $user->obfs_param = Config::get('reg_obfs_param');
-            $user->forbidden_ip = Config::get('reg_forbidden_ip');
-            $user->forbidden_port = Config::get('reg_forbidden_port');
-            $user->im_type =  $imtype;
-            $user->im_value =  $antiXss->xss_clean($wechat);
-            $user->transfer_enable = Tools::toGB(Config::get('defaultTraffic'));
-            $user->invite_num = Config::get('inviteNum');
-            $user->auto_reset_day = Config::get('reg_auto_reset_day');
-            $user->auto_reset_bandwidth = Config::get('reg_auto_reset_bandwidth');
-            $user->ref_by = $c->id;
-            $user->expire_in=date("Y-m-d H:i:s", time()+$imtype*30*86400);
-            $user->reg_date=date("Y-m-d H:i:s");
-            $user->reg_ip=$_SERVER["REMOTE_ADDR"];
-            $user->node_connector=4;
-            $user->money=0;
-            $user->class=0;
-            $user->plan='A';
-            $user->node_speedlimit=0;
-            $user->theme=Config::get('theme');
-            $group=Config::get('ramdom_group');
-            $Garray=explode(",", $group);
-            $user->node_group=$Garray[rand(0, count($group)-1)];
-            $ga = new GA();
-            $secret = $ga->createSecret();
-            $user->ga_token=$secret;
-            $user->ga_enable=0;
-            if (!$user->save()) {
-                $res['ret'] = 0;
-                $res['msg'] = "未知错误";
-                return $response->getBody()->write(json_encode($res));
-            }
-        }
-        $res['ret'] = 1;
-        $res['msg'] = "成功生成".$wechat."个账号";
-        return $response->getBody()->write(json_encode($res));
-    }
-
-    public function quickcreateuser($request, $response, $next)
-    {
-		$c = Auth::getUser();
-        $imtype = $request->getParam('imtype');
-      	$name =  $request->getParam('name').$imtype.'m';
-        $email =  $name;
-        $email = strtolower($email);
-        $wechat = $request->getParam('wechat');
-      	$x=1; 
-      	$email = $name.$x;
-      	$user = User::where('email', $email)->first();
-
-      while($user != null) { 			
-          	// check email          	        	     
-  			$x++;
-          	$email = $name.$x;
-        	$user = User::where('email', $email)->first();              	
-		} 
-      	// do reg user
-        $user = new User();
-        $antiXss = new AntiXSS();
-        $user->user_name = $email;
-        $user->email = $email;
-        $user->passwd = Tools::genRandomChar(4);
-        $user->pass = Hash::passwordHash($user->passwd);
-        $user->port = Tools::getAvPort();
-        $user->t = 0;
-        $user->u = 0;
-        $user->d = 0;
-        $user->method = Config::get('reg_method');
-        $user->protocol = Config::get('reg_protocol');
-        $user->protocol_param = Config::get('reg_protocol_param');
-        $user->obfs = Config::get('reg_obfs');
-        $user->obfs_param = Config::get('reg_obfs_param');
-        $user->forbidden_ip = Config::get('reg_forbidden_ip');
-        $user->forbidden_port = Config::get('reg_forbidden_port');
-        $user->im_type =  $imtype;
-        $user->im_value =  $antiXss->xss_clean($wechat);
-        $user->transfer_enable = Tools::toGB(Config::get('defaultTraffic'));
-        $user->invite_num = Config::get('inviteNum');
-        $user->auto_reset_day = Config::get('reg_auto_reset_day');
-        $user->auto_reset_bandwidth = Config::get('reg_auto_reset_bandwidth');
-        $user->ref_by = $c->id;
-        $user->expire_in=date("Y-m-d H:i:s", time()+$imtype*30*86400);
-        $user->reg_date=date("Y-m-d H:i:s");
-        $user->reg_ip=$_SERVER["REMOTE_ADDR"];
-        $user->node_connector=4;
-        $user->money=0;
-        $user->class=0;
-        $user->plan='A';
-        $user->node_speedlimit=0;
-        $user->theme=Config::get('theme');
-        $group=Config::get('ramdom_group');
-        $Garray=explode(",", $group);
-        $user->node_group=$Garray[rand(0, count($group)-1)];
-        $ga = new GA();
-        $secret = $ga->createSecret();
-        $user->ga_token=$secret;
-        $user->ga_enable=0;
-        if ($user->save()) {
-            $res['ret'] = 1;
-            $res['msg'] = "成功生成".$email.",账号有效期：".$imtype."个月";
-            return $response->getBody()->write(json_encode($res));
-        }
-        $res['ret'] = 0;
-       	$res['msg'] = "成功失败".$name;
-       	return $response->getBody()->write(json_encode($res));
-      	
-      	
-		
-    }
-
 }
