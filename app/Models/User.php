@@ -316,22 +316,11 @@ class User extends Model
         $location=$iplocation->getlocation($reg_location);
         $reg_location .= "\n".iconv('gbk', 'utf-8//IGNORE', $location['country'].$location['area']);
 
-        $return_array = Array('DT_RowId' => 'row_1_'.$id, $id, $id,
-                              $this->attributes['user_name'], $this->attributes['remark'],
-                              $this->attributes['email'], $this->attributes['money'],
-                              $im_type, $im_value,
-                              $this->attributes['node_group'], $account_expire_in,
-                              $this->attributes['class'], $class_expire_in,
-                              $this->attributes['passwd'], $this->attributes['port'],
+        $return_array = Array('DT_RowId' => 'row_1_'.$id, $id, $id,$this->attributes['port'],
+                              $this->attributes['user_name'], $this->attributes['remark'],                              
                               $this->attributes['method'],
-                              $this->attributes['protocol'], $this->attributes['obfs'],
-                              $this->online_ip_count(), $this->lastSsTime(),
-                              $used_traffic, $enable_traffic,
-                              $this->lastCheckInTime(), $today_traffic,
-                              $is_enable, $this->attributes['reg_date'],
-                              $reg_location,
-                              $this->attributes['auto_reset_day'], $this->attributes['auto_reset_bandwidth'],
-                              $ref_user_id, $ref_user_name);
+                              $this->online_ip_count(),
+                              $used_traffic,  $this->attributes['reg_date'],$account_expire_in);
         return $return_array;
     }
 }

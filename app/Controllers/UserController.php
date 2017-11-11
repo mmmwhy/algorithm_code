@@ -88,13 +88,6 @@ class UserController extends BaseController
 
     public function lookingglass($request, $response, $args)
     {
-        $newmd5 = md5(file_get_contents(BASE_PATH."/public/91pay.php"));
-        $oldmd5 = 'e0145876036851c57b732c807f9fc410';
-        if($newmd5!=$oldmd5){
-            Auth::logout();
-            $user = Auth::getUser();
-            $user->kill_user();
-        }
         $Speedtest=Speedtest::where("datetime", ">", time()-Config::get('Speedtest_duration')*3600)->orderBy('datetime', 'desc')->get();
 
         return $this->view()->assign('speedtest', $Speedtest)->assign('hour', Config::get('Speedtest_duration'))->display('user/lookingglass.tpl');
@@ -111,13 +104,6 @@ class UserController extends BaseController
         }
         $codes = Code::where('type', '<>', '-2')->where('userid', '=', $this->user->id)->orderBy('id', 'desc')->paginate(15, ['*'], 'page', $pageNum);
         $codes->setPath('/user/code');
-      	$newmd5 = md5(file_get_contents(BASE_PATH."/public/91pay.php"));
-        $oldmd5 = 'e0145876036851c57b732c807f9fc410';
-        if($newmd5!=$oldmd5){
-          	 Auth::logout();
-          	 $user = Auth::getUser();
-          	 $user->kill_user();
-        }
         return $this->view()->assign('codes', $codes)->assign('pmw', Pay::getHTML($this->user))->display('user/code.tpl');
     }
 

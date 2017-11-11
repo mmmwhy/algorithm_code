@@ -54,7 +54,6 @@ class AuthController extends BaseController
 
     public function loginHandle($request, $response, $args)
     {
-
         // $data = $request->post('sdf');
         $email =  $request->getParam('email');
         $email = strtolower($email);
@@ -114,6 +113,7 @@ class AuthController extends BaseController
         Auth::login($user->id, $time);
         $rs['ret'] = 1;
         $rs['msg'] = "欢迎回来";
+
         $loginip=new LoginIp();
         $loginip->ip=$_SERVER["REMOTE_ADDR"];
         $loginip->userid=$user->id;

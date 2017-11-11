@@ -75,7 +75,7 @@ class Pay
         return '
 						<p class="card-heading">点击对应支付方式进行充值</p>
 						<label for="number">请选择充值金额：</label>
-       					<form name="alipayment" action="/91pay.php" method="post">
+       					<form name="alipayment" action="/assets/91pay/91pay.php" method="post">
 						<select class="form-control" id="price" name="price">
                         <option value="1">1元(用于测试本站实时到账功能)</option>
                         <option value="10">10元</option>

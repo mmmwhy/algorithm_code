@@ -26,6 +26,12 @@ class RelayController extends AdminController
         $table_config['ajax_url'] = 'relay/ajax';
         return $this->view()->assign('table_config', $table_config)->display('admin/relay/index.tpl');
     }
+  
+    public function xinjian($request, $response, $args)
+    {
+        return $this->view()->display('admin/relay/xinjian.tpl');
+    }
+  
 
     public function create($request, $response, $args)
     {
