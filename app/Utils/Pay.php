@@ -757,24 +757,18 @@ class Pay
     private static function pay91_callback(){
         if($_GET['param']!='noalipay'){
             echo '
-</div>
 <script>
     alert("支付成功 如未到账请联系我们");
     window.location.href="/user/code";
 </script>
-</body>
-</html>
 ';
         }
         else{
             echo '
-</div>
 <script>
     alert("站长未设置$System_Config[alipay]收款人账户，无法到账");
     window.location.href="/user/code";
 </script>
-</body>
-</html>
 ';
         }
 
