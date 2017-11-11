@@ -72,11 +72,11 @@ class Pay
 
     private static function pay91($user)
     {
-                //使用说明：
-                //额度支持：1 3 5 6 8 10 12 13 20 22 39 50 60 100 110 120 200 400 500
-                //将value和后边的价格，改成你希望的额度接
-                //举个例子，比如希望增加8元进去。如果使用不支持的额度，将需要手动输入金额。不喜欢的额度自行删掉即可。
-               // <option value="8">8元(月卡)</option>
+        //使用说明：
+        //额度支持：1 3 5 6 8 10 12 13 20 22 39 50 60 100 110 120 200 400 500
+        //将value和后边的价格，改成你希望的额度接
+        //举个例子，比如希望增加8元进去。如果使用不支持的额度，将需要手动输入金额。不喜欢的额度自行删掉即可。
+        // <option value="8">8元(月卡)</option>
 
         return '
 						<p class="card-heading">点击对应支付方式进行充值</p>
@@ -755,7 +755,44 @@ class Pay
     }
 
     private static function pay91_callback(){
+        //系统订单号
+        $trade_no = $_GET['pay_no'];
+        //交易用户
+        $trade_id = strtok($_GET['pay_id'], "@");
+        //金额
+        $trade_num = $_GET['price'];
+        $param = urlencode($_GET['param']);
+        $codeq=Code::where("code", "=", $trade_no)->first();
+
+
         if($_GET['param']!='noalipay'){
+            //更新用户账户
+            $user=User::find($trade_id);
+            $user->money=$user->money+$trade_num;
+            $user->save();
+            $codeq=new Code();
+            $codeq->code=$trade_no;
+            $codeq->isused=1;
+            $codeq->type=-1;
+            $codeq->number=$_GET['price'];
+            $codeq->usedatetime=date("Y-m-d H:i:s");
+            $codeq->userid=$user->id;
+            $codeq->save();
+
+            //更新返利
+            if ($user->ref_by!=""&&$user->ref_by!=0&&$user->ref_by!=null) {
+                $gift_user=User::where("id", "=", $user->ref_by)->first();
+                $gift_user->money=($gift_user->money+($codeq->number*(Config::get('code_payback')/100)));
+                $gift_user->save();
+
+                $Payback=new Payback();
+                $Payback->total=$trade_num;
+                $Payback->userid=$user->id;
+                $Payback->ref_by=$user->ref_by;
+                $Payback->ref_get=$codeq->number*(Config::get('code_payback')/100);
+                $Payback->datetime=time();
+                $Payback->save();
+            }
             echo '
 <script>
     alert("支付成功 如未到账请联系我们");
