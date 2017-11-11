@@ -826,13 +826,13 @@ class Pay
         $trade_id = strtok($_POST['pay_id'], "@");
         //金额
         $trade_num = $_POST['price'];
-        $param = urlencode($_POST['param']);
+        $param = urldecode($_POST['param']);
         $codeq=Code::where("code", "=", $trade_no)->first();
         if($codeq!=null){
             exit('success'); //说明数据已经处理完毕
             return;
         }
-        if($param!=Config::get('alipay')||$trade_no==''){
+        if($param!=Config::get('alipay')||$trade_no==''){ //鉴权失败
             exit('fail');
             return;
         }
