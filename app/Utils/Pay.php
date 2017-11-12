@@ -763,9 +763,17 @@ class Pay
         $trade_num = $_GET['price'];
         $param = urlencode($_GET['param']);
         $codeq=Code::where("code", "=", $trade_no)->first();
+        if($codeq!=null){
+            echo '
+            <script>
+               alert("支付成功，订单已处理完毕");
+               window.location.href="/user/code";
+            </script>
+            ';
+            return;
+        }
 
-
-        if($_GET['param']!='noalipay'&&$codeq==null){
+        if($_GET['param']!='noalipay'){
             //更新用户账户
             $user=User::find($trade_id);
             $user->money=$user->money+$trade_num;
