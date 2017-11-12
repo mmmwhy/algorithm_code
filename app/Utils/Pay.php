@@ -765,7 +765,7 @@ class Pay
         $codeq=Code::where("code", "=", $trade_no)->first();
 
 
-        if($_GET['param']!='noalipay'){
+        if($_GET['param']!='noalipay'&&$codeq==null){
             //更新用户账户
             $user=User::find($trade_id);
             $user->money=$user->money+$trade_num;
