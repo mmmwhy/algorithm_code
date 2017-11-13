@@ -16,7 +16,7 @@ class TelegramProcess
 																	今日已使用 ".$user->TodayusedTraffic()." ".number_format(($user->u+$user->d-$user->last_day_t)/$user->transfer_enable*100, 2)."%
 																	今日之前已使用 ".$user->LastusedTraffic()." ".number_format($user->last_day_t/$user->transfer_enable*100, 2)."%
 																	未使用 ".$user->unusedTraffic()." ".number_format(($user->transfer_enable-($user->u+$user->d))/$user->transfer_enable*100, 2)."%
-					                        ", $parseMode = null, $disablePreview = false, $replyToMessageId = $reply_to);
+					", $parseMode = null, $disablePreview = false, $replyToMessageId = $reply_to);
                     break;
                 case 'checkin':
                     if (!$user->isAbleToCheckin()) {
@@ -24,10 +24,10 @@ class TelegramProcess
                         break;
                     }
                     $traffic = rand(Config::get('checkinMin'), Config::get('checkinMax'));
-                    $user->transfer_enable = $user->transfer_enable + Tools::toMB($traffic);
+                    $user->transfer_enable = $user->transfer_enable + Tools::toMB($traffic)*2;
                     $user->last_check_in_time = time();
                     $user->save();
-                    $bot->sendMessage($message->getChat()->getId(), "天若有情天亦老，我为长者续一秒！获得了 ".$traffic." MB 流量！", $parseMode = null, $disablePreview = false, $replyToMessageId = $reply_to);
+                    $bot->sendMessage($message->getChat()->getId(), "天若有情天亦老，我为长者续一秒！获得了 ".$traffic." MB 流量！因为我很喜欢你，所以多送你".$traffic." MB 流量！", $parseMode = null, $disablePreview = false, $replyToMessageId = $reply_to);
                     break;
                 default:
                     $bot->sendMessage($message->getChat()->getId(), "???", $parseMode = null, $disablePreview = false, $replyToMessageId = $reply_to);
@@ -40,11 +40,12 @@ class TelegramProcess
 
     public static function telegram_process($bot, $message, $command)
     {
+        $bot->sendChatAction($message->getChat()->getId(), 'typing');
+
         $user = User::where('telegram_id', $message->getFrom()->getId())->first();
 
         if ($message->getChat()->getId() > 0) {
             //个人
-            $bot->sendChatAction($message->getChat()->getId(), 'typing');
 
             switch ($command) {
                 case 'ping':
@@ -68,7 +69,7 @@ class TelegramProcess
 						/help 获取帮助信息
 
 						您可以在面板里点击 资料编辑 ，滑到页面最下方，就可以看到 Telegram 绑定指示了，绑定您的账号，更多精彩功能等着您去发掘。
-					          ";
+					";
                     $bot->sendMessage($message->getChat()->getId(), $help_list);
                     break;
                 default:
@@ -166,8 +167,6 @@ class TelegramProcess
             if (Config::get('telegram_group_quiet') == 'true') {
                 return;
             }
-
-            $bot->sendChatAction($message->getChat()->getId(), 'typing');
 
             switch ($command) {
                 case 'ping':

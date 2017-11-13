@@ -34,21 +34,21 @@ class UserController extends BaseController
             $users_raw = User::where(
                 function ($query) use ($node){
                     $query->where(
-                      function ($query1) use ($node){
-                          $query1->where("class", ">=", $node->node_class)
-                              ->where("node_group", "=", $node->node_group);
-                      }
+                        function ($query1) use ($node){
+                            $query1->where("class", ">=", $node->node_class)
+                                ->where("node_group", "=", $node->node_group);
+                        }
                     )->orwhere('is_admin', 1);
                 }
             )
-            ->where("enable", 1)->where("expire_in", ">", date("Y-m-d H:i:s"))->get();
+                ->where("enable", 1)->where("expire_in", ">", date("Y-m-d H:i:s"))->get();
         } else {
             $users_raw = User::where(
                 function ($query) use ($node){
                     $query->where(
-                      function ($query1) use ($node){
-                          $query1->where("class", ">=", $node->node_class);
-                      }
+                        function ($query1) use ($node){
+                            $query1->where("class", ">=", $node->node_class);
+                        }
                     )->orwhere('is_admin', 1);
                 }
             )->where("enable", 1)->where("expire_in", ">", date("Y-m-d H:i:s"))->get();
@@ -68,8 +68,8 @@ class UserController extends BaseController
         $users = array();
 
         $key_list = array('method', 'obfs', 'obfs_param', 'protocol', 'protocol_param',
-                'forbidden_ip', 'forbidden_port', 'node_speedlimit', 'disconnect_ip',
-                'is_multi_user', 'id', 'port', 'passwd', 'u', 'd');
+            'forbidden_ip', 'forbidden_port', 'node_speedlimit', 'disconnect_ip',
+            'is_multi_user', 'id', 'port', 'passwd', 'u', 'd');
 
         foreach ($users_raw as $user_raw) {
             if ($user_raw->transfer_enable > $user_raw->u + $user_raw->d) {

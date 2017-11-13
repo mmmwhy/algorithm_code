@@ -248,14 +248,14 @@ class URL
         $ss_obfs_list = Config::getSupportParam('ss_obfs');
 
         if(!$is_ss) {
-            $ssurl = $item['address'].":".$item['port'].":".$item['protocol'].":".$item['method'].":".$item['obfs'].":".Tools::base64_url_encode($item['passwd'])."/?obfsparam=".Tools::base64_url_encode($item['obfs_param'])."&protoparam=".Tools::base64_url_encode($item['protocol_param'])."&remarks=".Tools::base64_url_encode($item['remark'])."&group=".Tools::base64_url_encode($item['group']);
+            $ssurl = $item['address'].":".$item['port'].":".$item['protocol'].":".$item['method'].":".$item['obfs'].":".Tools::base64_url_encode($item['passwd'])."/?obfsparam=".Tools::base64_url_encode($item['obfs_param'])."&protoparam=".Tools::base64_url_encode($item['protocol_param'])."&remarks=".Tools::base64_url_encode($item['remark'])."&group=".Tools::base64_url_encode(Config::get('appName'));
             return "ssr://".Tools::base64_url_encode($ssurl);
         } else {
             if($is_ss == 2) {
                 $personal_info = $item['method'].':'.$item['passwd']."@".$item['address'].":".$item['port'];
                 $ssurl = "ss://".Tools::base64_url_encode($personal_info);
 
-                $ssurl .= "#".rawurlencode($item['remark']);
+                $ssurl .= "#".rawurlencode(Config::get('appName')." - ".$item['remark']);
             }else{
                 $personal_info = $item['method'].':'.$item['passwd'];
                 $ssurl = "ss://".Tools::base64_url_encode($personal_info)."@".$item['address'].":".$item['port'];
@@ -275,7 +275,7 @@ class URL
                     $ssurl .= "?plugin=".rawurlencode($plugin);
                 }
 
-                $ssurl .= "#".rawurlencode($item['remark']);
+                $ssurl .= "#".rawurlencode(Config::get('appName')." - ".$item['remark']);
             }
             return $ssurl;
         }
@@ -328,7 +328,6 @@ class URL
     * protocol_param
     * obfs
     * obfs_param
-    * group
     */
 
     public static function getItem($user, $node, $mu_port = 0, $relay_rule_id = 0, $is_ss = 0) {
@@ -381,10 +380,6 @@ class URL
         $return_array['protocol_param'] = $user->protocol_param;
         $return_array['obfs'] = $user->obfs;
         $return_array['obfs_param'] = $user->obfs_param;
-        $return_array['group'] = Config::get('appName');
-        if($mu_port != 0) {
-            $return_array['group'] .= ' - 单端口多用户';
-        }
         return $return_array;
     }
 

@@ -356,12 +356,12 @@ class AuthController extends BaseController
         $user->node_speedlimit=Config::get('user_speedlimit');
         if (Config::get('enable_invite_code')=='true') {
             $user->ref_by = $c->user_id;
-             if ($user->ref_by !=0) {
-               $user->money=Config::get('invite_get_money');
-               $gift_user=User::where("id", "=", $user->ref_by)->first();
-               $gift_user->transfer_enable=($gift_user->transfer_enable+Config::get('invite_gift')*1024*1024*1024);
-               $gift_user->save();
-             }
+            if ($user->ref_by !=0) {
+                $user->money=Config::get('invite_get_money');
+                $gift_user=User::where("id", "=", $user->ref_by)->first();
+                $gift_user->transfer_enable=($gift_user->transfer_enable+Config::get('invite_gift')*1024*1024*1024);
+                $gift_user->save();
+            }
         } else {
             $user->ref_by = 0;
         }
