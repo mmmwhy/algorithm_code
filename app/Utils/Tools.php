@@ -73,7 +73,7 @@ class Tools
     public static function genRandomChar($length = 8)
     {
         // 密码字符集，可任意添加你需要的字符
-        $chars = '123456789';
+        $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         $char = '';
         for ($i = 0; $i < $length; $i++) {
             $char .= $chars[mt_rand(0, strlen($chars) - 1)];
@@ -115,7 +115,7 @@ class Tools
     public static function genUUID()
     {
         // @TODO
-      return self::genSID();
+        return self::genSID();
     }
 
     public static function getLastPort()
@@ -267,6 +267,8 @@ class Tools
 
     public static function is_protocol_relay($user)
     {
+        return true;
+
         $relay_able_list = Config::getSupportParam('relay_able_protocol');
 
         if (in_array($user->protocol, $relay_able_list) || Config::get('relay_insecure_mode') == 'true') {
@@ -284,8 +286,8 @@ class Tools
                     return $rule->id;
                 }
 
-        //递归处理这个节点
-        $maybe_rule_id = Tools::has_conflict_rule($rule, $ruleset, $edit_rule_id, $origin_node_id, $rule->user_id);
+                //递归处理这个节点
+                $maybe_rule_id = Tools::has_conflict_rule($rule, $ruleset, $edit_rule_id, $origin_node_id, $rule->user_id);
                 if ($maybe_rule_id != 0) {
                     return $maybe_rule_id;
                 }
@@ -418,9 +420,14 @@ class Tools
     {
         if($user->method == 'none' && !in_array($user->protocol, Config::getSupportParam('allow_none_protocol')))
         {
-          return false;
+            return false;
         }
 
         return true;
+    }
+
+    public static function getRealIp($rawIp)
+    {
+        return str_replace("::ffff:", "", $rawIp);
     }
 }
