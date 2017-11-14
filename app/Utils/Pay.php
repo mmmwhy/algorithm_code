@@ -807,6 +807,7 @@ class Pay
     window.location.href="/user/code";
 </script>
 ';
+            return;
         }
         else{
             //更新用户账户
@@ -867,7 +868,7 @@ class Pay
             exit('success'); //说明数据已经处理完毕
             return;
         }
-        if($param!=Config::get('alipay')||$trade_no==''){ //鉴权失败
+        if(base64_decode($param)!=Config::get('alipay')||$trade_no==''){ //鉴权失败
             exit('fail');
             return;
         }
@@ -900,9 +901,8 @@ class Pay
             $Payback->save();
         }
         exit('success'); //返回成功 不要删除哦
-
-
     }
+    
     public static function callback($request)
     {
         $driver = Config::get("payment_system");
