@@ -9,7 +9,7 @@
 <main class="content">
 	<div class="content-header ui-content-header">
 		<div class="container">
-			<h1 class="content-heading">节点列表</h1>
+			<h1 class="content-heading">Server list</h1>
 		</div>
 	</div>
 	<div class="container">
@@ -19,8 +19,8 @@
 				<div class="card">
 					<div class="card-main">
 						<div class="card-inner">
-							<p>系统中所有节点的列表。</p>
-              <p>显示表项:
+							<p>All servers</p>
+              <p>Show:
                 {include file='table/checkbox.tpl'}
               </p>
 						</div>
@@ -43,13 +43,13 @@
 						<div class="modal-content">
 							<div class="modal-heading">
 								<a class="modal-close" data-dismiss="modal">×</a>
-								<h2 class="modal-title">确认要删除？</h2>
+								<h2 class="modal-title">Are you sure that you want to delete this server?</h2>
 							</div>
 							<div class="modal-inner">
-								<p>请您确认。</p>
+								<p>PLease confirm</p>
 							</div>
 							<div class="modal-footer">
-								<p class="text-right"><button class="btn btn-flat btn-brand-accent waves-attach waves-effect" data-dismiss="modal" type="button">取消</button><button class="btn btn-flat btn-brand-accent waves-attach" data-dismiss="modal" id="delete_input" type="button">确定</button></p>
+								<p class="text-right"><button class="btn btn-flat btn-brand-accent waves-attach waves-effect" data-dismiss="modal" type="button">Cancel</button><button class="btn btn-flat btn-brand-accent waves-attach" data-dismiss="modal" id="delete_input" type="button">Delete</button></p>
 							</div>
 						</div>
 					</div>
@@ -104,7 +104,7 @@ $(document).ready(function(){
 			},
 			error:function(jqXHR){
 				$("#result").modal();
-				$("#msg").html(data.msg+"  发生错误了。");
+				$("#msg").html(data.msg+"  error");
 			}
 		});
 	}

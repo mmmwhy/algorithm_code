@@ -23,12 +23,12 @@
 							<div class="card">
 								<div class="card-main">
 									<div class="card-inner">
-										<p>您试图访问的页面地址出错了。如果您认为这个错误不该发生，<a href="https://github.com/glzjin/ss-panel-v3-mod/issues">请到 Github 提交 issue</a>。</p>
+										<p>An error occured while loading this page. If you believe this error should not have happened, <a href="https://github.com/glzjin/ss-panel-v3-mod/issues">please go to Github to submit an issue.</a></p>
 									</div>
 									
 									<div class="card-action">
 										<div class="card-action-btn pull-left">
-											<a class="btn btn-flat waves-attach" href="javascript:history.back()"><span class="icon">backspace</span>&nbsp;返回</a>
+											<a class="btn btn-flat waves-attach" href="javascript:history.back()"><span class="icon">backspace</span>&nbsp;Go back</a>
 										</div>
 									</div>
 									

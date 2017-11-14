@@ -25,7 +25,7 @@
 					<div class="card">
 						<div class="card-main">
 							<div class="card-inner">
-								<p>{$config["appName"]} 的邀请码，没了的话就烧纸吧。</p>
+								<p>{$config["appName"]}'s invitation code. If you don't have one, then skip.</p>
 							</div>
 						</div>
 					</div>
@@ -43,8 +43,8 @@
 											<thead>
 											<tr>
 												<th>###</th>
-												<th>Invitation code (Click the invitation code to enter the registration page)</th>
-												<th>status</th>
+												<th>Invitation code (Click on the invitation code to enter the registration page)</th>
+												<th>Status</th>
 											</tr>
 											</thead>
 											<tbody>

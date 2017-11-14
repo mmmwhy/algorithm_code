@@ -25,7 +25,7 @@
 								<p>All your transit rules in the system.</p>
 								<p>Here, you can set your transit rules to redirect data from one server to another.</p>
 								<p>If its priority is higher, then that rule will take precedence over others with lower priority in the event of coexistence of conflicting rules.</p>
-								<p>If a server does not have transit rules, then that server can be used as a common server.</p>
+								<p>If a server does not have transit rules, then that server can be used as a normal server.</p>
 							</div>
 						</div>
 					</div>
@@ -50,12 +50,12 @@
 												{$rules->render()}
 												<table class="table">
 											    <tr>
-													<th>Operate</th>
+													<th>Action</th>
 													<th>ID</th>
-													<th>Origin node</th>
-													<th>Target node</th>
+													<th>Original server</th>
+													<th>Target server</th>
 													<th>Port</th>
-													<th>priority</th>
+													<th>Priority</th>
 
 													</tr>
 													{foreach $rules as $rule}
@@ -66,12 +66,12 @@
 														</td>
 														<td>#{$rule->id}</td>
 														{if $rule->source_node_id == 0}
-															<td>All nodes</td>
+															<td>All Servers</td>
 														{else}
 															<td>{$rule->Source_Node()->name}</td>
 														{/if}
 														{if $rule->Dist_Node() == null}
-															<td>Not in transit</td>
+															<td>Not redirected</td>
 														{else}
 															<td>{$rule->Dist_Node()->name}</td>
 														{/if}
@@ -88,9 +88,9 @@
 												<table class="table">
 											    <tr>
 													<th>Port</th>
-													<th>Originating node</th>
-													<th>End node</th>
-													<th>Path node</th>
+													<th>Originating Server</th>
+													<th>End Server</th>
+													<th>Connection Path</th>
 													<th>Status</th>
 													</tr>
 

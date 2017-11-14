@@ -18,7 +18,7 @@
 	<main class="content">
 		<div class="content-header ui-content-header">
 			<div class="container">
-				<h1 class="content-heading">Donate</h1>
+				<h1 class="content-heading">Donations</h1>
 			</div>
 		</div>
 		<div class="container">
@@ -30,7 +30,7 @@
 						<div class="card margin-bottom-no">
 							<div class="card-main">
 								<div class="card-inner">
-									<p>Thank you for donating to support the daily expenses of the server! You can also recharge your account <a href="/user/code">here</a>, which is equivalent to donating.</p>
+									<p>Thank you for donating to support the daily expenses of the servers! You can also recharge your account <a href="/user/code">here</a>, which is equivalent to donating.</p>
 									{if $user->isAdmin()}
 									<p>Total donated so far: {$total_in} CNY </p>
 									{/if}
@@ -80,9 +80,9 @@
 														<th>ID</th>
 														<th>Username</th>
 														<th>Type</th>
-														<th>Operate</th>
+														<th>Action</th>
 														<th>Code</th>
-														<th>Time</th>
+														<th>Date</th>
 														
 													</tr>
 													{foreach $codes as $code}
@@ -91,19 +91,19 @@
 															{if $code->user() != null && $code->user()->is_hide == 0}
 															<td>{$code->user()->user_name}</td>
 															{else}
-															<td>User is anonymous or written off</td>
+															<td>anonymous</td>
 															{/if}
 															{if $code->type == -1}
-															<td>Recharge donations</td>
+															<td>Recharge Account</td>
 															{/if}
 															{if $code->type == -2}
-															<td>Financial expenditure</td>
+															<td>Donations</td>
 															{/if}
 															{if $code->type == -1}
-															<td>Recharge {$code->number} CNY</td>
+															<td>Recharged {$code->number} CNY</td>
 															{/if}
 															{if $code->type == -2}
-															<td>Expenditure {$code->number} CNY</td>
+															<td>Total donated {$code->number} CNY</td>
 															{/if}
 															<td>{$code->code}</td>
 															<td>{$code->usedatetime}</td>

@@ -24,7 +24,7 @@
 								<div class="card">
 									<div class="card-main">
 										<div class="card-inner">
-											<p>(*๓´╰╯`๓) (∩˙ϖ˙∩) (๑`^´๑) </p>
+											<p>Welcome! </p>
 										</div>
 									</div>
 								</div>
@@ -35,14 +35,14 @@
 								<div class="card card-brand">
 									<div class="card-main">
 										<div class="card-inner">
-											<p class="card-heading">User panel</p>
+											<p class="card-heading">Dashboard</p>
 											<p>
-												您可以点击按钮进入面板。
+												Go to dashboard.
 											</p>
 										</div>
 										<div class="card-action">
 											<div class="card-action-btn pull-left">
-												<a class="btn btn-flat waves-attach waves-light waves-effect" href="/user"><span class="icon">airline_seat_recline_normal</span>&nbsp;进入</a>
+												<a class="btn btn-flat waves-attach waves-light waves-effect" href="/user"><span class="icon">airline_seat_recline_normal</span>&nbsp;Enter Dashboard</a>
 											</div>
 										</div>
 									</div>
@@ -55,7 +55,7 @@
 										<div class="card-inner">
 											<p class="card-heading">Register</p>
 											<p>
-												Don't hava account? Maybe you can register one. 
+												Don't have an account? Register here.
 											</p>
 										</div>
 										<div class="card-action">
@@ -73,7 +73,7 @@
 										<div class="card-inner">
 											<p class="card-heading">Login</p>
 											<p>
-												Already have a account? click button to login.
+												Already have an account? Click below to login.
 											</p>
 										</div>
 										<div class="card-action">

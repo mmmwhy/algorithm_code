@@ -25,7 +25,7 @@
 						<div class="card margin-bottom-no">
 							<div class="card-main">
 								<div class="card-inner">
-									<h4>Important!</h4>
+									<h4>Important:</h4>
 									<p>Do not share the servers publicly!</p>
 									<p></p>
 									<a href="javascript:void(0);" onClick="urlChange('guide',0,0,0)">If you do not know how to view the server details and QR Codes, please click me.</a>
@@ -170,7 +170,7 @@
 																					</span></p>
 																					{/if}
 
-																					<p>Onfuscation：<span class="label label-brand">
+																					<p>Obfuscation：<span class="label label-brand">
 																						{$single_muport['user']['obfs']}
 																					</span></p>
 

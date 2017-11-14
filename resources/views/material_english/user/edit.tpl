@@ -12,7 +12,7 @@
 	<main class="content">
 		<div class="content-header ui-content-header">
 			<div class="container">
-				<h1 class="content-heading">Edit your account details</h1>
+				<h1 class="content-heading">Edit account details</h1>
 			</div>
 		</div>
 		<div class="container">
@@ -76,8 +76,8 @@
 								<div class="card-inner">
 									<div class="card-inner">
 										<p class="card-heading">Change encryption type</p>
-										<p>Note: Some encryption types may not be supported by both Shadowsocks and ShadowsocksR.</p>
-										<p>Current encryption:{$user->method}</p>
+										<p>Note: Not all encryption types work with both Shadowsocks and ShadowsocksR.</p>
+										<p>Current encryption: {$user->method}</p>
 										<div class="form-group form-group-label">
 											<label class="floating-label" for="method">Encryption</label>
 											<select id="method" class="form-control">
@@ -122,7 +122,7 @@
 
 										{$user->im_value}</p>
 										<div class="form-group form-group-label">
-											<label class="floating-label" for="imtype">Choose the way of contacting you</label>
+											<label class="floating-label" for="imtype">How may we reach you?</label>
 											<select class="form-control" id="imtype">
 												<option></option>
 												<option value="1">Wechat</option>
@@ -133,7 +133,7 @@
 										</div>
 
 										<div class="form-group form-group-label">
-											<label class="floating-label" for="wechat">Enter your contact number here</label>
+											<label class="floating-label" for="wechat">Enter your contact here</label>
 											<input class="form-control" id="wechat" type="text">
 										</div>
 
@@ -155,8 +155,8 @@
 									<div class="card-inner">
 										<p class="card-heading">Protocol & Obfuscation</p>
 										<p>Current protocol：{$user->protocol}</p>
-										<p>Note 1: If you need the protocol to be compatible with the original version of Shadowsocks, Please only choose  _compatible options!</p>
-										<p>Note 2: If you only use the original Shadowsocks client here please set it directly as origin!</p>
+										<p>Note 1: If you need the protocol to be compatible with the original version of Shadowsocks, Please only choose  _compatible options.</p>
+										<p>Note 2: If you only use the original Shadowsocks client here please set it directly as origin.</p>
 										<div class="form-group form-group-label">
 											<label class="floating-label" for="protocol">Protocol</label>
 											<select id="protocol" class="form-control">
@@ -170,9 +170,9 @@
 									</div>
 
 									<div class="card-inner">
-										<p>Current obfuscation:{$user->obfs}</p>
-										<p>Note 1: If you need it to be compatible with the original version of Shadowsocks, Please onky choose _compatible options!</p>
-										<p>Note 2: SS and SSR support different obfuscation types, simple_obfs_ * types will only work with the original version of Shadowsocks, the rest will only work on ShadowsocksR!</p>
+										<p>Current obfuscation: {$user->obfs}</p>
+										<p>Note 1: If you need it to be compatible with the original version of Shadowsocks, Please only choose _compatible options.</p>
+										<p>Note 2: SS and SSR support different obfuscation types, simple_obfs_ * types will only work with the original version of Shadowsocks, while the rest will only work on ShadowsocksR.</p>
 										<div class="form-group form-group-label">
 											<label class="floating-label" for="obfs">Obfuscation type</label>
 											<select id="obfs" class="form-control">
@@ -203,7 +203,7 @@
 							<div class="card-main">
 								<div class="card-inner">
 									<div class="card-inner">
-										<p class="card-heading">Change the website Theme</p>
+										<p class="card-heading">Change website language/look</p>
 										<p>Current theme：{$user->theme}</p>
 										<div class="form-group form-group-label">
 											<label class="floating-label" for="theme">Theme</label>
@@ -239,7 +239,7 @@
 									</div>
 									<div class="card-action">
 										<div class="card-action-btn pull-left">
-											<button class="btn btn-flat waves-attach" id="unblock" ><span class="icon">check</span>&nbsp;Unlocked</button>
+											<button class="btn btn-flat waves-attach" id="unblock" ><span class="icon">check</span>&nbsp;Unblock this IP</button>
 										</div>
 									</div>
 								</div>
@@ -274,22 +274,22 @@
 
 
 
-					<!--	<div class="card margin-bottom-no">
+						<div class="card margin-bottom-no">
 							<div class="card-main">
 								<div class="card-inner">
 									<div class="card-inner">
-										<p class="card-heading">两步验证</p>
-										<p>请下载 Google 的两步验证器，扫描下面的二维码。</p>
+										<p class="card-heading">Two-step Verification</p>
+										<p>Please download Goodle's two step verification engine, and scan the qr code below.</p>
 										<p><i class="icon icon-lg" aria-hidden="true">android</i><a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2">&nbsp;Android</a></p>
 										<p><i class="icon icon-lg" aria-hidden="true">tablet_mac</i><a href="https://itunes.apple.com/cn/app/google-authenticator/id388497605?mt=8">&nbsp;iOS</a></p>
-										<p>在没有测试完成绑定成功之前请不要启用。</p>
-										<p>当前设置：{if $user->ga_enable==1} 登录时要求验证 {else} 不要求 {/if}</p>
-										<p>当前服务器时间：{date("Y-m-d H:i:s")}</p>
+										<p>If you haven't completed the two step verificatoin procedure, please do not enable.</p>
+										<p>Current settings：{if $user->ga_enable==1} enabled {else} disabled {/if}</p>
+										<p>Current time：{date("Y-m-d H:i:s")}</p>
 										<div class="form-group form-group-label">
-											<label class="floating-label" for="ga-enable">验证设置</label>
+											<label class="floating-label" for="ga-enable">Enable/disable</label>
 											<select id="ga-enable" class="form-control">
-												<option value="0">不要求</option>
-												<option value="1">要求验证</option>
+												<option value="0">Disable</option>
+												<option value="1">Enable</option>
 											</select>
 										</div>
 
@@ -297,39 +297,38 @@
 										<div class="form-group form-group-label">
 											<div class="text-center">
 												<div id="ga-qr"></div>
-												密钥：{$user->ga_token}
+												Verification Token：{$user->ga_token}
 											</div>
 										</div>
 
 
 										<div class="form-group form-group-label">
-											<label class="floating-label" for="code">测试一下</label>
-											<input type="text" id="code" placeholder="输入验证器生成的数字来测试" class="form-control">
+											<label class="floating-label" for="code">Test</label>
+											<input type="text" id="code" placeholder="Input the code here" class="form-control">
 										</div>
 
 									</div>
 									<div class="card-action">
 										<div class="card-action-btn pull-left">
-											<a class="btn btn-brand-accent btn-flat waves-attach" href="/user/gareset" ><span class="icon">format_color_reset</span>&nbsp;重置</a>
-											<button class="btn btn-flat waves-attach" id="ga-test" ><span class="icon">extension</span>&nbsp;测试</button>
-											<button class="btn btn-brand btn-flat waves-attach" id="ga-set" ><span class="icon">perm_data_setting</span>&nbsp;设置</button>
+											<a class="btn btn-brand-accent btn-flat waves-attach" href="/user/gareset" ><span class="icon">format_color_reset</span>&nbsp;Reset</a>
+											<button class="btn btn-flat waves-attach" id="ga-test" ><span class="icon">extension</span>&nbsp;Test</button>
+											<button class="btn btn-brand btn-flat waves-attach" id="ga-set" ><span class="icon">perm_data_setting</span>&nbsp;Setup</button>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>    -->
+						</div>    
 
 						<div class="card margin-bottom-no">
 							<div class="card-main">
 								<div class="card-inner">
-									<div class="card-inner">
-										<p class="card-heading">Change Connection Port</p>
+									<div class="card-inner">Change Server Port</p>
 										<p>Current port：{$user->port}</p>
 
 									</div>
 									<div class="card-action">
 										<div class="card-action-btn pull-left">
-											<button class="btn btn-flat waves-attach" id="portreset" ><span class="icon">check</span>&nbsp;Change port</button>
+											<button class="btn btn-flat waves-attach" id="portreset" ><span class="icon">check</span>&nbsp;Change port (random)</button>
 										</div>
 									</div>
 								</div>
@@ -342,10 +341,10 @@
 									<div class="card-inner">
 										<p class="card-heading">Customize ACL / PAC / Surge</p>
 										<p>You can add Gfwlist rules here. PLEASE DO NOT EDIT THIS IF YOU DO NOT KNOW WHAT IT DOES!</p>
-										<p>Format see <a href="https://adblockplus.org/zh_CN/filters">https://adblockplus.org/zh_CN/filters</a></p>
-										<p>IP segment Please use | 127.0.0.0/8 format</p>
+										<p>For the format see <a href="https://adblockplus.org/zh_CN/filters">https://adblockplus.org/zh_CN/filters</a></p>
+										<p>IP segment please use | 127.0.0.0/8 format</p>
 										<div class="form-group form-group-label">
-											<label class="floating-label" for="pac">Additional rulea</label>
+											<label class="floating-label" for="pac">Additional rules</label>
 											<textarea class="form-control" id="pac" rows="8">{$user->pac}</textarea>
 										</div>
 

@@ -31,13 +31,13 @@
 						{$shops->render()}
 						<table class="table ">
                             <tr>
-								<th>Operating</th>
+								<th>Action</th>
                                 <th>ID</th>
                                 <th>Product name</th>
-								<th>Content</th>
+								<th>What you get</th>
 								<th>Price</th>
-                                <th>Date of Remewal</th>
-								<th>Restores traffic when renewing</th>
+                                <th>Date of Renewal</th>
+								<th>Restores data when renewing</th>
                                 
                             </tr>
                             {foreach $shops as $shop}
@@ -48,17 +48,17 @@
                                 <td>#{$shop->id}</td>
                                 <td>{$shop->shop()->name}</td>
 								<td>{$shop->shop()->content()}</td>
-								<td>{$shop->price} Yuan</td>
+								<td>{$shop->price} CNY</td>
 								{if $shop->renew==0}
                                 <td>Not renewed automatically</td>
 								{else}
-								<td>在 {$shop->renew_date()} Renewal</td>
+								<td>Renews on {$shop->renew_date()}</td>
 								{/if}
 								
 								{if $shop->shop()->auto_reset_bandwidth==0}
                                 <td>Not reset automatically</td>
 								{else}
-								<td>Automatic reset</td>
+								<td>Automatically reset</td>
 								{/if}
                                 
                             </tr>
@@ -132,7 +132,7 @@ $(document).ready(function(){
 			},
 			error:function(jqXHR){
 				$("#result").modal();
-				$("#msg").html(data.msg+"  发生错误了。");
+				$("#msg").html(data.msg+"  Error。");
 			}
 		});
 	}

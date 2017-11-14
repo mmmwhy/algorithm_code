@@ -12,7 +12,7 @@
 	<main class="content">
 		<div class="content-header ui-content-header">
 			<div class="container">
-				<h1 class="content-heading">审计记录查看</h1>
+				<h1 class="content-heading">Filtering Logs</h1>
 			</div>
 		</div>
 		<div class="container">
@@ -22,8 +22,8 @@
 					<div class="card">
 						<div class="card-main">
 							<div class="card-inner">
-								<p>系统中所有审计记录。</p>
-								<p>关于隐私：注意，我们仅用以下规则进行实时匹配和记录匹配到的规则，您的通信方向和通信内容我们不会做任何记录，请您放心。也请您理解我们对于这些不当行为的管理，谢谢。</p>
+								<p>All logs</p>
+								<p>Privacy: We only check for the below traffic types. We do not in any way log your connection details, the websites you visit, or any other internet traffic information. Thank you for your understanding.</p>
 							</div>
 						</div>
 					</div>
@@ -33,14 +33,14 @@
 						<table class="table">
 						    <tr>
 						        <th>ID</th>
-						        <th>节点ID</th>
-						        <th>节点名称</th>
-						        <th>规则ID</th>
-						        <th>名称</th>
-						        <th>描述</th>
-							<th>正则表达式</th>
-							<th>类型</th>
-							<th>时间</th>
+						        <th>Server ID</th>
+						        <th>Server Name</th>
+						        <th>Rule ID</th>
+						        <th>Name</th>
+						        <th>Description</th>
+							<th>Rules</th>
+							<th>Type</th>
+							<th>Time</th>
 								
 						    </tr>
 						    {foreach $logs as $log}
@@ -54,10 +54,10 @@
 									<td>{$log->DetectRule()->text}</td>
 									<td>{$log->DetectRule()->regex}</td>
 									{if $log->DetectRule()->type == 1}
-										<td>数据包明文匹配</td>
+										<td>Matching by data in plain text</td>
 									{/if}		
 									{if $log->DetectRule()->type == 2}
-										<td>数据包 hex 匹配</td>
+										<td>Matching by hex code</td>
 									{/if}
 									<td>{date('Y-m-d H:i:s',$log->datetime)}</td>						
 									</tr>

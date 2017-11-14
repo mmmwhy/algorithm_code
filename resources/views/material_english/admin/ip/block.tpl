@@ -11,7 +11,7 @@
 	<main class="content">
 		<div class="content-header ui-content-header">
 			<div class="container">
-				<h1 class="content-heading">节点被封IP</h1>
+				<h1 class="content-heading">Blocked IPs</h1>
 			</div>
 		</div>
 		<div class="container">
@@ -21,8 +21,8 @@
 					<div class="card">
 						<div class="card-main">
 							<div class="card-inner">
-								<p>这里是最近的节点上捕捉到的进行非法行为的IP。</p>
-								<p>显示表项:
+								<p>Here is the list of IPs who got flagged by a server.</p>
+								<p>Show:
 	                {include file='table/checkbox.tpl'}
 	              </p>
 							</div>
@@ -33,7 +33,7 @@
 						<div class="card-main">
 							<div class="card-inner">
 								<div class="form-group form-group-label">
-									<label class="floating-label" for="ip">要解封的IP</label>
+									<label class="floating-label" for="ip">Unblock this IP</label>
 									<input class="form-control" id="ip" type="text">
 								</div>
 
@@ -42,7 +42,7 @@
 
 							<div class="card-action">
 								<div class="card-action-btn pull-left">
-									<a class="btn btn-flat waves-attach" id="unblock" ><span class="icon">check</span>&nbsp;解封</a>
+									<a class="btn btn-flat waves-attach" id="unblock" ><span class="icon">check</span>&nbsp;Unblock</a>
 								</div>
 							</div>
 						</div>
@@ -101,7 +101,7 @@ $("#unblock").click(function () {
 	          // window.location.reload();
 	      },
 	      error: function (jqXHR) {
-	          alert("发生错误：" + jqXHR.status);
+	          alert("error" + jqXHR.status);
 	      }
 	  })
 });

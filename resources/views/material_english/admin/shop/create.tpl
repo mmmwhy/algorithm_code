@@ -10,7 +10,7 @@
 	<main class="content">
 		<div class="content-header ui-content-header">
 			<div class="container">
-				<h1 class="content-heading">添加商品</h1>
+				<h1 class="content-heading">Add Product</h1>
 			</div>
 		</div>
 		<div class="container">
@@ -20,20 +20,20 @@
 					<div class="card">
 						<div class="card-main">
 							<div class="card-inner">
-								<p>可填单个或者多个参数，多个参数时会自动组合成套餐</p>
+								<p>You can fill in one or multiple parameters. Multiple parameters will be automatically combined into a package.</p>
 								<div class="form-group form-group-label">
-									<label class="floating-label" for="name">名称</label>
+									<label class="floating-label" for="name">Name</label>
 									<input class="form-control" id="name" type="text" >
 								</div>
 
 
 								<div class="form-group form-group-label">
-									<label class="floating-label" for="price">价格</label>
+									<label class="floating-label" for="price">Price</label>
 									<input class="form-control" id="price" type="text" >
 								</div>
 
 								<div class="form-group form-group-label">
-									<label class="floating-label" for="auto_renew">自动续订天数（0为不允许自动续订，其他为到了那么多天之后就会自动从用户的账户上划钱抵扣）</label>
+									<label class="floating-label" for="auto_renew">Days between automatic renewals (0 means no automatic renewals. A number tells the system when to automatically deduct from the user's balance for renewal of purchased package)</label>
 									<input class="form-control" id="auto_renew" type="text" value="0">
 								</div>
 
@@ -47,14 +47,14 @@
 							<div class="card-inner">
 
 								<div class="form-group form-group-label">
-									<label class="floating-label" for="bandwidth">流量（GB）</label>
+									<label class="floating-label" for="bandwidth">Data Cap（GB）</label>
 									<input class="form-control" id="bandwidth" type="text" value="0">
 								</div>
 
 								<div class="form-group form-group-label">
 									<div class="checkbox switch">
 										<label for="auto_reset_bandwidth">
-											<input class="access-hide" id="auto_reset_bandwidth" type="checkbox"><span class="switch-toggle"></span>续费时自动重置用户流量为上面这个流量值
+											<input class="access-hide" id="auto_reset_bandwidth" type="checkbox"><span class="switch-toggle"></span>Automatically reset data cap to the above upon renewal
 										</label>
 									</div>
 								</div>
@@ -69,7 +69,7 @@
 							<div class="card-inner">
 
 								<div class="form-group form-group-label">
-									<label class="floating-label" for="expire">账户有效期天数</label>
+									<label class="floating-label" for="expire">Subscription length in days</label>
 									<input class="form-control" id="expire" type="text" value="0">
 								</div>
 							</div>
@@ -81,12 +81,12 @@
 							<div class="card-inner">
 
 								<div class="form-group form-group-label">
-									<label class="floating-label" for="class">等级</label>
+									<label class="floating-label" for="class">Grade</label>
 									<input class="form-control" id="class" type="text" value="0">
 								</div>
 
 								<div class="form-group form-group-label">
-									<label class="floating-label" for="class_expire">等级有效期天数</label>
+									<label class="floating-label" for="class_expire">Grade activated for x days</label>
 									<input class="form-control" id="class_expire" type="text" value="0">
 								</div>
 							</div>
@@ -97,18 +97,18 @@
 						<div class="card-main">
 							<div class="card-inner">
 								<div class="form-group form-group-label">
-									<label class="floating-label" for="reset_exp">多少天内</label>
+									<label class="floating-label" for="reset_exp">Data to be used within x days</label>
 									<input class="form-control" id="reset_exp" type="number" value="0">
 								</div>
 
 
 								<div class="form-group form-group-label">
-									<label class="floating-label" for="reset">每多少天</label>
+									<label class="floating-label" for="reset">Data reset after x days</label>
 									<input class="form-control" id="reset" type="number" value="0">
 								</div>
 
 								<div class="form-group form-group-label">
-									<label class="floating-label" for="reset_value">重置流量为多少G</label>
+									<label class="floating-label" for="reset_value">Reset to x GBs</label>
 									<input class="form-control" id="reset_value" type="number" value="0">
 								</div>
 							</div>
@@ -125,7 +125,7 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col-md-10 col-md-push-1">
-											<button id="submit" type="submit" class="btn btn-block btn-brand waves-attach waves-light">添加</button>
+											<button id="submit" type="submit" class="btn btn-block btn-brand waves-attach waves-light">Add</button>
 										</div>
 									</div>
 								</div>
@@ -200,7 +200,7 @@
                 },
                 error: function (jqXHR) {
                     $("#result").modal();
-                        $("#msg").html(data.msg+"  发生错误了。");
+                        $("#msg").html(data.msg+"  error");
                 }
             });
         }

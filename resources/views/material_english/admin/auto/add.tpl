@@ -12,7 +12,7 @@
 	<main class="content">
 		<div class="content-header ui-content-header">
 			<div class="container">
-				<h1 class="content-heading">添加下发命令</h1>
+				<h1 class="content-heading">Add an automatic command</h1>
 			</div>
 		</div>
 		<div class="container">
@@ -23,7 +23,7 @@
 						<div class="card-main">
 							<div class="card-inner">
 								<div class="form-group form-group-label">
-									<label class="floating-label" for="content">命令</label>
+									<label class="floating-label" for="content">Command</label>
 									<textarea class="form-control" id="content" rows="15"></textarea>
 								</div>
 								
@@ -39,7 +39,7 @@
 						<div class="card-main">
 							<div class="card-inner">
 								<div class="form-group form-group-label">
-									<label class="floating-label" for="sign">GPG签名</label>
+									<label class="floating-label" for="sign">GPG Signature</label>
 									<textarea class="form-control" id="sign" rows="15"></textarea>
 								</div>
 								
@@ -58,7 +58,7 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col-md-10 col-md-push-1">
-											<button id="submit" type="submit" class="btn btn-block btn-brand waves-attach waves-light">添加</button>
+											<button id="submit" type="submit" class="btn btn-block btn-brand waves-attach waves-light">Add</button>
 										</div>
 									</div>
 								</div>
@@ -110,7 +110,7 @@
                 error: function (jqXHR) {
                     $("#msg-error").hide(10);
                     $("#msg-error").show(100);
-                    $("#msg-error-p").html("发生错误：" + jqXHR.status);
+                    $("#msg-error-p").html("error：" + jqXHR.status);
                 }
             });
         }

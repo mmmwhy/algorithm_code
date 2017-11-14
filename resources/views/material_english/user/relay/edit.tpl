@@ -24,7 +24,7 @@
 							<div class="card-main">
 								<div class="card-inner">
 									<div class="form-group form-group-label">
-										<label class="floating-label" for="source_node">Origin node</label>
+										<label class="floating-label" for="source_node">Original Server</label>
 										<select id="source_node" class="form-control" name="source_node">
 											<option value="0">Please select the original server</option>
 											{foreach $source_nodes as $source_node}
@@ -37,7 +37,7 @@
 									<div class="form-group form-group-label">
 										<label class="floating-label" for="dist_node">Target server</label>
 										<select id="dist_node" class="form-control" name="dist_node">
-											<option value="-1">Not in transit</option>
+											<option value="-1">Not redirected</option>
 											{foreach $dist_nodes as $dist_node}
 												<option value="{$dist_node->id}" {if $rule->dist_node_id == $dist_node->id}selected{/if}>{$dist_node->name}</option>
 											{/foreach}

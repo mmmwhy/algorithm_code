@@ -9,7 +9,7 @@
 	<main class="content">
 		<div class="content-header ui-content-header">
 			<div class="container">
-				<h1 class="content-heading">汇总</h1>
+				<h1 class="content-heading">Summary</h1>
 			</div>
 		</div>
 		<div class="container">
@@ -19,7 +19,7 @@
 						<div class="card margin-bottom-no">
 							<div class="card-main">
 								<div class="card-inner">
-									<p>下面是系统运行情况简报。</p>
+									<p>Summary of system status</p>
 								</div>
 							</div>
 						</div>
@@ -42,7 +42,7 @@
 											var chart = new CanvasJS.Chart("check_chart",
 											{
 												title:{
-													text: "用户签到情况(总用户 {$sts->getTotalUser()}人)",
+													text: "Registered Users (Total Users {$sts->getTotalUser()})",
 													fontFamily: "Impact",
 													fontWeight: "normal"
 												},
@@ -63,13 +63,13 @@
 													showInLegend: true,
 													dataPoints: [
 														{
-															y: {(1-($sts->getCheckinUser()/$sts->getTotalUser()))*100}, legendText:"没有签到过的用户 {number_format((1-($sts->getCheckinUser()/$sts->getTotalUser()))*100,2)}% {$sts->getTotalUser()-$sts->getCheckinUser()}人", indexLabel: "没有签到过的用户 {number_format((1-($sts->getCheckinUser()/$sts->getTotalUser()))*100,2)}% {$sts->getTotalUser()-$sts->getCheckinUser()}人"
+															y: {(1-($sts->getCheckinUser()/$sts->getTotalUser()))*100}, legendText:"Users with no purchase history: {number_format((1-($sts->getCheckinUser()/$sts->getTotalUser()))*100,2)}% {$sts->getTotalUser()-$sts->getCheckinUser()} users", indexLabel: "Users with no purchase history: {number_format((1-($sts->getCheckinUser()/$sts->getTotalUser()))*100,2)}% {$sts->getTotalUser()-$sts->getCheckinUser()} users"
 														},
 														{
-															y: {(($sts->getCheckinUser()-$sts->getTodayCheckinUser())/$sts->getTotalUser())*100}, legendText:"曾经签到过的用户 {number_format((($sts->getCheckinUser()-$sts->getTodayCheckinUser())/$sts->getTotalUser())*100,2)}% {$sts->getCheckinUser()-$sts->getTodayCheckinUser()}人", indexLabel: "曾经签到过的用户 {number_format((($sts->getCheckinUser()-$sts->getTodayCheckinUser())/$sts->getTotalUser())*100,2)}% {$sts->getCheckinUser()-$sts->getTodayCheckinUser()}人"
+															y: {(($sts->getCheckinUser()-$sts->getTodayCheckinUser())/$sts->getTotalUser())*100}, legendText:"Subscribed users: {number_format((($sts->getCheckinUser()-$sts->getTodayCheckinUser())/$sts->getTotalUser())*100,2)}% {$sts->getCheckinUser()-$sts->getTodayCheckinUser()} users", indexLabel: "Subscribed users: {number_format((($sts->getCheckinUser()-$sts->getTodayCheckinUser())/$sts->getTotalUser())*100,2)}% {$sts->getCheckinUser()-$sts->getTodayCheckinUser()} users"
 														},
 														{
-															y: {$sts->getTodayCheckinUser()/$sts->getTotalUser()*100}, legendText:"今日签到用户 {number_format($sts->getTodayCheckinUser()/$sts->getTotalUser()*100,2)}% {$sts->getTodayCheckinUser()}人", indexLabel: "今日签到用户 {number_format($sts->getTodayCheckinUser()/$sts->getTotalUser()*100,2)}% {$sts->getTodayCheckinUser()}人"
+															y: {$sts->getTodayCheckinUser()/$sts->getTotalUser()*100}, legendText:"Number of users who purchased a subscription today: {number_format($sts->getTodayCheckinUser()/$sts->getTotalUser()*100,2)}% {$sts->getTodayCheckinUser()} users", indexLabel: "Number of users who purchased a subscription today: {number_format($sts->getTodayCheckinUser()/$sts->getTotalUser()*100,2)}% {$sts->getTodayCheckinUser()} users"
 														}
 													]
 												}
@@ -96,7 +96,7 @@
 											var chart = new CanvasJS.Chart("alive_chart",
 											{
 												title:{
-													text: "用户在线情况(总用户 {$sts->getTotalUser()}人)",
+													text: "Online users (Total users: {$sts->getTotalUser()})",
 													fontFamily: "Impact",
 													fontWeight: "normal"
 												},
@@ -117,19 +117,19 @@
 													showInLegend: true,
 													dataPoints: [
 														{
-															y: {(($sts->getUnusedUser()/$sts->getTotalUser()))*100}, legendText:"从未在线的用户 {number_format((($sts->getUnusedUser()/$sts->getTotalUser()))*100,2)}% {(($sts->getUnusedUser()))}人", indexLabel: "从未在线的用户 {number_format((($sts->getUnusedUser()/$sts->getTotalUser()))*100,2)}% {(($sts->getUnusedUser()))}人"
+															y: {(($sts->getUnusedUser()/$sts->getTotalUser()))*100}, legendText:"Users who never went online: {number_format((($sts->getUnusedUser()/$sts->getTotalUser()))*100,2)}% {(($sts->getUnusedUser()))} user", indexLabel: "Users who never went online: {number_format((($sts->getUnusedUser()/$sts->getTotalUser()))*100,2)}% {(($sts->getUnusedUser()))} user"
 														},
 														{
-															y: {(($sts->getTotalUser()-$sts->getOnlineUser(86400)-$sts->getUnusedUser())/$sts->getTotalUser())*100}, legendText:"一天以前在线的用户 {number_format((($sts->getTotalUser()-$sts->getOnlineUser(86400)-$sts->getUnusedUser())/$sts->getTotalUser())*100,2)}% {($sts->getTotalUser()-$sts->getOnlineUser(86400)-$sts->getUnusedUser())}人", indexLabel: "一天以前在线的用户 {number_format((($sts->getTotalUser()-$sts->getOnlineUser(86400)-$sts->getUnusedUser())/$sts->getTotalUser())*100,2)}% {($sts->getTotalUser()-$sts->getOnlineUser(86400)-$sts->getUnusedUser())}人"
+															y: {(($sts->getTotalUser()-$sts->getOnlineUser(86400)-$sts->getUnusedUser())/$sts->getTotalUser())*100}, legendText:"Over a day since last online: {number_format((($sts->getTotalUser()-$sts->getOnlineUser(86400)-$sts->getUnusedUser())/$sts->getTotalUser())*100,2)}% {($sts->getTotalUser()-$sts->getOnlineUser(86400)-$sts->getUnusedUser())} user", indexLabel: "Over a day since last online: {number_format((($sts->getTotalUser()-$sts->getOnlineUser(86400)-$sts->getUnusedUser())/$sts->getTotalUser())*100,2)}% {($sts->getTotalUser()-$sts->getOnlineUser(86400)-$sts->getUnusedUser())} user"
 														},
 														{
-															y: {($sts->getOnlineUser(86400)-$sts->getOnlineUser(3600))/$sts->getTotalUser()*100}, legendText:"一天内在线的用户 {number_format(($sts->getOnlineUser(86400)-$sts->getOnlineUser(3600))/$sts->getTotalUser()*100,2)}% {($sts->getOnlineUser(86400)-$sts->getOnlineUser(3600))}人", indexLabel: "一天内在线的用户 {number_format(($sts->getOnlineUser(86400)-$sts->getOnlineUser(3600))/$sts->getTotalUser()*100,2)}% {($sts->getOnlineUser(86400)-$sts->getOnlineUser(3600))}人"
+															y: {($sts->getOnlineUser(86400)-$sts->getOnlineUser(3600))/$sts->getTotalUser()*100}, legendText:"Online today: {number_format(($sts->getOnlineUser(86400)-$sts->getOnlineUser(3600))/$sts->getTotalUser()*100,2)}% {($sts->getOnlineUser(86400)-$sts->getOnlineUser(3600))} user", indexLabel: "Online today: {number_format(($sts->getOnlineUser(86400)-$sts->getOnlineUser(3600))/$sts->getTotalUser()*100,2)}% {($sts->getOnlineUser(86400)-$sts->getOnlineUser(3600))} user"
 														},
 														{
-															y: {($sts->getOnlineUser(3600)-$sts->getOnlineUser(60))/$sts->getTotalUser()*100}, legendText:"一小时内在线的用户 {number_format(($sts->getOnlineUser(3600)-$sts->getOnlineUser(60))/$sts->getTotalUser()*100,2)}% {($sts->getOnlineUser(3600)-$sts->getOnlineUser(60))}人", indexLabel: "一小时内在线的用户 {number_format(($sts->getOnlineUser(3600)-$sts->getOnlineUser(60))/$sts->getTotalUser()*100,2)}% {($sts->getOnlineUser(3600)-$sts->getOnlineUser(60))}人"
+															y: {($sts->getOnlineUser(3600)-$sts->getOnlineUser(60))/$sts->getTotalUser()*100}, legendText:"Online in the past hour: {number_format(($sts->getOnlineUser(3600)-$sts->getOnlineUser(60))/$sts->getTotalUser()*100,2)}% {($sts->getOnlineUser(3600)-$sts->getOnlineUser(60))} user", indexLabel: "Online in the past hour: {number_format(($sts->getOnlineUser(3600)-$sts->getOnlineUser(60))/$sts->getTotalUser()*100,2)}% {($sts->getOnlineUser(3600)-$sts->getOnlineUser(60))} user"
 														},
 														{
-															y: {($sts->getOnlineUser(60))/$sts->getTotalUser()*100}, legendText:"一分钟内在线的用户 {number_format(($sts->getOnlineUser(60))/$sts->getTotalUser()*100,2)}% {($sts->getOnlineUser(60))}人", indexLabel: "一分钟内在线的用户 {number_format(($sts->getOnlineUser(60))/$sts->getTotalUser()*100,2)}% {($sts->getOnlineUser(60))}人"
+															y: {($sts->getOnlineUser(60))/$sts->getTotalUser()*100}, legendText:"Online in the past minute: {number_format(($sts->getOnlineUser(60))/$sts->getTotalUser()*100,2)}% {($sts->getOnlineUser(60))} user", indexLabel: "Online in the past minute: {number_format(($sts->getOnlineUser(60))/$sts->getTotalUser()*100,2)}% {($sts->getOnlineUser(60))} user"
 														}
 													]
 												}
@@ -162,7 +162,7 @@
 											var chart = new CanvasJS.Chart("node_chart",
 											{
 												title:{
-													text: "节点在线情况(节点数 {$sts->getTotalSSNode()}个)",
+													text: "Server Status (Online Servers: {$sts->getTotalSSNode()})",
 													fontFamily: "Impact",
 													fontWeight: "normal"
 												},
@@ -184,10 +184,10 @@
 													dataPoints: [
 														{if $sts->getTotalSSNode()!=0}
 															{
-																y: {(1-($sts->getAliveSSNode()/$sts->getTotalSSNode()))*100}, legendText:"离线节点 {number_format((1-($sts->getAliveSSNode()/$sts->getTotalSSNode()))*100,2)}% {$sts->getTotalSSNode()-$sts->getAliveSSNode()}个", indexLabel: "离线节点 {number_format((1-($sts->getAliveSSNode()/$sts->getTotalSSNode()))*100,2)}% {$sts->getTotalSSNode()-$sts->getAliveSSNode()}个"
+																y: {(1-($sts->getAliveSSNode()/$sts->getTotalSSNode()))*100}, legendText:"Offline Servers: {number_format((1-($sts->getAliveSSNode()/$sts->getTotalSSNode()))*100,2)}% {$sts->getTotalSSNode()-$sts->getAliveSSNode()} servers", indexLabel: "Offline servers: {number_format((1-($sts->getAliveSSNode()/$sts->getTotalSSNode()))*100,2)}% {$sts->getTotalSSNode()-$sts->getAliveSSNode()} servers"
 															},
 															{
-																y: {(($sts->getAliveSSNode()/$sts->getTotalSSNode()))*100}, legendText:"在线节点 {number_format((($sts->getAliveSSNode()/$sts->getTotalSSNode()))*100,2)}% {$sts->getAliveSSNode()}个", indexLabel: "在线节点 {number_format((($sts->getAliveSSNode()/$sts->getTotalSSNode()))*100,2)}% {$sts->getAliveSSNode()}个"
+																y: {(($sts->getAliveSSNode()/$sts->getTotalSSNode()))*100}, legendText:"Online Servers: {number_format((($sts->getAliveSSNode()/$sts->getTotalSSNode()))*100,2)}% {$sts->getAliveSSNode()} servers", indexLabel: "Online servers: {number_format((($sts->getAliveSSNode()/$sts->getTotalSSNode()))*100,2)}% {$sts->getAliveSSNode()} servers"
 															}
 														{/if}
 													]
@@ -215,7 +215,7 @@
 											var chart = new CanvasJS.Chart("traffic_chart",
 											{
 												title:{
-													text: "流量使用情况(总分配流量 {$sts->getTotalTraffic()})",
+													text: "Data Usage (Total data given out to users: {$sts->getTotalTraffic()})",
 													fontFamily: "Impact",
 													fontWeight: "normal"
 												},
@@ -237,13 +237,13 @@
 													dataPoints: [
 														{if $sts->getRawTotalTraffic()!=0}
 															{
-																y: {(($sts->getRawUnusedTrafficUsage()/$sts->getRawTotalTraffic()))*100}, legendText:"未使用的流量 {number_format((($sts->getRawUnusedTrafficUsage()/$sts->getRawTotalTraffic()))*100,2)}% {(($sts->getUnusedTrafficUsage()))}", indexLabel: "未使用的流量 {number_format((($sts->getRawUnusedTrafficUsage()/$sts->getRawTotalTraffic()))*100,2)}% {(($sts->getUnusedTrafficUsage()))}"
+																y: {(($sts->getRawUnusedTrafficUsage()/$sts->getRawTotalTraffic()))*100}, legendText:"Unused data: {number_format((($sts->getRawUnusedTrafficUsage()/$sts->getRawTotalTraffic()))*100,2)}% {(($sts->getUnusedTrafficUsage()))}", indexLabel: "Unused data {number_format((($sts->getRawUnusedTrafficUsage()/$sts->getRawTotalTraffic()))*100,2)}% {(($sts->getUnusedTrafficUsage()))}"
 															},
 															{
-																y: {(($sts->getRawLastTrafficUsage()/$sts->getRawTotalTraffic()))*100}, legendText:"已使用的流量 {number_format((($sts->getRawLastTrafficUsage()/$sts->getRawTotalTraffic()))*100,2)}% {(($sts->getLastTrafficUsage()))}", indexLabel: "已使用的流量 {number_format((($sts->getRawLastTrafficUsage()/$sts->getRawTotalTraffic()))*100,2)}% {(($sts->getLastTrafficUsage()))}"
+																y: {(($sts->getRawLastTrafficUsage()/$sts->getRawTotalTraffic()))*100}, legendText:"Used data: {number_format((($sts->getRawLastTrafficUsage()/$sts->getRawTotalTraffic()))*100,2)}% {(($sts->getLastTrafficUsage()))}", indexLabel: "Used data: {number_format((($sts->getRawLastTrafficUsage()/$sts->getRawTotalTraffic()))*100,2)}% {(($sts->getLastTrafficUsage()))}"
 															},
 															{
-																y: {(($sts->getRawTodayTrafficUsage()/$sts->getRawTotalTraffic()))*100}, legendText:"今日使用的流量 {number_format((($sts->getRawTodayTrafficUsage()/$sts->getRawTotalTraffic()))*100,2)}% {(($sts->getTodayTrafficUsage()))}", indexLabel: "今日使用的流量 {number_format((($sts->getRawTodayTrafficUsage()/$sts->getRawTotalTraffic()))*100,2)}% {(($sts->getTodayTrafficUsage()))}"
+																y: {(($sts->getRawTodayTrafficUsage()/$sts->getRawTotalTraffic()))*100}, legendText:"Used data during the past 24 hours: {number_format((($sts->getRawTodayTrafficUsage()/$sts->getRawTotalTraffic()))*100,2)}% {(($sts->getTodayTrafficUsage()))}", indexLabel: "Used data during the past 24 hours: {number_format((($sts->getRawTodayTrafficUsage()/$sts->getRawTotalTraffic()))*100,2)}% {(($sts->getTodayTrafficUsage()))}"
 															}
 														{/if}
 													]

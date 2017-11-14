@@ -196,7 +196,7 @@
 		<ul class="nav nav-list pull-left">
 			<div>
 				<a data-toggle="menu" href="#ui_menu">
-					<span class="icon icon-lg text-white">Menu</span>
+					<span class="icon icon-lg text-white">menu</span>
 				</a>
 			</div>
 		</ul>
@@ -217,7 +217,7 @@
 						</li>
 					</ul>
 				{else}
-					<span class="access-hide">Not logged in</span>
+					<span class="access-hide">未登录</span>
 					<span class="avatar avatar-sm"><img alt="alt text for John Smith avatar" src="/theme/material/images/users/avatar-001.jpg"></span>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-right">
@@ -225,7 +225,7 @@
 							<a class="padding-right-lg waves-attach" href="/auth/login"><span class="icon icon-lg margin-right">account_box</span>Login</a>
 						</li>
 						<li>
-							<a class="padding-right-lg waves-attach" href="/auth/register"><span class="icon icon-lg margin-right">pregnant_woman</span>Register</a>
+							<a class="padding-right-lg waves-attach" href="/auth/register"><span class="icon icon-lg margin-right">pregnant_woman</span>Register/a>
 						</li>
 					</ul>
 				{/if}
@@ -236,20 +236,20 @@
 	<nav aria-hidden="true" class="menu menu-left nav-drawer nav-drawer-md" id="ui_menu" tabindex="-1">
 		<div class="menu-scroll">
 			<div class="menu-content">
-				<a class="menu-logo" href="/"><i class="icon icon-lg">language</i>&nbsp;Home</a>
+				<a class="menu-logo" href="/"><i class="icon icon-lg">person_pin_circle</i>&nbsp;Home</a>
 				<ul class="nav">
 					<li>
 						<a class="waves-attach" data-toggle="collapse" href="#ui_menu_me">My Account</a>
 						<ul class="menu-collapse collapse in" id="ui_menu_me">
 							<li>
 								<a href="/user">
-									<i class="icon icon-lg">view_compact</i>&nbsp;Dashboard
+									<i class="icon icon-lg">recent_actors</i>&nbsp;Dashboard
 								</a>
 							</li>
 							
 							<li>
 								<a href="/user/profile">
-									<i class="icon icon-lg">account_box</i>&nbsp;Account Details
+									<i class="icon icon-lg">info</i>&nbsp;Account Details
 								</a>
 							</li>
 							
@@ -259,25 +259,26 @@
 								</a>
 							</li>
 							
-						<!--	<li>
+							<li>
 								<a href="/user/invite">
 									<i class="icon icon-lg">loyalty</i>&nbsp;Invitation Codes
 								</a>
-							</li> -->
+							</li>
 							
 							<li>
 								<a href="/user/announcement">
 									<i class="icon icon-lg">announcement</i>&nbsp;Announcements
 								</a>
 							</li>
-                          <li>
-								<a href="/user/ticket">
-									<i class="icon icon-lg">question_answer</i>&nbsp;Donations
+							
+							
+							{if $config['enable_donate']=='true'}
+							<li>
+								<a href="/user/donate">
+									<i class="icon icon-lg">attach_money</i>&nbsp;Donations
 								</a>
 							</li>
-							
-							
-				
+							{/if}
 							
 							
 						</ul>
@@ -287,41 +288,36 @@
 						<ul class="menu-collapse collapse in" id="ui_menu_use">
 							<li>
 								<a href="/user/node">
-									<i class="icon icon-lg">airplanemode_active</i>&nbsp;Server List
+									<i class="icon icon-lg">router</i>&nbsp;Server List
 								</a>
 							</li>
 							
 							<li>
 								<a href="/user/relay">
-									<i class="icon icon-lg">compare_arrows</i>&nbsp;Data Transit Rules
+									<i class="icon icon-lg">compare_arrows</i>&nbsp;Data Redirect Rules
 								</a>
 							</li>
 							
 							<li>
 								<a href="/user/trafficlog">
-									<i class="icon icon-lg">low_priority</i>&nbsp;Data Usage
+									<i class="icon icon-lg">traffic</i>&nbsp;Data Usage
 								</a>
 							</li>
 							
 							<li>
 								<a href="/user/lookingglass">
-									<i class="icon icon-lg">sort</i>&nbsp;Server Looking-glass
+									<i class="icon icon-lg">youtube_searched_for</i>&nbsp;Server Looking-glass
 								</a>
-								<!––
-								<a target="_blank" href="/Course.html">
-									<i class="icon icon-lg">start</i>&nbsp;
-								</a> 
-								-->
 							</li>
 						</ul>
 
-						<a class="waves-attach" data-toggle="collapse" href="#ui_menu_detect">Audit</a>
+						<a class="waves-attach" data-toggle="collapse" href="#ui_menu_detect">Filtering</a>
 						<ul class="menu-collapse collapse in" id="ui_menu_detect">
-							<li><a href="/user/detect"><i class="icon icon-lg">account_balance</i>&nbsp;Audit rules</a></li>
-							<li><a href="/user/detect/log"><i class="icon icon-lg">assignment_late</i>&nbsp;Audit record</a></li>
-						</ul> 
+							<li><a href="/user/detect"><i class="icon icon-lg">account_balance</i>&nbsp;Filtering rules</a></li>
+							<li><a href="/user/detect/log"><i class="icon icon-lg">assignment_late</i>&nbsp;Filtering record</a></li>
+						</ul>
 						
-						<a class="waves-attach" data-toggle="collapse" href="#ui_menu_trade">help</a>
+						<a class="waves-attach" data-toggle="collapse" href="#ui_menu_trade">Help</a>
 						<ul class="menu-collapse collapse in" id="ui_menu_trade">
 							{if $config['enable_wecenter']=='true'}
 							<li>
@@ -331,8 +327,12 @@
 							</li>
 							{/if}
 							
-
-					
+							<li>
+								<a href="/user/ticket">
+									<i class="icon icon-lg">question_answer</i>&nbsp;Support Tickets
+								</a>
+							</li>
+						</ul>
 
 						
 						<a class="waves-attach" data-toggle="collapse" href="#ui_menu_help">Your Subsciption</a>
@@ -352,20 +352,10 @@
 
 							<li>
 								<a href="/user/code">
-									<i class="icon icon-lg">code</i>&nbsp;Recharge 
+									<i class="icon icon-lg">code</i>&nbsp;Recharge
 								</a>
 							</li>
-                          
-                          {if $config['enable_donate']=='true'}
-							<li>
-								<a href="/user/donate">
-									<i class="icon icon-lg">attach_money</i>&nbsp;Donations
-								</a>
-							</li>
-							{/if}
-                          
 						</ul>
-
 						
 						{if $user->isAdmin()}
 							<li>

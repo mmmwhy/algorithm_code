@@ -37,8 +37,8 @@
 							<div class="card">
 								<div class="card-main">
 									<div class="card-inner margin-bottom-no">
-										<p class="card-heading">Download and Configurations Center</p>
-										<p>You can view your Shadowsocks connection details here.<br>You will also find the setup instructions for all common OS, as well as the downloadable app files.</p>
+										<p class="card-heading">Shadowsocks Setup</p>
+										<p>You can view your connection details here.<br>You will also find the setup instructions for all common OS, as well as the downloadable app files.</p>
 										<nav class="tab-nav margin-top-no">
 											<ul class="nav nav-list">
 												<li {if $ssr_prefer}class="active"{/if}>
@@ -57,7 +57,7 @@
 													<nav class="tab-nav margin-top-no">
 														<ul class="nav nav-list">
 															<li class="active">
-																<a class="waves-attach" data-toggle="tab" href="#all_ssr_info"><i class="icon icon-lg">info_outline</i>&nbsp;Connection information</a>
+																<a class="waves-attach" data-toggle="tab" href="#all_ssr_info"><i class="icon icon-lg">info_outline</i>&nbsp;Connection details</a>
 															</li>
 															<li>
 																<a class="waves-attach" data-toggle="tab" href="#all_ssr_windows"><i class="icon icon-lg">desktop_windows</i>&nbsp;Windows</a>
@@ -98,19 +98,19 @@
 															<dd>{$user->obfs}</dd></p>
 														</dl>
 														{else}
-															<p>Your current encryption type, obfuscation type, or protocol will not work with the ShadowsocksR client. Please use the Shadowsocks client to connect, or to the edit details page to change them to compatible types before coming back here.</p>
+															<p>Your current encryption type, obfuscation type, or protocol will not work with the ShadowsocksR client. Please use the Shadowsocks client to connect, or go to the "edit my account" page to change them to compatible types before coming back here.</p>
 
-															<p>If you are using the ShadowsocksR single-port multi-user connection type, then it will not be affected by your settings, and you can use the corresponding client to connect without problem~</p>
+															<p>If you are using the ShadowsocksR single-port multi-user connection type, then you can skip this message.</p>
 
-															<p>In addition, please note that your current SSR subscription link has expired in the current state and you can not import the server details using the link until you change the settings to a mode compatible with SSR.</p>
+															<p>Please note that your current SSR subscription link has expired in the current state. You can not import the server details using this link until you change the settings to a mode compatible with SSR.</p>
 														{/if}
 													</div>
 													<div class="tab-pane fade" id="all_ssr_windows">
-														<p><a href="/ssr-download/ssr-win.7z">Download</a>，then unzip the file. Next, run the program. You now have three ways to import all servers.<br>
-															(1)Download <a href="/user/getpcconf?is_mu=0&is_ss=0">This (ordinary port)</a> or <a href="/user/getpcconf?is_mu=1&is_ss=0">This (single-port multi-user)</a>, then right-click on the small paper airplane icon on the bottom right corner of your screen. Select "import from configuration file" and select this file,<br>
-															(2)Click on <a class="copy-text" data-clipboard-text="{$ssr_url_all}">This (ordinary port)</a> or <a class="copy-text" data-clipboard-text="{$ssr_url_all}">This (single-port multi-user)</a>. Then right-click the paper airplane icon. Select "import from clipboard"<br>
-															(3)(Recommended) Right-click the paper airplane icon. Go to server -> SSR Server Subscription Settings. Set the subscription address to the following address, leave the other parameters blank, and then refresh the SSR server subscription.<br>
-															Once you have entered all the servers, select a suitable server, set proxy rules to "bypass LAN and mainland", and you will be connected.</p>
+														<p><a href="/ssr-download/ssr-win.7z">Download</a> and unzip the file. Double-click on the ShadowsocksR file to start the app. You now have three ways to import the servers:<br>
+															(1) Depending on your setup, download <a href="/user/getpcconf?is_mu=0&is_ss=0"> this file (default)</a> or <a href="/user/getpcconf?is_mu=1&is_ss=0">this file (single-port multi-user)</a>. Right-click on the small paper airplane icon on the bottom right corner of your screen. Go to servers -> "import servers from file" and select this file.<br>
+															(2) Click on <a class="copy-text" data-clipboard-text="{$ssr_url_all}">this link (default)</a> or <a class="copy-text" data-clipboard-text="{$ssr_url_all}">this link (single-port multi-user)</a>. Right-click the paper airplane icon. Select "import SSR links from clipboard"<br>
+															(3) (Recommended) Right-click the paper airplane icon. Go to servers subscribe -> Subscribe Settings. Set the subscription address to the following address, leave the other parameters blank, and then refresh the SSR server subscription.<br>
+															Once you have entered all the servers, select a suitable server, set Mode to "Global", and you will be connected.</p>
 
 														<p>SSR Subscription address:<br>
 															Ordinary port address:<code>{$baseUrl}/link/{$ssr_sub_token}?mu=0</code><br>
@@ -118,19 +118,22 @@
 														</p>
 													</div>
 													<div class="tab-pane fade" id="all_ssr_mac">
-														<p><a href="/ssr-download/ssr-mac.dmg">Download</a>, install, and then download <a href="/user/getpcconf?is_mu=0&is_ss=0">This (ordinary port)</a> or <a  href="/user/getpcconf?is_mu=1&is_ss=0">This (single-port multi-user)</a>. Then run the program, find the small paper airplane icon on the top right of the screen, open the server list submenu and find the button that says "import server configuration file ...". Click on it and import this file, and then select a suitable server, update the PAC, and then use your favorite browser to surf the net.</p>
+														<p><a href="/ssr-download/ssr-mac.dmg">Download</a>, install, and then download <a href="/user/getpcconf?is_mu=0&is_ss=0">this (default)</a> or <a  href="/user/getpcconf?is_mu=1&is_ss=0">this (single-port multi-user)</a>. Run the vpn software. You should see a small paper airplane icon on the top right of your screen. Right-click it, and go to servers -> "import bunch JSON file".</p>
+														<p>If that doesnt work, you can go to the server list to find the qr codes and scan them in by going to servers -> "scan QR code from screen"</p>
 													</div>
 													<div class="tab-pane fade" id="all_ssr_ios">
-														<p>We recommend you download <a href="https://itunes.apple.com/cn/app/shadowrocket/id932747118?mt=8">Shadowrocket</a>. It is third party and costs an additional $3 if you want to purchase it for yourself. If not, we have already purchased it on the US APP STORE with the Apple ID:<code>shz7348@icloud.com</code> and password <code>Qq654321.</code>Pay attention to special symbols and case, login to the store account to download and install, and then open in Safari <a href="{$ssr_url_all}">This (ordinary port)</a> or <a href="{$ssr_url_all_mu}">This (single-port multi-user)</a>, then click OK, and you will be able to add servers in bulk.</p>
+														<p>We recommend you download <a href="https://itunes.apple.com/cn/app/shadowrocket/id932747118?mt=8">Shadowrocket</a>. It is third party and costs an additional $3 if you want to purchase it for yourself. If not, we have already purchased it on the US APP STORE with the Apple ID:<code>shz7348@icloud.com</code> and password <code>Qq654321.</code>Pay attention to special symbols and case, login to the store account to download and install, and then open in Safari <a href="{$ssr_url_all}">this link (default)</a> or <a href="{$ssr_url_all_mu}">this link (single-port multi-user)</a>. Click OK to add all the servers.</p>
+														<p>If it doesn't automatically open in Shadowrocket, you may need to open the app yourself. A popup should come up asking you whether you want to import the server or not. Click OK. </p>
+														<p>You can also copy the link below to add the servers in automatically. Simlpy copy the link, go to shadowrocket, click on the + button, and select "subscribe" as the type instead of shadowsocks. Then paste the link in the url section and click "Done".</p>
 														<p>SSR Subscription address:<br>
 															Normal port and address:<code>{$baseUrl}/link/{$ssr_sub_token}?mu=0</code><br>
 															Single port multiuser port address:<code>{$baseUrl}/link/{$ssr_sub_token}?mu=1</code>
 														</p>
 													</div>
 													<div class="tab-pane fade" id="all_ssr_android">
-														<p><a href="/ssr-download/ssr-android.apk">Download</a>, install, and then open your default browser and click on <a href="{$ssr_url_all}">This link (Ordinary port)</a> or <a href="{$ssr_url_all_mu}">This link (single port multiuser)</a>. Afterward, click OK, batch add servers, and then select the server you want, and connect by clicking the paper airplane icon.</p>
-														<p>SSR Subscription address: You can add a server subscription list to automatically update the servers:<br>
-															Ordinary port address:<code>{$baseUrl}/link/{$ssr_sub_token}?mu=0</code><br>
+														<p><a href="/ssr-download/ssr-android.apk">Download</a>, install, and then open your default browser and click on <a href="{$ssr_url_all}">this link (default)</a> or <a href="{$ssr_url_all_mu}">this link (single port multiuser)</a>. Afterward, click OK to add the servers. Select the server you want, and connect by clicking the paper airplane icon.</p>
+														<p>SSR Subscription address: You can add a server subscription link to automatically update the servers:<br>
+															Normal port and address:<code>{$baseUrl}/link/{$ssr_sub_token}?mu=0</code><br>
 															Single port multiuser port address:<code>{$baseUrl}/link/{$ssr_sub_token}?mu=1</code>
 														</p>
 													</div>
@@ -147,7 +150,7 @@
 													<nav class="tab-nav margin-top-no">
 														<ul class="nav nav-list">
 															<li class="active">
-																<a class="waves-attach" data-toggle="tab" href="#all_ss_info"><i class="icon icon-lg">info_outline</i>&nbsp;Connection information</a>
+																<a class="waves-attach" data-toggle="tab" href="#all_ss_info"><i class="icon icon-lg">info_outline</i>&nbsp;Connection details</a>
 															</li>
 															<li>
 																<a class="waves-attach" data-toggle="tab" href="#all_ss_windows"><i class="icon icon-lg">desktop_windows</i>&nbsp;Windows</a>
@@ -190,24 +193,24 @@
 															<dd>{$user->obfs}</dd></p>
 														</dl>
 														{else}
-															<p>Your current encryption type, obfuscation type, or protocol will not work with the Shadowsocks client. Please use the ShadowsocksR client to connect, or to the edit details page to change them to compatible types before coming back here.</p>
+															<p>Your current encryption type, obfuscation type, or protocol will not work with the Shadowsocks client. Please use the ShadowsocksR client to connect, or to the "edit my account" page to change them to compatible types before coming back here.</p>
 															<p>If you are using the Shadowsocks single-port multi-user connection type, then it will not be affected by your settings, and you can use the corresponding client to connect without problem ~</p>
 														{/if}
 													</div>
 													<div class="tab-pane fade" id="all_ss_windows">
 														<p><a href="/ssr-download/ss-win.zip">Download</a>, extract, and run the program. You have two ways to import all nodes:<br>
-															(1)Downloa <a href="/user/getpcconf?is_mu=0&is_ss=1">This (ordinary port) </a>, and place it in the same directory of the app you just downloaded. Open the app.<br>
-															(2)Click<a class="copy-text" data-clipboard-text="{$ss_url_all_win}"> Here (ordinary port)</a>, then right click on the small paper airplane icon and click on "import the URL from the clipboard".<br>
+															(1)Download <a href="/user/getpcconf?is_mu=0&is_ss=1">this (default) </a>, and place it in the same directory of the app you just downloaded. Open the app.<br>
+															(2)Click<a class="copy-text" data-clipboard-text="{$ss_url_all_win}"> here (default)</a>, then right click on the small paper airplane icon and click on "import URL from clipboard".<br>
 													</div>
 													<div class="tab-pane fade" id="all_ss_mac">
-														<p><a href="/ssr-download/ss-mac.zip">Download</a>, Install, and then download<a href="/user/getpcconf?is_mu=0&is_ss=1"> This (ordinary port)</a>or <a href="/user/getpcconf?is_mu=1&is_ss=1">This (single-port multi-user)</a>. Run the program, then right click on the small paper airplane icon on the right. Select from the server list submenu "import server configuration file ...". Import this file, and then select a suitable server, and update the PAC.</p>
+														<p><a href="/ssr-download/ss-mac.zip">Download</a>, Install, and then download<a href="/user/getpcconf?is_mu=0&is_ss=1"> this (default)</a>or <a href="/user/getpcconf?is_mu=1&is_ss=1">this (single-port multi-user)</a>. Run the program, then right click on the small paper airplane icon on the bottom right. Select from the server list submenu "import server configuration file ...". Import this file, and then select a suitable server to connect.</p>
 													</div>
 													<div class="tab-pane fade" id="all_ss_ios">
-														<p>We recommend you download <a href="https://itunes.apple.com/cn/app/shadowrocket/id932747118?mt=8">Shadowrocket</a>. It is a third party app that costs an additional $3. If you don't want to purchase it for yourself, we have purchased this software from the US store. You can login using this Apple ID:<code>shz7348@icloud.com</code> and password <code>Qq654321.</code> Pay attention to special symbols and case, login to download and install, and then open this page in Safari and open <a href="{$ss_url_all}">This (ordinary port)</a>or<a href="{$ss_url_all_mu}"> This (single-port multi-user)</a>, And then click OK, you can add nodes in bulk.</p>
-														<p>iOS download <a href="/link/{$ios_token}?is_ss=1">This (ordinary port）</a>or <a href="/link/{$ios_token}?is_ss=1&is_mu=1">This (single-port multi-user)</a>. Paste it into the app, and all the servers will be automatically added.</p>
+														<p>We recommend you download <a href="https://itunes.apple.com/cn/app/shadowrocket/id932747118?mt=8">Shadowrocket</a>. It is a third party app that costs an additional $3. If you don't want to purchase it for yourself, we have purchased this software from the US store. You can login using this Apple ID:<code>shz7348@icloud.com</code> and password <code>Qq654321.</code> Pay attention to special symbols and case, login to download and install, and then open this page in Safari and open <a href="{$ss_url_all}">this (default)</a>or<a href="{$ss_url_all_mu}"> this (single-port multi-user)</a>. Click OK to add all the servers.</p>
+														<p>iOS download <a href="/link/{$ios_token}?is_ss=1">this (default）</a>or <a href="/link/{$ios_token}?is_ss=1&is_mu=1">this (single-port multi-user)</a>. Paste it into the app, and all the servers will be automatically added.</p>
 													</div>
 													<div class="tab-pane fade" id="all_ss_android">
-														<p>Download <a href="/ssr-download/ss-android.apk">the basic version</a> or <a href="/ssr-download/ss-android-obfs.apk">the one with obfuscation</a>. Install, and then click on <a class="copy-text" data-clipboard-text="{$ss_url_all}">this link (normal port)</a> or <a class="copy-text" data-clipboard-text="{$ss_url_all_mu}">This link (single port multi-user port)</a>Copy to the clipboard, then open the Shadowsocks client, select from "import from clipboard" from the top menu to import all the servers. Finally, select a server and click on the paper airplane icon to connect.</p>
+														<p>Download <a href="/ssr-download/ss-android.apk">the basic version</a> or <a href="/ssr-download/ss-android-obfs.apk">the one with obfuscation</a>. Install, and then click on <a class="copy-text" data-clipboard-text="{$ss_url_all}">this link (default)</a> or <a class="copy-text" data-clipboard-text="{$ss_url_all_mu}">this link (single port multi-user port)</a>. Copy to the clipboard, then open the Shadowsocks app, select from "import from clipboard" from the top menu to import all the servers. Finally, select a server and click on the paper airplane icon to connect.</p>
 													</div>
 													<div class="tab-pane fade" id="all_ss_router">
 														<p>Flash the router with <a href="http://www.right.com.cn/forum/thread-161324-1-1.html">This firmware</a>, Then SSH login router, execute the following command (import ordinary port)<br>
@@ -252,6 +255,16 @@
 											<dd>{$user->node_speedlimit}Mbps</dd>
 											{else}
 											<dd>Not limited</dd>
+											{/if}</p>
+											
+											 <p><dt>Connected devices</dt>
+											<dd>{$user->online_ip_count()}</dd></p>
+                                          
+                                            <p><dt>Limit on number of simultaneous connections</dt>
+											{if $user->node_connector!=0}
+											<dd>{$user->node_connector}</dd>
+											{else}
+                                            <dd>No limit</dd>
 											{/if}</p>
 
 											<p><dt>Last connected</dt>
@@ -301,7 +314,7 @@
 															y: {($user->u+$user->d-$user->last_day_t)/$user->transfer_enable*100}, legendText:"Today {number_format(($user->u+$user->d-$user->last_day_t)/$user->transfer_enable*100,2)}% {$user->TodayusedTraffic()}", indexLabel: "Today {number_format(($user->u+$user->d-$user->last_day_t)/$user->transfer_enable*100,2)}% {$user->TodayusedTraffic()}"
 														},
 														{
-															y: {($user->transfer_enable-($user->u+$user->d))/$user->transfer_enable*100}, legendText:"Margin {number_format(($user->transfer_enable-($user->u+$user->d))/$user->transfer_enable*100,2)}% {$user->unusedTraffic()}", indexLabel: "Left {number_format(($user->transfer_enable-($user->u+$user->d))/$user->transfer_enable*100,2)}% {$user->unusedTraffic()}"
+															y: {($user->transfer_enable-($user->u+$user->d))/$user->transfer_enable*100}, legendText:"Left {number_format(($user->transfer_enable-($user->u+$user->d))/$user->transfer_enable*100,2)}% {$user->unusedTraffic()}", indexLabel: "Left {number_format(($user->transfer_enable-($user->u+$user->d))/$user->transfer_enable*100,2)}% {$user->unusedTraffic()}"
 														}
 														{/if}
 													]
@@ -327,7 +340,7 @@
 
 											<p>Each time you check in, you can get {$config['checkinMin']}~{$config['checkinMax']}MB Data.</p>
 
-											<p>You can only check in once every day. You can click the button below or shake the phone to check in.</p>
+											<p>You can only check in once each day. You can click the button below or shake the phone to check in.</p>
 
 											<p>Last check-in ：<code>{$user->lastCheckInTime()}</code></p>
 

@@ -34,14 +34,14 @@
 					</a>
 					<ul class="dropdown-menu dropdown-menu-right">
 						<li>
-							<a class="padding-right-lg waves-attach" href="/user/"><span class="icon icon-lg margin-right">account_box</span>User Center</a>
+							<a class="padding-right-lg waves-attach" href="/user/"><span class="icon icon-lg margin-right">account_box</span>Dashboard</a>
 						</li>
 						<li>
 							<a class="padding-right-lg waves-attach" href="/user/logout"><span class="icon icon-lg margin-right">exit_to_app</span>Sign out</a>
 						</li>
 					</ul>
 				{else}
-					<span class="access-hide">Not logged</span>
+					<span class="access-hide">Not logged in</span>
 					<span class="avatar avatar-sm"><img alt="alt text for John Smith avatar" src="/theme/material/images/users/avatar-001.jpg"></span>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-right">
@@ -49,7 +49,7 @@
 							<a class="padding-right-lg waves-attach" href="/auth/login"><span class="icon icon-lg margin-right">vpn_key</span>Login</a>
 						</li>
 						<li>
-							<a class="padding-right-lg waves-attach" href="/auth/register"><span class="icon icon-lg margin-right">person_add</span>registered</a>
+							<a class="padding-right-lg waves-attach" href="/auth/register"><span class="icon icon-lg margin-right">person_add</span>Register</a>
 						</li>
 					</ul>
 				{/if}
@@ -60,12 +60,12 @@
 	<nav aria-hidden="true" class="menu menu-left nav-drawer nav-drawer-md" id="ui_menu" tabindex="-1">
 		<div class="menu-scroll">
 			<div class="menu-content">
-				<a class="menu-logo" href="/"><i class="icon icon-lg">language</i>&nbsp;Click to return to the Home</a>
+				<a class="menu-logo" href="/"><i class="icon icon-lg">language</i>&nbsp;Return to Home Page</a>
 				<ul class="nav">
 
 					{if $user->isLogin}
 					<li>
-						<a  href="/user"><i class="icon icon-lg">person</i>&nbsp;User Center</a>
+						<a  href="/user"><i class="icon icon-lg">person</i>&nbsp;Dashboard</a>
 					</li>
 					<li>
 						<a  href="/user/logout"><i class="icon icon-lg">call_missed_outgoing</i>&nbsp;Sign out</a>
@@ -75,10 +75,10 @@
 						<a  href="/auth/login"><i class="icon icon-lg">vpn_key</i>&nbsp;Login</a>
 					</li>
 					<li>
-						<a  href="/auth/register"><i class="icon icon-lg">person_add</i>&nbsp;registered</a>
+						<a  href="/auth/register"><i class="icon icon-lg">person_add</i>&nbsp;Register</a>
 					</li>
                   	<li>
-				     <a  href="/password/reset"><i class="icon icon-lg">security</i>&nbsp;reset Password</a>
+				     <a  href="/password/reset"><i class="icon icon-lg">security</i>&nbsp;Reset Password</a>
 					</li>
 					{/if}
 				</ul>

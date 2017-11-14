@@ -11,7 +11,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12 col-lg-push-0 col-sm-12 col-sm-push-0">
-						<h1 class="content-heading">STAFF</h1>
+						<h1 class="content-heading">License</h1>
 					</div>
 				</div>
 			</div>
@@ -23,7 +23,7 @@
 							<div class="card">
 								<div class="card-main">
 									<div class="card-inner">
-										<h2 class="content-sub-heading">版权协议</h2>
+										<h2 class="content-sub-heading">License</h2>
 										<p>
 											<p>The MIT License (MIT)</p>
 

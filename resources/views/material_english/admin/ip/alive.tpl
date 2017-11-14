@@ -9,7 +9,7 @@
 <main class="content">
  <div class="content-header ui-content-header">
 	 <div class="container">
-		 <h1 class="content-heading">在线IP</h1>
+		 <h1 class="content-heading">Online IPs</h1>
 	 </div>
  </div>
  <div class="container">
@@ -19,7 +19,7 @@
 			 <div class="card">
 				 <div class="card-main">
 					 <div class="card-inner">
-						 <p>显示表项: {include file='table/checkbox.tpl'}</p>
+						 <p>Show: {include file='table/checkbox.tpl'}</p>
 					 </div>
 				 </div>
 			 </div>

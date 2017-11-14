@@ -29,9 +29,9 @@
 									<div class="card-inner">
 										<h4>Warning!</h4>
 
-										<p>Once your account has been deleted, all of your data will be deleted by<b> true</ b>.</p>
+										<p>Once your account has been deleted, all of your data will be gone!</p>
 
-										<p>If you want to re-use the services provided by this site, you need to re-register.</p>
+										<p>If you want to re-use the services provided by this site, you will need to re-register.</p>
 										
 									</div>
 									
@@ -45,9 +45,9 @@
 							<div class="card-main">
 								<div class="card-inner">
 									<div class="card-inner">
-										<p class="card-heading">Enter the current password to verify the identity</p>
+										<p class="card-heading">Enter the current password for verification</p>
 										<div class="form-group form-group-label">
-											<label class="floating-label" for="passwd">Current password (required)</label>
+											<label class="floating-label" for="passwd">Password (required)</label>
 											<input class="form-control" id="passwd" type="password">
 										</div>
 									</div>

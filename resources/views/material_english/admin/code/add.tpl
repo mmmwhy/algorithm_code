@@ -12,7 +12,7 @@
 	<main class="content">
 		<div class="content-header ui-content-header">
 			<div class="container">
-				<h1 class="content-heading">添加充值码</h1>
+				<h1 class="content-heading">Add Recharge Code</h1>
 			</div>
 		</div>
 		<div class="container">
@@ -26,13 +26,13 @@
 						<div class="card-main">
 							<div class="card-inner">
 								<div class="form-group form-group-label">
-									<label class="floating-label" for="amount">数目</label>
+									<label class="floating-label" for="amount">Number of Recharge Codes</label>
 									<input class="form-control" id="amount" type="text" >
 								</div>
 								
 								
 								<div class="form-group form-group-label">
-									<label class="floating-label" for="number">金额</label>
+									<label class="floating-label" for="number">Amount (CNY)</label>
 									<input class="form-control" id="number" type="text" >
 								</div>
 
@@ -53,7 +53,7 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col-md-10 col-md-push-1">
-											<button id="submit" type="submit" class="btn btn-block btn-brand waves-attach waves-light">添加</button>
+											<button id="submit" type="submit" class="btn btn-block btn-brand waves-attach waves-light">Add</button>
 										</div>
 									</div>
 								</div>
@@ -107,7 +107,7 @@
                 },
                 error: function (jqXHR) {
                     $("#result").modal();
-                        $("#msg").html(data.msg+"  发生错误了。");
+                        $("#msg").html(data.msg+"  error");
                 }
             });
         }

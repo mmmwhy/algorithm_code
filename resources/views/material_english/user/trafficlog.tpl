@@ -26,7 +26,7 @@
 							<div class="card">
 								<div class="card-main">
 									<div class="card-inner margin-bottom-no">
-										<p class="card-heading">Warning!</p>
+										<p class="card-heading">Warning:</p>
 										<p>Some servers do not support data logging.</p>
 										<p>Only the last 72 hours of records are shown here, with a granularity of minutes.</p>
 									</div>

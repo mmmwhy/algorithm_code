@@ -20,7 +20,7 @@
 								</li>
                               {if $config['enable_telegram'] == 'true'}
 								<li>
-									<a class="waves-attach" data-toggle="tab" href="#number_login">	TG Number login</a>
+									<a class="waves-attach" data-toggle="tab" href="#number_login">Login with your telegram account</a>
 								</li>
 								{/if}
 							</ul>
@@ -43,7 +43,7 @@
 														<div class="row">
 															<div class="col-md-10 col-md-push-1">
 																<label class="floating-label" for="email">login name(email)</label>
-																<input class="form-control" id="email" type="text" name="Email">
+																<input class="form-control" id="email" type="text" name="E-mail">
 															</div>
 														</div>
 													</div>
@@ -81,7 +81,7 @@
 															<div class="col-md-10 col-md-push-1">
 																<div class="checkbox checkbox-adv">
 																	<label for="remember_me">
-																		<input class="access-hide" value="week" id="remember_me" name="remember_me" type="checkbox">remember me
+																		<input class="access-hide" value="week" id="remember_me" name="remember_me" type="checkbox">Remember me
 																		<span class="checkbox-circle"></span><span class="checkbox-circle-check"></span><span class="checkbox-circle-icon icon">Done</span>
 																	</label>
 																</div>

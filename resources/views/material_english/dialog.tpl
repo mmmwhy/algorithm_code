@@ -5,7 +5,7 @@
 				<p class="h5 margin-top-sm text-black-hint" id="msg"></p>
 			</div>
 			<div class="modal-footer">
-				<p class="text-right"><button class="btn btn-flat btn-brand-accent waves-attach" data-dismiss="modal" type="button" id="result_ok">知道了</button></p>
+				<p class="text-right"><button class="btn btn-flat btn-brand-accent waves-attach" data-dismiss="modal" type="button" id="result_ok">Thanks</button></p>
 			</div>
 		</div>
 	</div>

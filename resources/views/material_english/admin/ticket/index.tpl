@@ -9,7 +9,7 @@
 <main class="content">
 	<div class="content-header ui-content-header">
 		<div class="container">
-			<h1 class="content-heading">工单</h1>
+			<h1 class="content-heading">Support Tickets</h1>
 		</div>
 	</div>
 	<div class="container">
@@ -19,8 +19,8 @@
 				<div class="card">
 					<div class="card-main">
 						<div class="card-inner">
-							<p>系统中的工单</p>
-              <p>显示表项:
+							<p>Support Tickets</p>
+              <p>Show:
                 {include file='table/checkbox.tpl'}
               </p>
 						</div>

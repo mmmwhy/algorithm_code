@@ -23,7 +23,7 @@
 										<div class="form-group form-group-label">
 											<div class="row">
 												<div class="col-md-10 col-md-push-1">
-													<label class="floating-label" for="email">Mail</label>
+													<label class="floating-label" for="email">E-mail</label>
 													<input class="form-control" id="email" type="text">
 												</div>
 											</div>
@@ -44,7 +44,7 @@
 						</div>
 						<div class="clearfix">
 							<p class="margin-no-top pull-left"><a class="btn btn-flat btn-brand waves-attach" href="/auth/login">Login</a></p>
-							<p class="margin-no-top pull-right"><a class="btn btn-flat btn-brand waves-attach" href="/auth/register">Register Account</a></p>
+							<p class="margin-no-top pull-right"><a class="btn btn-flat btn-brand waves-attach" href="/auth/register">Register</a></p>
 						</div>
 						
 						

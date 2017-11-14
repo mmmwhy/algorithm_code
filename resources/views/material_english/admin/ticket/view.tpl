@@ -12,7 +12,7 @@
 	<main class="content">
 		<div class="content-header ui-content-header">
 			<div class="container">
-				<h1 class="content-heading">查看工单</h1>
+				<h1 class="content-heading">View Ticket</h1>
 			</div>
 		</div>
 		<div class="container">
@@ -23,7 +23,7 @@
 						<div class="card-main">
 							<div class="card-inner">
 								<div class="form-group form-group-label">
-									<label class="floating-label" for="content">内容</label>
+									<label class="floating-label" for="content">Content</label>
 									<link rel="stylesheet" href="/theme/material/editor/css/editormd.min.css" />
 									<div id="editormd">
 										<textarea style="display:none;" id="content"></textarea>
@@ -46,7 +46,7 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col-md-10 col-md-push-1">
-											<button id="submit" type="submit" class="btn btn-block btn-brand waves-attach waves-light">添加</button><button id="close" type="submit" class="btn btn-block btn-brand-accent waves-attach waves-light">添加并关闭</button>
+											<button id="submit" type="submit" class="btn btn-block btn-brand waves-attach waves-light">Submit</button><button id="close" type="submit" class="btn btn-block btn-brand-accent waves-attach waves-light">Submit and close ticket</button>
 										</div>
 									</div>
 								</div>
@@ -96,7 +96,7 @@
     $(document).ready(function () {
         function submit() {
 			$("#result").modal();
-            $("#msg").html("正在提交。");
+            $("#msg").html("Submitting...");
             $.ajax({
                 type: "PUT",
                 url: "/admin/ticket/{$id}",
@@ -119,7 +119,7 @@
                 error: function (jqXHR) {
                     $("#msg-error").hide(10);
                     $("#msg-error").show(100);
-                    $("#msg-error-p").html("发生错误：" + jqXHR.status);
+                    $("#msg-error-p").html("error：" + jqXHR.status);
                 }
             });
         }

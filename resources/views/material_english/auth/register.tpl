@@ -21,7 +21,7 @@
 										<div class="form-group form-group-label">
 											<div class="row">
 												<div class="col-md-10 col-md-push-1">
-													<label class="floating-label" for="name">name</label>
+													<label class="floating-label" for="name">Name</label>
 													<input class="form-control" id="name" type="text">
 												</div>
 											</div>
@@ -30,7 +30,7 @@
 										<div class="form-group form-group-label">
 											<div class="row">
 												<div class="col-md-10 col-md-push-1">
-													<label class="floating-label" for="email">login name(email)</label>
+													<label class="floating-label" for="email">Login name(email)</label>
 													<input class="form-control" id="email" type="text">
 												</div>
 											</div>
@@ -68,7 +68,7 @@
 										<div class="form-group form-group-label">
 											<div class="row">
 												<div class="col-md-10 col-md-push-1">
-													<label class="floating-label" for="passwd">password</label>
+													<label class="floating-label" for="passwd">Password</label>
 													<input class="form-control" id="passwd" type="password">
 												</div>
 											</div>
@@ -77,7 +77,7 @@
 										<div class="form-group form-group-label">
 											<div class="row">
 												<div class="col-md-10 col-md-push-1">
-													<label class="floating-label" for="repasswd">Rrtype password</label>
+													<label class="floating-label" for="repasswd">Retype password</label>
 													<input class="form-control" id="repasswd" type="password">
 												</div>
 											</div>
@@ -103,7 +103,7 @@
 										<div class="form-group form-group-label">
 											<div class="row">
 												<div class="col-md-10 col-md-push-1">
-													<label class="floating-label" for="wechat">contact information</label>
+													<label class="floating-label" for="wechat">Contact information</label>
 													<input class="form-control" id="wechat" type="text">
 												</div>
 											</div>
@@ -266,13 +266,13 @@
 			if(typeof validate == 'undefined')
 			{
 				$("#result").modal();
-                $("#msg").html("请滑动验证码来完成验证。");
+                $("#msg").html("Please enter your verification code to complete the verification process");
 				return;
 			}
 			
 			if (!validate) {
 				$("#result").modal();
-                $("#msg").html("请滑动验证码来完成验证。");
+                $("#msg").html("Please enter your verification code to complete the verification process");
 				return;
 			}
 			
@@ -293,7 +293,7 @@ function time(o) {
 			wait = 60;
 		} else {
 			o.attr("disabled","disabled");
-			o.text("重新发送(" + wait + ")");
+			o.text("resending(" + wait + ")");
 			wait--;
 			setTimeout(function() {
 				time(o)
@@ -327,7 +327,7 @@ function time(o) {
                 },
                 error: function (jqXHR) {
                     $("#result").modal();
-			$("#msg").html(data.msg+"     出现了一些错误。");
+			$("#msg").html(data.msg+"     error");
                 }
             })
         })

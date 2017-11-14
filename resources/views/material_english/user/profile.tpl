@@ -44,7 +44,7 @@
 							<div class="card-main">
 								<div class="card-inner margin-bottom-no">
 									<p class="card-heading">Connected IPs in the last 5 minutes</p>
-									<p>Please confirm that the IPs are yours, if younotice anything abnormal, please modify your password.</p>
+									<p>Please confirm that the IPs are yours, if you notice anything abnormal, please modify your password.</p>
 									<div class="card-table">
 										<div class="table-responsive">
 											<table class="table">
@@ -72,7 +72,7 @@
 							<div class="card-main">
 								<div class="card-inner margin-bottom-no">
 									<p class="card-heading">Last 10 login IPs</p>
-									<p>Please confirm that the IPs are yours, if younotice anything abnormal, please modify your password.</p>
+									<p>Please confirm that the IPs are yours, if you notice anything abnormal, please modify your password.</p>
 									<div class="card-table">
 										<div class="table-responsive">
 											<table class="table">

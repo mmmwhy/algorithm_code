@@ -11,7 +11,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-12 col-lg-push-0 col-sm-12 col-sm-push-0">
-						<h1 class="content-heading">TOS</h1>
+						<h1 class="content-heading">Terms of Service</h1>
 					</div>
 				</div>
 			</div>
@@ -38,8 +38,8 @@
 										
 											<p>
 												<ul>
-													<li>Users need to provide a mailbox and password, and their own custody. Mailbox is the only credential for the user.</li>
-													<li>This site will be encrypted storage user password, as far as possible to ensure data security, but does not guarantee the absolute security of these information.</li>
+													<li>Users need to provide an email and password. The user has to protect this information himself. The e-mail address provided upon registration is currently the only way to login and is the only proof of purchase.</li>
+													<li>E-mails and passwords are encrypted and stored securely to a reasonable extent, and does not guarantee the absolute security of these information.</li>
 												</ul>
 											</p>
 									</div>
@@ -55,11 +55,11 @@
 										
 											<p>
 												<ul>
-													<li>Prohibit the use of this site services for any illegal activities.</li>
-													<li>Use any node, subject to the laws of the country in which the node belongs, and Chinese law.</li>
-													<li>Prohibit the abuse of the services provided by this site.</li>
+													<li>It is prohibitted to use this site and its services for any illegal activity.</li>
+													<li>Your usage of any server puts you under obligation to comply with the laws of the country where the server is located, as well as Chinese laws. </li>
+													<li>It is prohibited to abuse our services. This includes unreasonable use of bandwidth in a way that negatively impacts other users.</li>
 													<li>For free users, we have the right to delete accounts without notice.</li>
-													<li>Any illegal use of the terms of the user, we will delete the illegal account and the right to use the site service.</li>
+													<li>Breaking any of these terms will lead to immidiate account termination without prior notice.</li>
 											   </ul>
 											</p>
 									</div>
@@ -76,8 +76,8 @@
 										
 											<p>
 												<ul>
-													<li>This site is limited to human and cat registered use。</li>
-													<li>TOS update users need to comply with the latest TOS.</li>
+													<li>Only humans may register and use our services.</li>
+													<li>The terms of service are subject to change. It is your responibility to keep up to date with it. The latest terms take effect immidiately on all users.</li>
 											   </ul>
 											</p>
 									</div>

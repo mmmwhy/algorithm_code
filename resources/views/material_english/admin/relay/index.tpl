@@ -12,7 +12,7 @@
 	<main class="content">
 		<div class="content-header ui-content-header">
 			<div class="container">
-				<h1 class="content-heading">中转规则管理</h1>
+				<h1 class="content-heading">Data Transit Rules</h1>
 			</div>
 		</div>
 		<div class="container">
@@ -22,8 +22,8 @@
 					<div class="card">
 						<div class="card-main">
 							<div class="card-inner">
-								<p>系统中所有的中转规则。</p>
-								<p>显示表项:
+								<p>All data transit rules</p>
+								<p>Show:
 	                {include file='table/checkbox.tpl'}
 	              </p>
 							</div>
@@ -34,13 +34,13 @@
 						<div class="card-main">
 							<div class="card-inner">
 								<div class="form-group form-group-label">
-									<label class="floating-label" for="search"> 输入用户 ID 进行搜索链路搜索 </label>
+									<label class="floating-label" for="search"> Enter User ID to search for all the rules for that particular user</label>
 									<input class="form-control" id="search" type="text">
 								</div>
 							</div>
 							<div class="card-action">
 								<div class="card-action-btn pull-left">
-									<a class="btn btn-flat waves-attach waves-light" id="search_button"><span class="icon">search</span>&nbsp;搜索</a>
+									<a class="btn btn-flat waves-attach waves-light" id="search_button"><span class="icon">search</span>&nbsp;Search</a>
 								</div>
 							</div>
 						</div>
@@ -62,13 +62,13 @@
 							<div class="modal-content">
 								<div class="modal-heading">
 									<a class="modal-close" data-dismiss="modal">×</a>
-									<h2 class="modal-title">确认要删除？</h2>
+									<h2 class="modal-title">Are you sure you want to delete this rule?</h2>
 								</div>
 								<div class="modal-inner">
-									<p>请您确认。</p>
+									<p>Please confirm</p>
 								</div>
 								<div class="modal-footer">
-									<p class="text-right"><button class="btn btn-flat btn-brand-accent waves-attach waves-effect" data-dismiss="modal" type="button">取消</button><button class="btn btn-flat btn-brand-accent waves-attach" data-dismiss="modal" id="delete_input" type="button">确定</button></p>
+									<p class="text-right"><button class="btn btn-flat btn-brand-accent waves-attach waves-effect" data-dismiss="modal" type="button">Cancel</button><button class="btn btn-flat btn-brand-accent waves-attach" data-dismiss="modal" id="delete_input" type="button">Delete</button></p>
 								</div>
 							</div>
 						</div>
@@ -126,7 +126,7 @@ $(document).ready(function(){
 			},
 			error:function(jqXHR){
 				$("#result").modal();
-				$("#msg").html(data.msg+"  发生错误了。");
+				$("#msg").html(data.msg+"  error");
 			}
 		});
 	}

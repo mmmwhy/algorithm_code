@@ -9,7 +9,7 @@
 <main class="content">
 	<div class="content-header ui-content-header">
 		<div class="container">
-			<h1 class="content-heading">审计记录查看</h1>
+			<h1 class="content-heading">Filtering Logs</h1>
 		</div>
 	</div>
 	<div class="container">
@@ -19,8 +19,8 @@
 				<div class="card">
 					<div class="card-main">
 						<div class="card-inner">
-							<p>系统中所有审计记录。</p>
-							<p>显示表项:
+							<p>All filtering records</p>
+							<p>Show:
 								{include file='table/checkbox.tpl'}
 							</p>
 						</div>

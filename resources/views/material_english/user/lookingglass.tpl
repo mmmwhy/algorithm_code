@@ -26,7 +26,7 @@
 							<div class="card">
 								<div class="card-main">
 									<div class="card-inner margin-bottom-no">
-										<p class="card-heading">Warning</p>
+										<p class="card-heading">Warning:</p>
 										<p>Only the last {$hour} hours are shown.</p><b>The data is gathered from <a href="http://speedtest.net">the Speedtest.net website</a>. All data is for reference only ~</b>
 									</div>
 									

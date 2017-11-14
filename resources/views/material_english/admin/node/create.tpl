@@ -10,7 +10,7 @@
 	<main class="content">
 		<div class="content-header ui-content-header">
 			<div class="container">
-				<h1 class="content-heading">添加节点</h1>
+				<h1 class="content-heading">Add Server</h1>
 			</div>
 		</div>
 		<div class="container">
@@ -21,35 +21,35 @@
 							<div class="card-main">
 								<div class="card-inner">
 									<div class="form-group form-group-label">
-										<label class="floating-label" for="name">节点名称</label>
+										<label class="floating-label" for="name">Server name</label>
 										<input class="form-control" id="name" type="text" name="name">
 									</div>
 
 
 									<div class="form-group form-group-label">
-										<label class="floating-label" for="server">节点地址</label>
+										<label class="floating-label" for="server">Server address</label>
 										<input class="form-control" id="server" type="text" name="server">
 									</div>
 
 									<div class="form-group form-group-label">
-										<label class="floating-label" for="server">节点IP(不填则自动获取，填写请按照 <a href="https://github.com/esdeathlove/ss-panel-v3-mod/wiki/%E8%8A%82%E7%82%B9IP%E5%A1%AB%E5%86%99%E8%A7%84%E5%88%99">这里</a> 的规则进行填写)</label>
+										<label class="floating-label" for="server">Server IP(If you dont enter anything here, the system will get it automatically. Please follow <a href="https://github.com/esdeathlove/ss-panel-v3-mod/wiki/%E8%8A%82%E7%82%B9IP%E5%A1%AB%E5%86%99%E8%A7%84%E5%88%99">these guidelines</a> when entering an IP)</label>
 										<input class="form-control" id="node_ip" name="node_ip" type="text">
 									</div>
 
 									<div class="form-group form-group-label" hidden="hidden">
-										<label class="floating-label" for="method">加密方式</label>
+										<label class="floating-label" for="method">Encryption Method</label>
 										<input class="form-control" id="method" type="text" name="method" value="aes-256-cfb">
 									</div>
 
 									<div class="form-group form-group-label">
-										<label class="floating-label" for="rate">流量比例</label>
+										<label class="floating-label" for="rate">Data Ratio</label>
 										<input class="form-control" id="rate" type="text" name="rate">
 									</div>
 
 									<div class="form-group form-group-label" hidden="hidden">
 										<div class="checkbox switch">
 											<label for="custom_method">
-												<input  class="access-hide" id="custom_method" type="checkbox" name="custom_method" checked="checked" disabled><span class="switch-toggle"></span>自定义加密
+												<input  class="access-hide" id="custom_method" type="checkbox" name="custom_method" checked="checked" disabled><span class="switch-toggle"></span>Custom Encryption Method
 											</label>
 										</div>
 									</div>
@@ -57,18 +57,18 @@
 									<div class="form-group form-group-label" hidden="hidden">
 										<div class="checkbox switch">
 											<label for="custom_rss">
-												<input  class="access-hide" id="custom_rss" type="checkbox" name="custom_rss" checked="checked" disabled><span class="switch-toggle"></span>自定义协议&混淆
+												<input  class="access-hide" id="custom_rss" type="checkbox" name="custom_rss" checked="checked" disabled><span class="switch-toggle"></span>Custom Protocol and Obfuscation
 											</label>
 										</div>
 									</div>
 
 									<div class="form-group form-group-label">
 										<label for="mu_only">
-											<label class="floating-label" for="sort">单端口多用户启用</label>
+											<label class="floating-label" for="sort">Single-port Multi-user Options</label>
 											<select id="mu_only" class="form-control" name="is_multi_user">
-												<option value="0">单端口多用户与普通端口并存</option>
-												<option value="-1">只启用普通端口</option>
-												<option value="1">只启用单端口多用户</option>
+												<option value="0">Single port multiuser and normal ports</option>
+												<option value="-1">Normal connections only</option>
+												<option value="1">Single port multi-user only</option>
 											</select>
 										</label>
 									</div>
@@ -84,65 +84,65 @@
 									<div class="form-group form-group-label">
 										<div class="checkbox switch">
 											<label for="type">
-												<input checked class="access-hide" id="type" type="checkbox" name="type"><span class="switch-toggle"></span>是否显示
+												<input checked class="access-hide" id="type" type="checkbox" name="type"><span class="switch-toggle"></span>Make this server public?
 											</label>
 										</div>
 									</div>
 
 
 									<div class="form-group form-group-label">
-										<label class="floating-label" for="status">节点状态</label>
+										<label class="floating-label" for="status">Server Status</label>
 										<input class="form-control" id="status" type="text" name="status">
 									</div>
 
 									<div class="form-group form-group-label">
 										<div class="form-group form-group-label">
-												<label class="floating-label" for="sort">节点类型</label>
+												<label class="floating-label" for="sort">Server Typ</label>
 												<select id="sort" class="form-control" name="sort">
 													<option value="0">Shadowsocks</option>
-													<option value="1">VPN/Radius基础</option>
+													<option value="1">VPN/Radius Basic</option>
 													<option value="2">SSH</option>
 													<option value="3">PAC</option>
-													<option value="4">APN文件外链</option>
+													<option value="4">APN File Link</option>
 													<option value="5">Anyconnect</option>
 													<option value="6">APN</option>
-													<option value="7">PAC PLUS(Socks 代理生成 PAC文件)</option>
-													<option value="8">PAC PLUS PLUS(HTTPS 代理生成 PAC文件)</option>
-													<option value="9">Shadowsocks 单端口多用户</option>
-													<option value="10">Shadowsocks 中转</option>
+													<option value="7">PAC PLUS(Socks Proxy Will Auto-create PAC)</option>
+													<option value="8">PAC PLUS PLUSHTTPS Proxy Will Auto-create PAC)</option>
+													<option value="9">Shadowsocks Single-port Multi-user</option>
+													<option value="10">Shadowsocks Transit Serve</option>
 												</select>
 											</div>
 									</div>
 
 									<div class="form-group form-group-label">
-										<label class="floating-label" for="info">节点描述</label>
+										<label class="floating-label" for="info">Server Description</label>
 										<input class="form-control" id="info" type="text" name="info">
 									</div>
 
 									<div class="form-group form-group-label">
-										<label class="floating-label" for="class">节点等级（不分级请填0，分级为数字）</label>
+										<label class="floating-label" for="class">Server Class/Grade（If you don't want to give a grade, type 0; otherwise, type a number）</label>
 										<input class="form-control" id="class" type="text" value="0" name="class">
 									</div>
 
 
 									<div class="form-group form-group-label">
-										<label class="floating-label" for="group">节点群组（分组为数字，不分组请填0）</label>
+										<label class="floating-label" for="group">Server Group（Enter a number; If it doesn't belong to any group, type 0）</label>
 										<input class="form-control" id="group" type="text" value="0" name="group">
 									</div>
 
 
 									<div class="form-group form-group-label">
-										<label class="floating-label" for="node_bandwidth_limit">节点流量上限（不使用的话请填0）（GB）</label>
+										<label class="floating-label" for="node_bandwidth_limit">Maximum Available Data（Type 0 to disable cap））（GB）</label>
 										<input class="form-control" id="node_bandwidth_limit" type="text" value="0" name="node_bandwidth_limit">
 									</div>
 
 									<div class="form-group form-group-label">
-										<label class="floating-label" for="bandwidthlimit_resetday">节点流量上限清空日</label>
+										<label class="floating-label" for="bandwidthlimit_resetday"Server Data Cap Reset Day</label>
 										<input class="form-control" id="bandwidthlimit_resetday" type="text" value="0" name="bandwidthlimit_resetday">
 									</div>
 
 									<div class="form-group form-group-label">
-										<label class="floating-label" for="node_speedlimit">节点限速(对于每个用户端口)（Mbps）</label>
+										<label class="floating-label" for="node_speedlimit">Server Bandwidth Cap (For each user)（Mbps）</label>
 										<input class="form-control" id="node_speedlimit" type="text" value="0" name="node_speedlimit">
 									</div>
 								</div>
@@ -158,7 +158,7 @@
 									<div class="form-group">
 										<div class="row">
 											<div class="col-md-10 col-md-push-1">
-												<button id="submit" type="submit" class="btn btn-block btn-brand waves-attach waves-light">添加</button>
+												<button id="submit" type="submit" class="btn btn-block btn-brand waves-attach waves-light">Submit</button>
 											</div>
 										</div>
 									</div>
@@ -274,7 +274,7 @@
                 },
                 error: function (jqXHR) {
                     $("#result").modal();
-                    $("#msg").html(data.msg+"  发生错误了。");
+                    $("#msg").html(data.msg+"  error");
                 }
             });
 		}

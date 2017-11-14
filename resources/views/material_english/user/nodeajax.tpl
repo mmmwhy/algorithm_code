@@ -50,7 +50,7 @@
 			up_chart{$id} = new CanvasJS.Chart("up{$id}_chart",
 			{
 				title:{
-					text: "Online rate for the last 24 hours for {$prefix} - Online for {$point_node->getNodeUptime()}"
+					text: "Server uptime during the last 24 hours for {$prefix} - Online for {$point_node->getNodeUptime()}"
 				},
 				data: [
 					{
@@ -78,7 +78,7 @@
 			alive_chart{$id} = new CanvasJS.Chart("alive{$id}_chart",
 			{
 				title:{
-					text: "Number of users online in the last 24 hours for {$prefix}"
+					text: "Number of connected users during the last 24 hours for {$prefix}"
 				},
 				data: [
 				{
@@ -117,7 +117,7 @@
 			speedtest_chart{$id} = new CanvasJS.Chart("speedtest{$id}_chart",
 			{
 				title:{
-					text: "Ping from major ISPs{$prefix}"
+					text: "Ping from major ISPs {$prefix}"
 				},
 				axisY: {				
 					suffix: " ms"
@@ -216,7 +216,7 @@
 			speedtest_ping_chart{$id} = new CanvasJS.Chart("speedtest{$id}_ping_chart",
 			{
 				title:{
-					text: "Server ​​Speed test {$prefix}"
+					text: "Connection ​​Speed {$prefix}"
 				},
 				axisY: {				
 					suffix: " Mbps"
