@@ -773,7 +773,7 @@ class Pay
             return;
         }
 
-        if($_GET['param']!='noalipay'){
+        if($param!='noalipay'){
             //更新用户账户
             $user=User::find($trade_id);
             $user->money=$user->money+$trade_num;
@@ -809,6 +809,33 @@ class Pay
 ';
         }
         else{
+            //更新用户账户
+            $user=User::find($trade_id);
+            $user->money=$user->money+$trade_num;
+            $user->save();
+            $codeq=new Code();
+            $codeq->code=$trade_no;
+            $codeq->isused=1;
+            $codeq->type=-1;
+            $codeq->number=$_GET['price'];
+            $codeq->usedatetime=date("Y-m-d H:i:s");
+            $codeq->userid=$user->id;
+            $codeq->save();
+
+            //更新返利
+            if ($user->ref_by!=""&&$user->ref_by!=0&&$user->ref_by!=null) {
+                $gift_user=User::where("id", "=", $user->ref_by)->first();
+                $gift_user->money=($gift_user->money+($codeq->number*(Config::get('code_payback')/100)));
+                $gift_user->save();
+
+                $Payback=new Payback();
+                $Payback->total=$trade_num;
+                $Payback->userid=$user->id;
+                $Payback->ref_by=$user->ref_by;
+                $Payback->ref_get=$codeq->number*(Config::get('code_payback')/100);
+                $Payback->datetime=time();
+                $Payback->save();
+            }
             echo '
 <script>
     alert("站长未设置$System_Config[alipay]收款人账户，无法到账");
