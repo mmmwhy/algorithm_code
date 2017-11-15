@@ -866,7 +866,7 @@ class Pay
             exit('success'); //说明数据已经处理完毕
             return;
         }
-        if(base64_decode($param)!=Config::get('alipay')||$trade_no==''){ //鉴权失败
+        if($param!=Config::get('alipay')||$trade_no==''){ //鉴权失败
             exit('fail');
             return;
         }
