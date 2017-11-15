@@ -284,7 +284,9 @@ $codepay_config['host'] = (isHTTPS() ? 'https://' : 'http://') . $_SERVER['HTTP_
 $codepay_config['path'] = $codepay_config['host'] . dirname($_SERVER['REQUEST_URI']); //API安装路径 最终为http://域名/codepay
 $codepay_config['return_url'] = $codepay_config['host'].'/pay91'; //自动生成跳转地址
 $codepay_config['qrcode_url'] = '/assets/91pay/qrcode.php';
-$codepay_config['notify_url'] = $codepay_config['host'].'/notify'; //自动生成通知地址 优先级最高不传入则为系统设置里设置
+//如果使用CDN，请在此处设置为真实服务器地址（可以解析一个非常复杂的二级域名到服务器上），以免回调失败。
+//举个例子：$codepay_config['notify_url'] = 'https://91vps.win/notify';
+$codepay_config['notify_url'] = $codepay_config['host'].'/notify';
 if (empty($_POST)) $_POST = $_GET; //如果为GET方式访问
 $user = $_POST['user'];//提交的用户名
 $pay_id = $user; //网站唯一标识 需要充值的用户名，用户ID或者自行创建订单 建议传递用户的ID
