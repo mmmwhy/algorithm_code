@@ -286,7 +286,7 @@ $System_Config['telegram_token']='';
 $System_Config['telegram_chatid']='';
 
 #多用户混淆参数后缀
-$System_Config['mu_suffix']='bing.com';
+$System_Config['mu_suffix']='jd.hk';
 
 #多用户混淆参数表达式，%5m代表取用户特征 md5 的前五位，%id 代表用户id,%suffix 代表上面这个后缀。
 $System_Config['mu_regex']='%5m%id.%suffix';
