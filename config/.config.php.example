@@ -213,7 +213,7 @@ $System_Config['reg_protocol_param']='';
 $System_Config['reg_obfs']='http_simple';
 
 #注册时默认混淆参数
-$System_Config['reg_obfs_param']='baidu.com';
+$System_Config['reg_obfs_param']='jd.hk';
 
 #注册时默认禁止访问IP列表，半角英文逗号分割
 $System_Config['reg_forbidden_ip']='127.0.0.0/8,::1/128';

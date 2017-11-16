@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `bought` (
 
 CREATE TABLE IF NOT EXISTS `code` (
   `id` bigint(20) NOT NULL,
-  `code` text NOT NULL,
+  `code` varchar(128) NOT NULL UNIQUE,
   `type` int(11) NOT NULL,
   `number` decimal(11,2) NOT NULL,
   `isused` int(11) NOT NULL DEFAULT '0',
