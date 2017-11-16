@@ -47,7 +47,6 @@ $System_Config['invite_get_money']='10';
 $System_Config['checkinMin'] = '100';       // 签到最少流量 单位MB
 $System_Config['checkinMax'] = '200';       // 签到最多流量
 
-//
 $System_Config['defaultTraffic'] = '10';      // 用户初始流量 单位GB
 
 // 注册后获得的邀请码数量
