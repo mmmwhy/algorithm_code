@@ -381,6 +381,7 @@ $codepay_json = file_get_contents($codepay_json_url);
             <div class="ico-scan"></div>
             <div class="tip-text">
                 <p>请使用<?php echo $typeName ?>扫描二维码完成支付</p>
+                <p>91pay祝您购物愉快，请确认信息后进行支付，支付后无法退款。</p>
             </div>
         </div>
     </div>
