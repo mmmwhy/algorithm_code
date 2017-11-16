@@ -776,8 +776,6 @@ class Pay
         if($param!='noalipay'){
             //更新用户账户
             $user=User::find($trade_id);
-            $user->money=$user->money+$trade_num;
-            $user->save();
             $codeq=new Code();
             $codeq->code=$trade_no;
             $codeq->isused=1;
@@ -786,6 +784,8 @@ class Pay
             $codeq->usedatetime=date("Y-m-d H:i:s");
             $codeq->userid=$user->id;
             $codeq->save();
+            $user->money=$user->money+$trade_num;
+            $user->save();
 
             //更新返利
             if ($user->ref_by!=""&&$user->ref_by!=0&&$user->ref_by!=null) {
@@ -812,8 +812,6 @@ class Pay
         else{
             //更新用户账户
             $user=User::find($trade_id);
-            $user->money=$user->money+$trade_num;
-            $user->save();
             $codeq=new Code();
             $codeq->code=$trade_no;
             $codeq->isused=1;
@@ -822,6 +820,8 @@ class Pay
             $codeq->usedatetime=date("Y-m-d H:i:s");
             $codeq->userid=$user->id;
             $codeq->save();
+            $user->money=$user->money+$trade_num;
+            $user->save();
 
             //更新返利
             if ($user->ref_by!=""&&$user->ref_by!=0&&$user->ref_by!=null) {
@@ -867,8 +867,6 @@ class Pay
 
         //更新用户账户
         $user=User::find($trade_id);
-        $user->money=$user->money+$trade_num;
-        $user->save();
         $codeq=new Code();
         $codeq->code=$trade_no;
         $codeq->isused=1;
@@ -877,7 +875,8 @@ class Pay
         $codeq->usedatetime=date("Y-m-d H:i:s");
         $codeq->userid=$user->id;
         $codeq->save();
-
+        $user->money=$user->money+$trade_num;
+        $user->save();
         //更新返利
         if ($user->ref_by!=""&&$user->ref_by!=0&&$user->ref_by!=null) {
             $gift_user=User::where("id", "=", $user->ref_by)->first();
