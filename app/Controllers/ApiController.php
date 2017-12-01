@@ -80,7 +80,7 @@ class ApiController extends BaseController
         $storage = Factory::createTokenStorage();
         $token = $storage->get($accessToken);
         $user = User::find($token->userId);
-        $nodes = Node::where('sort', 0)->where("type", "1")->where(
+        $nodes = Node::where('sort', 0)->where("type", "1")->where('node_class', '<=', $user->class)->where(
             function ($query) use ($user) {
                 $query->where("node_group", "=", $user->node_group)
                     ->orWhere("node_group", "=", 0);
