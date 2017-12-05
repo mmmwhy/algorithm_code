@@ -296,6 +296,14 @@ $app->group('/api', function () {
     $this->post('/token', 'App\Controllers\ApiController:newToken');
     $this->get('/node', 'App\Controllers\ApiController:node')->add(new Api());
     $this->get('/user/{id}', 'App\Controllers\ApiController:userInfo')->add(new Api());
+    $this->get('/announcement','App\Controllers\Client\ClientApiController:GetAnnouncement');
+    $this->get('/redirect','App\Controllers\Client\ClientApiController:Redirect');
+});
+
+//Client pages
+$app->group('/client',function (){
+    $this->get('/shop','App\Controllers\Client\ClientShopController:GetShop');
+    $this->get('/code','App\Controllers\Client\ClientShopController:GetCode');
 });
 
 // mu
