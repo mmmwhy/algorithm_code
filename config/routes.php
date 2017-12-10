@@ -298,6 +298,7 @@ $app->group('/api', function () {
     $this->get('/user/{id}', 'App\Controllers\ApiController:userInfo')->add(new Api());
     $this->get('/announcement','App\Controllers\Client\ClientApiController:GetAnnouncement');
     $this->get('/redirect','App\Controllers\Client\ClientApiController:Redirect');
+    $this->get('/sublink','App\Controllers\Client\ClientApiController:GetSubLink');
 });
 
 //Client pages

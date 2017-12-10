@@ -10,9 +10,11 @@ namespace App\Controllers\Client;
 
 
 use App\Controllers\BaseController;
+use App\Controllers\LinkController;
 use App\Models\Ann;
 use App\Models\User;
 use App\Services\Auth;
+use App\Services\Config;
 use App\Services\Factory;
 use App\Utils\Helper;
 
@@ -52,6 +54,20 @@ class ClientApiController extends BaseController
         }
         return $response->withRedirect($url);
     }
+
+    public function GetSubLink($request, $response, $args)
+    {
+        $accessToken = Helper::getTokenFromReq($request);
+        $storage = Factory::createTokenStorage();
+        $token = $storage->get($accessToken);
+        $user = User::find($token->userId);
+        $ssr_sub_token = LinkController::GenerateSSRSubCode($user->id, 0);
+        $res['ret'] = 1;
+        $res['msg'] = "ok";
+        $res['data'] = Config::get('baseUrl').'/link/'.$ssr_sub_token.'?mu=0';
+        return $this->echoJson($response, $res);
+    }
+
 
 
 
