@@ -96,7 +96,7 @@ class AuthController extends BaseController
         // @todo
         $time =  3600*24;
         if ($rememberMe) {
-            $time = 3600*24*7;
+            $time = 3600*24*30;
         }
 
         if ($user->ga_enable==1) {

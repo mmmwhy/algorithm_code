@@ -157,7 +157,7 @@
 									<div class="modal-inner">
 										{include file='reg_tos.tpl'}
 									</div>
-									<div class="modal-footer">
+									<div clUass="modal-footer">
 										<p class="text-right"><button class="btn btn-flat btn-brand-accent waves-attach waves-effect" data-dismiss="modal" type="button" id="cancel">我不服</button><button class="btn btn-flat btn-brand-accent waves-attach waves-effect" data-dismiss="modal" id="reg" type="button">资慈</button></p>
 										
 									</div>
