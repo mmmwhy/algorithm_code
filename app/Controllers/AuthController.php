@@ -127,6 +127,58 @@ class AuthController extends BaseController
         return $response->getBody()->write(json_encode($rs));
     }
 
+
+    public function loginHandles($request, $response, $args)
+    {
+        // $data = $request->post('sdf');
+        $email =  $request->getParam('email');
+        $email = strtolower($email);
+        $passwd = $request->getParam('passwd');
+        $rememberMe = $request->getParam('remember_me');
+        // Handle Login
+        $user = User::where('email', '=', $email)->first();
+
+        if ($user == null) {
+            $rs['ret'] = 0;
+            $rs['msg'] = "401 邮箱或者密码错误";
+            return $response->getBody()->write(json_encode($rs));
+        }
+
+        if (!Hash::checkPassword($user->pass, $passwd)) {
+            $rs['ret'] = 0;
+            $rs['msg'] = "402 邮箱或者密码错误";
+
+
+            $loginip=new LoginIp();
+            $loginip->ip=$_SERVER["REMOTE_ADDR"];
+            $loginip->userid=$user->id;
+            $loginip->datetime=time();
+            $loginip->type=1;
+            $loginip->save();
+
+            return $response->getBody()->write(json_encode($rs));
+        }
+        // @todo
+        $time =  3600*24;
+        if ($rememberMe) {
+            $time = 3600*24*30;
+        }
+
+
+        Auth::login($user->id, $time);
+        $rs['ret'] = 1;
+        $rs['msg'] = "欢迎回来";
+
+        $loginip=new LoginIp();
+        $loginip->ip=$_SERVER["REMOTE_ADDR"];
+        $loginip->userid=$user->id;
+        $loginip->datetime=time();
+        $loginip->type=0;
+        $loginip->save();
+
+        return $response->getBody()->write(json_encode($rs));
+    }
+
     public function qrcode_loginHandle($request, $response, $args)
     {
         // $data = $request->post('sdf');

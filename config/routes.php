@@ -164,6 +164,7 @@ $app->group('/auth', function () {
     $this->get('/login', 'App\Controllers\AuthController:login');
     $this->get('/qrcode_check', 'App\Controllers\AuthController:qrcode_check');
     $this->post('/login', 'App\Controllers\AuthController:loginHandle');
+    $this->post('/logins', 'App\Controllers\AuthController:loginHandles');
     $this->post('/qrcode_login', 'App\Controllers\AuthController:qrcode_loginHandle');
     $this->get('/register', 'App\Controllers\AuthController:register');
     $this->post('/register', 'App\Controllers\AuthController:registerHandle');
