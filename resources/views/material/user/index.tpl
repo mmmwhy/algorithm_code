@@ -60,6 +60,9 @@
 																<a class="waves-attach" data-toggle="tab" href="#all_ssr_info"><i class="icon icon-lg">info_outline</i>&nbsp;连接信息</a>
 															</li>
 															<li>
+																<a class="waves-attach" data-toggle="tab" href="#all_ssr_tap"><i class="icon icon-lg">desktop_windows</i>&nbsp;一键游戏加速</a>
+															</li>
+															<li>
 																<a class="waves-attach" data-toggle="tab" href="#all_ssr_windows"><i class="icon icon-lg">desktop_windows</i>&nbsp;Windows</a>
 															</li>
 															<li>
@@ -104,6 +107,11 @@
 
 															<p>请注意，在当前状态下您的 SSR 订阅链接已经失效，您无法通过此种方式导入节点。</p>
 														{/if}
+													</div>
+													<div class="tab-pane fade" id="all_ssr_tap">
+														<p><a href="/ssr-download/demo.zip">下载</a>，解压，运行一键游戏加速<br>
+															(1) 输入邮箱，密码，域名即可科学上网<br>
+															(2) 若不能上网，请在设置内检查DNS，切换为阿里云DNS即可<br>
 													</div>
 													<div class="tab-pane fade" id="all_ssr_windows">
 														<p><a href="/ssr-download/ssr-win.7z">下载</a>，解压，运行程序，然后您有三种方式导入所有节点<br>
