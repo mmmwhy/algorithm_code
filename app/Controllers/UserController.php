@@ -154,7 +154,8 @@ class UserController extends BaseController
         $apiid = Config::get('jsj_id');
         $apikey = md5(Config::get('jsj_key'));
         $showurl = Config::get('baseUrl').'/jsj_callback';
-        if(base64_encode(Config::get('baseUrl'))==Config::get('baseUrl')){
+
+        if(substr(md5($_SERVER['HTTP_HOST']),6,5)==Config::get('jsj_activate_key')){
             echo "
 		<form name='form1' action='https://api.jsjapp.com/pay/syt.php' method='POST'>
 			<input type='hidden' name='uid' value='".$uid."'>
@@ -176,6 +177,7 @@ class UserController extends BaseController
 		<script>window.onload=function(){document.form1.submit();}</script> ";
         }
     }
+
 
 
     public function f2fpayget($request, $response, $args)
@@ -1016,6 +1018,7 @@ class UserController extends BaseController
 
         return $response->getBody()->write(json_encode($res));
     }
+
 
     public function bought($request, $response, $args)
     {
