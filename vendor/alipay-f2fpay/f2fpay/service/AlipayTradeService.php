@@ -367,11 +367,8 @@ class AlipayTradeService {
 	 */
 
     function create_erweima_baidu($content, $size = '200', $lev = 'L', $margin= '0') {
-        $domain = $_SERVER['SERVER_NAME'];
-        $url='http://qr.feiyang.li/?data='.$content.'&domain='.$domain;
-        $html = file_get_contents($url);
-		$image = '<a href="'.$content.'" target="_blank"><img src="'.$html.'"></a>';
-		return $image;
-	}
+	    $url = urlencode($content);
+	    $image = '<a href="'.$content.'" target="_blank"><img src="https://pan.baidu.com/share/qrcode?w='.$size.'&amp;h='.$size.'&amp;url='.$url.'"  widht="'.$size.'" height="'.$size.'" />';
+	    return $image;
 
 }
