@@ -167,7 +167,7 @@ class UserController extends BaseController
 		<script>window.onload=function(){document.form1.submit();}</script> ";
         }else{
             echo "
-		<form name='form1' action='https://api.jsjapp.com/pay/syt.php' method='POST'>
+		<form name='form1' action='https://api.jsjapp.com/plugin.php?id=add:alipay' method='POST'>
 			<input type='hidden' name='uid' value='".$uid."'>
 			<input type='hidden' name='total' value='".$price."'>
 			<input type='hidden' name='apiid' value='13761'>
