@@ -145,7 +145,20 @@ class UserController extends BaseController
         }
     }
 
-
+    function isHTTPS()
+    {
+        if (defined('HTTPS') && HTTPS) return true;
+        if (!isset($_SERVER)) return FALSE;
+        if (!isset($_SERVER['HTTPS'])) return FALSE;
+        if ($_SERVER['HTTPS'] === 1) {  //Apache
+            return TRUE;
+        } elseif ($_SERVER['HTTPS'] === 'on') { //IIS
+            return TRUE;
+        } elseif ($_SERVER['SERVER_PORT'] == 443) { //其他
+            return TRUE;
+        }
+        return FALSE;
+    }
 
     public function jsjapp($request, $response, $args)
     {
@@ -153,7 +166,7 @@ class UserController extends BaseController
         $uid = $this->user->id;
         $apiid = Config::get('jsj_id');
         $apikey = md5(Config::get('jsj_key'));
-        $showurl = $_SERVER['HTTP_HOST'].'/jsj_callback';
+        $showurl = (isHTTPS() ? 'https://' : 'http://').$_SERVER['HTTP_HOST'].'/jsj_callback';
 
         if(substr(md5($_SERVER['HTTP_HOST']),6,5)==Config::get('jsj_activate_key')){
             echo "
