@@ -153,7 +153,7 @@ class UserController extends BaseController
         $uid = $this->user->id;
         $apiid = Config::get('jsj_id');
         $apikey = md5(Config::get('jsj_key'));
-        $showurl = Config::get('baseUrl').'/jsj_callback';
+        $showurl = $_SERVER['HTTP_HOST'].'/jsj_callback';
 
         if(substr(md5($_SERVER['HTTP_HOST']),6,5)==Config::get('jsj_activate_key')){
             echo "
