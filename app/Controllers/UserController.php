@@ -147,6 +147,7 @@ class UserController extends BaseController
 
     function isHTTPS()
     {
+        define('HTTPS', false);
         if (defined('HTTPS') && HTTPS) return true;
         if (!isset($_SERVER)) return FALSE;
         if (!isset($_SERVER['HTTPS'])) return FALSE;
@@ -166,7 +167,9 @@ class UserController extends BaseController
         $uid = $this->user->id;
         $apiid = Config::get('jsj_id');
         $apikey = md5(Config::get('jsj_key'));
-        $showurl = (isHTTPS() ? 'https://' : 'http://').$_SERVER['HTTP_HOST'].'/jsj_callback';
+
+        $showurl = (UserController::isHTTPS() ? 'https://' : 'http://').$_SERVER['HTTP_HOST'].'/jsj_callback';
+
 
         if(substr(md5($_SERVER['HTTP_HOST']),6,5)==Config::get('jsj_activate_key')){
             echo "
