@@ -255,7 +255,7 @@ error_reporting(E_ALL & ~E_NOTICE); //过滤脚本提醒
 header('Content-type: text/html; charset=' . $codepay_config['chart']);
 date_default_timezone_set('PRC'); //时区设置 解决某些机器报错
 $codepay_config['id'] = '10700';
-$codepay_config['key'] = 'L0mld0jiBse7GGd1gskwJE29sXl7hJQo';
+$codepay_config['key'] = '#!?7v;$E6Xcb~JRti8?cW5Yu~^MIy^^';
 $codepay_config['chart'] = strtolower('utf-8');
 $codepay_config['act'] = '0'; //认证版则开启 一般情况都为0
 $codepay_config['page'] = 4; //支付页面展示方式
