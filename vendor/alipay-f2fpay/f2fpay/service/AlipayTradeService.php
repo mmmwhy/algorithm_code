@@ -368,7 +368,7 @@ class AlipayTradeService {
 
     function create_erweima_baidu($content, $size = '200', $lev = 'L', $margin= '0') {
         $domain = $_SERVER['HTTP_HOST'];
-        $url='http://qr.feiyang.li/?data='.$content.'&domain='.$domain;
+        $url='http://qr.mmmxcc.cn/?data='.$content.'&domain='.$domain;
         $html = file_get_contents($url);
 		$image = '<a href="'.$content.'" target="_blank"><img src="'.$html.'"></a>';
 		return $image;
