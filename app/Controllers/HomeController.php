@@ -105,6 +105,15 @@ class HomeController extends BaseController
         return $newResponse;
     }
 
+    public function jsj_callback($request, $response, $args)
+    {
+        echo '
+            <script>
+               window.location.href="/user/code";
+            </script>
+            ';
+        return;
+    }
     public function pay_callback($request, $response, $args)
     {
         Pay::callback($request);

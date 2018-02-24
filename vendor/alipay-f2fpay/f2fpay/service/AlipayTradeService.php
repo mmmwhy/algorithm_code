@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: xudong.ding
- * Date: 16/5/19
- * Time: 下午2:09
- */
+
 require_once dirname ( __FILE__ ).DIRECTORY_SEPARATOR.'./../../AopSdk.php';
 require_once dirname ( __FILE__ ).DIRECTORY_SEPARATOR.'./../model/result/AlipayF2FPayResult.php';
 require_once dirname ( __FILE__ ).DIRECTORY_SEPARATOR.'../model/result/AlipayF2FQueryResult.php';
@@ -370,5 +365,5 @@ class AlipayTradeService {
 	    $url = urlencode($content);
 	    $image = '<a href="'.$content.'" target="_blank"><img src="https://pan.baidu.com/share/qrcode?w='.$size.'&amp;h='.$size.'&amp;url='.$url.'"  widht="'.$size.'" height="'.$size.'" />';
 	    return $image;
-
+	}
 }

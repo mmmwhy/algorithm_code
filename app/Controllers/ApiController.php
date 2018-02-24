@@ -61,7 +61,7 @@ class ApiController extends BaseController
         }
         $tokenStr = Tools::genToken();
         $storage = Factory::createTokenStorage();
-        $expireTime = time() + 3600*24*7;
+        $expireTime = time() + 3600*24*30;
         if ($storage->store($tokenStr, $user, $expireTime)) {
             $res['ret'] = 1;
             $res['msg'] = "ok";

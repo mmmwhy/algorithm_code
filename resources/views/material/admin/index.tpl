@@ -19,10 +19,10 @@
 					<div class="card margin-bottom-no">
 						<div class="card-main">
 							<div class="card-inner">
-                                {if $config["payment_system"]=='pay91'}
-									<h3>站长如需提现，<a href="https://jq.qq.com/?_wv=1027&k=5xQxeYX" target="_blank">加Q群|538609570</a>或<a href="https://t.me/gh012363" target="_blank">TG联系</a></h3>
-									<p>付款接口需购买使用，购买之后终身免手续费提现、提供终身升级服务、终身技术支持。未找秋名山事先说明的用户，因为无法识别充值来源。所以无法提现。</p>
-                                {else}
+								<p>91技术交流群：<a href="https://jq.qq.com/?_wv=1027&k=5yJLxcY" target="_blank">634669637</a></p>
+                                {if $config["payment_system"]!='none'}
+									<p>91Pay使用群：<a href="https://jq.qq.com/?_wv=1027&k=5xQxeYX" target="_blank">538609570</a>或<a href="https://t.me/gh012363" target="_blank">TG联系</a>付款接口需购买使用，购买之后终身免手续费提现、提供终身升级服务、终身技术支持。未找秋名山事先说明的用户，因为无法识别充值来源。所以无法提现。</p>
+									{else}
 									<p>站点相关的所有信息</p>
                                 {/if}
 							</div>

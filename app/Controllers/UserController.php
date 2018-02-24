@@ -145,7 +145,21 @@ class UserController extends BaseController
         }
     }
 
-
+    function isHTTPS()
+    {
+        define('HTTPS', false);
+        if (defined('HTTPS') && HTTPS) return true;
+        if (!isset($_SERVER)) return FALSE;
+        if (!isset($_SERVER['HTTPS'])) return FALSE;
+        if ($_SERVER['HTTPS'] === 1) {  //Apache
+            return TRUE;
+        } elseif ($_SERVER['HTTPS'] === 'on') { //IIS
+            return TRUE;
+        } elseif ($_SERVER['SERVER_PORT'] == 443) { //其他
+            return TRUE;
+        }
+        return FALSE;
+    }
 
     public function jsjapp($request, $response, $args)
     {
@@ -153,7 +167,9 @@ class UserController extends BaseController
         $uid = $this->user->id;
         $apiid = Config::get('jsj_id');
         $apikey = md5(Config::get('jsj_key'));
-        $showurl = Config::get('baseUrl').'/jsj_callback';
+
+        $showurl = (UserController::isHTTPS() ? 'https://' : 'http://').$_SERVER['HTTP_HOST'].'/jsj_callback';
+
 
         if(substr(md5($_SERVER['HTTP_HOST']),6,5)==Config::get('jsj_activate_key')){
             echo "
@@ -167,7 +183,7 @@ class UserController extends BaseController
 		<script>window.onload=function(){document.form1.submit();}</script> ";
         }else{
             echo "
-		<form name='form1' action='https://api.jsjapp.com/pay/syt.php' method='POST'>
+		<form name='form1' action='https://api.jsjapp.com/plugin.php?id=add:alipay' method='POST'>
 			<input type='hidden' name='uid' value='".$uid."'>
 			<input type='hidden' name='total' value='".$price."'>
 			<input type='hidden' name='apiid' value='13761'>
