@@ -60,6 +60,7 @@ class ClientApiController extends BaseController
         $accessToken = Helper::getTokenFromReq($request);
         $storage = Factory::createTokenStorage();
         $token = $storage->get($accessToken);
+
         $user = User::find($token->userId);
         $ssr_sub_token = LinkController::GenerateSSRSubCode($user->id, 0);
         $res['ret'] = 1;
