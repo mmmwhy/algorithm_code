@@ -21,7 +21,7 @@ $System_Config['tokenDriver'] = 'db';
 // mu key 用于校验ss-go mu的请求,半角逗号分隔
 $System_Config['muKey'] = 'mupass';
 // 邮件
-$System_Config['mailDriver'] = 'mailgun';   // mailgun or smtp or sendgrid
+$System_Config['mailDriver'] = 'smtp';   // mailgun or smtp or sendgrid
 
 #用户等级过期时间，在注册时设置。（小时）  此部分功能解释：https://91vps.win/2017/09/12/little_point/
 $System_Config['user_class_expire_default']='2';
