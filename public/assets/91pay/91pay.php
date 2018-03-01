@@ -70,7 +70,10 @@ $pay_id = $user; //网站唯一标识 需要充值的用户名，用户ID或者�
 
 $price = (float)$_POST["price"]; //提交的价格
 
-$param = ''; //自定义参数  可以留空 传递什么返回什么 用于区分游戏分区或用户身份
+$param = $_POST["seller"]; //支付方式
+if($param==""){
+    $param = 'noalipay';
+}
 
 $type = (int)$_POST["type"]; //支付方式
 
