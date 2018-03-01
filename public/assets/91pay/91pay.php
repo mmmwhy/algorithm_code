@@ -190,7 +190,7 @@ function getApiHost()
     $mainApi = 1;
     $codePay_api_url = "";
     $codePay_api_url .= is_HTTPS() ? "https://" : 'http://';
-    $codePay_api_url .= $mainApi ? "codepay.fateqq.com:" : 'api.fateqq.com:'; //应急预案
+    $codePay_api_url .= $mainApi ? "codepay.fateqq.com:" : 'api2.fateqq.com:'; //应急预案
     $codePay_api_url .= is_HTTPS() ? "51888" : '52888';
     $codePay_api_url .= '/';
     return $codePay_api_url;
