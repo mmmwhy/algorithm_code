@@ -261,15 +261,6 @@ if (empty($codepay_json)) { //如果没有获取到远程HTML 则走JS创建订�
             </div>
         </div>
 
-        <div class="detail" id="orderDetail">
-            <dl class="detail-ct" id="desc" style="display: none;">
-
-                <dt>状态</dt>
-                <dd id="createTime">订单创建</dd>
-
-            </dl>
-            <a href="javascript:void(0)" class="arrow"><i class="ico-arrow"></i></a>
-        </div>
 
         <div class="tip-text">
         </div>
