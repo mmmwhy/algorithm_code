@@ -109,7 +109,16 @@ class UserController extends BaseController
     }
 
 
-
+    public function coupon($request, $response, $args)
+    {	
+	$pageNum = 1;
+        if (isset($request->getQueryParams()["page"])) {
+            $pageNum = $request->getQueryParams()["page"];
+        }
+	$coupons = Coupon::orderBy("expire","desc")->paginate(10, ['*'], 'page', $pageNum);
+	$coupons->setPath('/user/coupon');	
+        return $this->view()->assign("coupons",$coupons)->display('user/coupon.tpl');
+    }
 
     public function donate($request, $response, $args)
     {
