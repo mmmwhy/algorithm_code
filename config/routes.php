@@ -99,6 +99,7 @@ $app->group('/user', function () {
     $this->get('/node/{id}/ajax', 'App\Controllers\UserController:nodeAjax');
     $this->get('/profile', 'App\Controllers\UserController:profile');
     $this->get('/invite', 'App\Controllers\UserController:invite');
+    $this->get('/coupon', 'App\Controllers\UserController:coupon');
 
     $this->get('/detect', 'App\Controllers\UserController:detect_index');
     $this->get('/detect/log', 'App\Controllers\UserController:detect_log');
