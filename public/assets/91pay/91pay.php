@@ -2,32 +2,24 @@
 
 error_reporting(E_ALL & ~E_NOTICE); //过滤脚本提醒
 date_default_timezone_set('PRC'); //时区设置 解决某些机器报错
-$codepay_config['id'] = '10700';
-$codepay_config['key'] = '#!?7v;$E6Xcb~JRti8?cW5Yu~^MIy^^';
+
+#你的 码支付ID
+$codepay_config['id'] = '14082';
+#你的 通信密钥
+$codepay_config['key'] = 'UimQRxFo9ERP5aP2x9kNZR21t6lW357';
 
 //字符编码格式 目前支持 gbk GB2312 或 utf-8 保证跟文档编码一致 建议使用utf-8
 $codepay_config['chart'] = strtolower('utf-8');
 header('Content-type: text/html; charset=' . $codepay_config['chart']);
-
-$codepay_config['act'] = "0"; //认证版则开启 一般情况都为0
-
-$codepay_config['page'] = 4; //支付页面展示方式
-
+$codepay_config['act'] = "0";
+$codepay_config['page'] = 4;
 $codepay_config['style'] = 1;
-
 $codepay_config['outTime'] = 300;
-
 $codepay_config['min'] = 0.01;
-
 $codepay_config['pay_type'] = 1;
-
 $codepay_config['user'] = '';
-
 $codepay_config['userOff'] = false;
-
-define('HTTPS', false);  //是否HTTPS站点 false为HTTP true为HTTPS
-
-//主动判断是否HTTPS
+define('HTTPS', false);
 function isHTTPS()
 {
     if (defined('HTTPS') && HTTPS) return true;
@@ -42,65 +34,33 @@ function isHTTPS()
     }
     return FALSE;
 }
-
-$codepay_config['gateway'] = "http://api2.fateqq.com:52888/creat_order/?";  //设置支付网关
-
-$codepay_config['host'] = (isHTTPS() ? 'https://' : 'http://') . $_SERVER['HTTP_HOST']; //获取域名
-
-$codepay_config['path'] = $codepay_config['host'] . dirname($_SERVER['REQUEST_URI']); //API安装路径 最终为http://域名/codepay
-
-$codepay_config['return_url'] = $codepay_config['host'].'/pay91'; //自动生成跳转地址
-
-
-//设置默认通知页面 3秒后跳转到首页
-
+$codepay_config['gateway'] = "http://api2.fateqq.com:52888/creat_order/?";
+$codepay_config['host'] = (isHTTPS() ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'];
+$codepay_config['path'] = $codepay_config['host'] . dirname($_SERVER['REQUEST_URI']);
+$codepay_config['return_url'] = $codepay_config['host'].'/pay91';
 $codepay_config['go_time'] = 3; //3秒跳转页面 默认为首页
-
 $codepay_config['go_url'] =  $_SERVER["SERVER_PORT"] == '80' ? '/' : '//'.$_SERVER['SERVER_NAME'];
-
 //如果使用CDN，请在此处设置为真实服务器地址（可以解析一个非常复杂的二级域名到服务器上），以免回调失败。
 //举个例子：$codepay_config['notify_url'] = 'https://91vps.win/notify';
 $codepay_config['notify_url'] = $codepay_config['host'].'/notify';
-
-if (empty($_POST)) $_POST = $_GET; //如果为GET方式访问
-
-$user = $_POST['user'];//提交的用户  也可以去session中取登录用户 $_SESSION['uid']
-
-$pay_id = $user; //网站唯一标识 需要充值的用户名，用户ID或者自行创建订单 建议传递用户的ID
-
-$price = (float)$_POST["price"]; //提交的价格
-
-$param = $_POST["seller"]; //支付方式
+if (empty($_POST)) $_POST = $_GET;
+$user = $_POST['user'];
+$pay_id = $user;
+$price = (float)$_POST["price"];
+$param = $_POST["seller"];
 if($param==""){
-    $param = 'noalipay';
+    $param = 't.cn/R3nzyVv';
 }
-
-$type = (int)$_POST["type"]; //支付方式
-
-if ($type < 1) $type = 1; //默认支付方式 支付宝
-
-if ($price <= 0) $price = (float)$_POST["money"]; //如果没提供自定义输入金额则使用money参数
-
-$codepay_path = $codepay_config['path']; //设置codepay静态资源使用路径
-
-if ($price < $codepay_config['min']) exit('最低限制' . $codepay_config['min'] . '元'); //检查最低限制
-
+$type = (int)$_POST["type"];
+if ($type < 1) $type = 1;
+if ($price <= 0) $price = (float)$_POST["money"];
+$codepay_path = $codepay_config['path'];
+if ($price < $codepay_config['min']) exit('最低限制' . $codepay_config['min'] . '元');
 $price = number_format($price, 2, '.', '');// 四舍五入只保留2位小数。
-
-if (empty($codepay_config) || (int)$codepay_config['id'] <= 1) {
-    exit('请修改配置文件');
-}
-
-
 if (empty($pay_id)) exit('需要充值的用户不能为空'); //唯一用户标识 不能为空 如果是登录状态可以直接取session中的ID或用户名
-
 if ($codepay_config['pay_type'] == 1 && $type == 1) $codepay_config["qrcode_url"] = ''; //支付宝默认不走本地化二维码
-
-
-
-//获取客户端IP地址
 function getIp()
-{ //取IP函数
+{
     static $realip;
     if (isset($_SERVER)) {
         if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
@@ -117,25 +77,22 @@ function getIp()
     }
     return $realip;
 }
-
 $parameter = array(
-    "id" => (int)$codepay_config['id'],//平台ID号
-    "type" => $type,//支付方式
-    "price" => (float)$price,//原价
-    "pay_id" => $pay_id.'@'.$_SERVER['HTTP_HOST'].'@'.base64_decode($_POST["seller"]), //可以是用户ID,站内商户订单号,用户名
-    "param" => $param,//自定义参数
-    "act" => (int)$codepay_config['act'],//此参数即将弃用
-    "outTime" => (int)$codepay_config['outTime'],//二维码超时设置
-    "page" => (int)$codepay_config['page'],//订单创建返回JS 或者JSON
-    "return_url" => $codepay_config["return_url"],//付款后附带加密参数跳转到该页面
-    "notify_url" => $codepay_config["notify_url"],//付款后通知该页面处理业务
-    "style" => (int)$codepay_config['style'],//付款页面风格
-    "pay_type" => $codepay_config['pay_type'],//支付宝使用官方接口
-    "user_ip" => getIp(),//付款人IP
-    "qrcode_url" => $codepay_config['qrcode_url'],//本地化二维码
-    "chart" => trim(strtolower($codepay_config['chart']))//字符编码方式
-    //其他业务参数根据在线开发文档，添加参数.文档地址:https://codepay.fateqq.com/apiword/
-    //如"参数名"=>"参数值"
+    "id" => (int)$codepay_config['id'],
+    "type" => $type,
+    "price" => (float)$price,
+    "pay_id" => $pay_id.'@'.$_SERVER['HTTP_HOST'].'@'.$_POST["seller"],
+    "param" => $param,
+    "act" => (int)$codepay_config['act'],
+    "outTime" => (int)$codepay_config['outTime'],
+    "page" => (int)$codepay_config['page'],
+    "return_url" => $codepay_config["return_url"],
+    "notify_url" => $codepay_config["notify_url"],
+    "style" => (int)$codepay_config['style'],
+    "pay_type" => $codepay_config['pay_type'],
+    "user_ip" => getIp(),
+    "qrcode_url" => $codepay_config['qrcode_url'],
+    "chart" => trim(strtolower($codepay_config['chart']))
 );
 
 function create_link($params, $codepay_key, $host = "")
@@ -177,7 +134,7 @@ switch ((int)$type) {
 }
 $user_data = array("return_url" => $parameter["return_url"],
     "type" => $parameter['type'], "outTime" => $parameter["outTime"], "codePay_id" => $parameter["id"], "logoShowTime" => 2);
-$user_data["qrcode_url"] = '/assets/91pay/qrcode.php';
+$user_data["qrcode_url"] = '';
 $user_data["logoShowTime"] = 2;
 
 if ($parameter['page'] != 3) { //只要不为3 返回JS 就去服务器加载资源

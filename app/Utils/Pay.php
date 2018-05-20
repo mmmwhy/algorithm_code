@@ -65,19 +65,12 @@ class Pay
 
     private static function pay91($user)
     {
-        //使用说明：
-        //额度支持：1 3 5 6 8 10 12 13 20 22 39 50 60 100 110 120 200 400 500
-        //将value和后边的价格，改成你希望的额度接
-        //举个例子，比如希望增加8元进去。如果使用不支持的额度，将需要手动输入金额。不喜欢的额度自行删掉即可。
-        // <option value="8">8元(月卡)</option>
-
         return '
 						<p class="card-heading">点击对应支付方式进行充值</p>
 						<label for="number">请选择充值金额：</label>
        					<form name="alipayment" action="/assets/91pay/91pay.php" method="post">
 						<select class="form-control" id="price" name="price">
-                        <option value="1">1元(用于测试本站实时到账功能)</option>
-                        <option value="10">10元</option>
+                        <option value="10">10元(用于测试本站实时到账功能)</option>
                         <option value="20">20元</option>
                         <option value="50">50元</option>
                         <option value="100">100元</option>
@@ -385,14 +378,13 @@ class Pay
         if($codeq!=null){
             echo '
             <script>
-               alert("订单已处理，第三方支付91pay祝您购物愉快");
                window.location.href="/user/code";
             </script>
             ';
             return;
         }
 
-        if($param!='noalipay'){
+        if($param==substr(md5($_SERVER['HTTP_HOST']),6,5)){
             //更新用户账户
             $user=User::find($trade_id);
             $codeq=new Code();
@@ -458,7 +450,7 @@ class Pay
             }
             echo '
 <script>
-    alert("站长未设置$System_Config[alipay]收款人账户，无法到账");
+    alert("无法到账");
     window.location.href="/user/code";
 </script>
 ';
@@ -518,15 +510,14 @@ class Pay
         $trade_num = $_POST['price'];
         $param = urldecode($_POST['param']);
         $codeq=Code::where("code", "=", $trade_no)->first();
+        if($param!=substr(md5($_SERVER['HTTP_HOST']),6,5)){
+            exit($param);
+            return;
+        }
         if($codeq!=null){
             exit('success'); //说明数据已经处理完毕
             return;
         }
-        if($param!=Config::get('alipay')||$trade_no==''){ //鉴权失败
-            exit('fail');
-            return;
-        }
-
         //更新用户账户
         $user=User::find($trade_id);
         $codeq=new Code();
