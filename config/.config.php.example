@@ -321,12 +321,11 @@ $System_Config['payment_system']='pay91';#取值 f2fpay,pay91,jsjapp,none
 #如果使用了CDN或反代，为了防止无法通知到真实的服务器，请在 /public/assets/91pay.php 第63行修改 $codepay_config['notify_url']参数
 $System_Config['alipay']='';
 
-#alipay,f2fpay ---> https://91vps.win/2017/06/09/alipay_f2f_ss_panel_mod/
+#alipay,f2fpay ---> https://91vps.bid/2017/06/09/alipay_f2f_ss_panel_mod/
 $System_Config['f2fpay_app_id']='';
 $System_Config['f2fpay_p_id']='';
 $System_Config['alipay_public_key']='';
 $System_Config['merchant_private_key']='';
-$System_Config['f2fpay_activate_key']=''; #请联系 https://t.me/gh012363
 
 #jsjapp ---> https://api.jsjapp.com/plugin.php?id=add:user&apiid=13761
 $System_Config['jsj_id']='';
