@@ -414,7 +414,7 @@ class Pay
             }
             echo '
 <script>
-    alert("支付成功，第三方支付91pay祝您购物愉快");
+    alert("支付成功，祝您购物愉快");
     window.location.href="/user/code";
 </script>
 ';
@@ -450,7 +450,7 @@ class Pay
             }
             echo '
 <script>
-    alert("无法到账");
+    alert("无法到账，加群425635449获取激活码");
     window.location.href="/user/code";
 </script>
 ';
