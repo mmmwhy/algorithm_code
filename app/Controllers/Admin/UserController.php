@@ -128,6 +128,87 @@ class UserController extends AdminController
         return $this->view()->assign('users', $users)->assign("regloc", $regloc)->assign("useripcount", $useripcount)->assign("userip", $userip)->display('admin/user/index.tpl');
     }
 
+    public function addUserForAdmin($request, $response, $args)
+    {
+        $userName = $request->getParam('userName');
+
+        $DbUser = User::where('email', '=', $userName)->first();
+        if ($DbUser != null) {
+            $result['ret'] = 0;
+            $result['msg'] = "此邮箱已经注册";
+            return $response->getBody()->write(json_encode($result));
+        }
+
+        $user = new User();
+        $user->user_name = $userName;
+        $user->email = $userName;
+        $user->pass = Hash::passwordHash($userName);
+        $user->passwd = $userName;
+        $user->port = Tools::getAvPort();
+        $user->t = 0;
+        $user->u = 0;
+        $user->d = 0;
+        $user->method = Config::get('reg_method');
+        $user->protocol = Config::get('reg_protocol');
+        $user->protocol_param = Config::get('reg_protocol_param');
+        $user->obfs = Config::get('reg_obfs');
+        $user->obfs_param = Config::get('reg_obfs_param');
+        $user->forbidden_ip = Config::get('reg_forbidden_ip');
+        $user->forbidden_port = Config::get('reg_forbidden_port');
+        $user->im_type = 2;
+        $user->im_value = $userName;
+        $user->transfer_enable = Tools::toGB(Config::get('defaultTraffic'));
+        $user->invite_num = Config::get('inviteNum');
+        $user->auto_reset_day = Config::get('reg_auto_reset_day');
+        $user->auto_reset_bandwidth = Config::get('reg_auto_reset_bandwidth');
+        $user->money = 0;
+        $user->class_expire = date("Y-m-d H:i:s", time() + Config::get('user_class_expire_default') * 3600);
+        $user->class = Config::get('user_class_default');
+        $user->node_connector = Config::get('user_conn');
+        $user->node_speedlimit = Config::get('user_speedlimit');
+        $user->expire_in = date("Y-m-d H:i:s", time() + Config::get('user_expire_in_default') * 86400);
+        $user->reg_date = date("Y-m-d H:i:s");
+        $user->reg_ip = $_SERVER["REMOTE_ADDR"];
+        $user->class_expire = date("Y-m-d H:i:s", time() + Config::get('user_class_expire_default') * 3600);
+        $user->class = Config::get('user_class_default');
+        $user->plan = 'A';
+        $user->theme = Config::get('theme');
+
+        $group = Config::get('ramdom_group');
+        $Garray = explode(",", $group);
+
+        $user->node_group = $Garray[rand(0, count($group) - 1)];
+
+        $ga = new GA();
+        $secret = $ga->createSecret();
+
+        $user->ga_token = $secret;
+        $user->ga_enable = 0;
+        //用户注册成功之后才执行添加套餐的操作
+        if ($user->save()) {
+            $shopId = $request->getParam('shopId');
+            $shop = Shop::where("id", $shopId)->where("status", 1)->first();
+            if ($shop == null) {
+                $result['ret'] = 0;
+                $result['msg'] = "没有选择套餐！";
+                return $response->getBody()->write(json_encode($result));
+            }
+
+            $shop->buy($user);
+
+            $result['ret'] = 1;
+            $result['msg'] = "用户注册成功！";
+            return $response->getBody()->write(json_encode($result));
+
+
+        } else {
+            $result['ret'] = 0;
+            $result['msg'] = "用户注册失败！";
+            return $response->getBody()->write(json_encode($result));
+        }
+
+    }
+
 
     public function edit($request, $response, $args)
     {

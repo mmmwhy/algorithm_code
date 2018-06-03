@@ -292,6 +292,7 @@ $app->group('/admin', function () {
     $this->get('/sys', 'App\Controllers\AdminController:sys');
     $this->get('/logout', 'App\Controllers\AdminController:logout');
     $this->post('/payback/ajax', 'App\Controllers\AdminController:ajax_payback');
+    $this->post('/user/add', 'App\Controllers\Admin\UserController:addUserForAdmin');
 })->add(new Admin());
 
 // API
