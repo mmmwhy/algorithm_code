@@ -6,12 +6,15 @@ use App\Models\User;
 use App\Models\Ip;
 use App\Models\RadiusBan;
 use App\Models\Relay;
+use App\Services\Config;
+use App\Utils\GA;
 use App\Controllers\AdminController;
 use App\Utils\Hash;
 use App\Utils\Radius;
 use App\Utils\QQWry;
 use App\Utils\Wecenter;
 use App\Utils\Tools;
+use App\Models\Shop;
 
 class UserController extends AdminController
 {
@@ -32,7 +35,8 @@ class UserController extends AdminController
             "auto_reset_bandwidth" => "自动重置流量/GB", "ref_by" => "邀请人ID", "ref_by_user_name" => "邀请人用户名");
         $table_config['default_show_column'] = array("op", "id", "user_name", "remark", "email");
         $table_config['ajax_url'] = 'user/ajax';
-        return $this->view()->assign('table_config', $table_config)->display('admin/user/index.tpl');
+        $Shops = Shop::all();
+        return $this->view()->assign('table_config', $table_config)->assign('shop_name', $Shops)->display('admin/user/index.tpl');
     }
 
     public function search($request, $response, $args)
@@ -190,20 +194,20 @@ class UserController extends AdminController
             $shop = Shop::where("id", $shopId)->where("status", 1)->first();
             if ($shop == null) {
                 $result['ret'] = 0;
-                $result['msg'] = "没有选择套餐！";
+                $result['msg'] = "naive,没有选择套餐！";
                 return $response->getBody()->write(json_encode($result));
             }
 
             $shop->buy($user);
 
             $result['ret'] = 1;
-            $result['msg'] = "用户注册成功！";
+            $result['msg'] = "注册成功！肥羊大佬是不是很厉害！";
             return $response->getBody()->write(json_encode($result));
 
 
         } else {
             $result['ret'] = 0;
-            $result['msg'] = "用户注册失败！";
+            $result['msg'] = "naive,注册失败！";
             return $response->getBody()->write(json_encode($result));
         }
 

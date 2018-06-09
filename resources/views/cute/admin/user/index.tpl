@@ -36,7 +36,6 @@
 							<div class="form-group form-group-label col-md-12">
 								<label class="floating-label" for="sptype" style="padding-left: 20px">选择您要开通的套餐</label>
 								<select class="form-control" id="sptype">
-									<option></option>
                                     {foreach $shop_name as $key => $value}
 										<option value="{$value["id"]}">{$value["name"]}</option>
                                     {/foreach}
