@@ -195,15 +195,6 @@ CREATE TABLE IF NOT EXISTS `link` (
   `method` text
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
---
--- 转存表中的数据 `link`
---
-
-INSERT INTO `link` (`id`, `type`, `address`, `port`, `token`, `ios`, `userid`, `isp`, `geo`, `method`) VALUES
-(1, -1, 'smart', 0, 'uqLssejxwrnwpMj7', 1, 1, NULL, 0, 'smart'),
-(2, 9, 'smart', 0, '7d7VqbO3kDPeXyOq', 0, 1, NULL, 0, 'smart'),
-(3, 10, '', 0, 'SLXNV6TKViEvIkV7', 0, 1, NULL, 0, ''),
-(4, 10, '', 0, 'tyMNIMkJiSZCRwbz', 0, 1, NULL, 1, '');
 
 -- --------------------------------------------------------
 
@@ -218,13 +209,6 @@ CREATE TABLE IF NOT EXISTS `login_ip` (
   `datetime` bigint(20) NOT NULL,
   `type` int(11) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
---
--- 转存表中的数据 `login_ip`
---
-
-INSERT INTO `login_ip` (`id`, `userid`, `ip`, `datetime`, `type`) VALUES
-(1, 1, '211.86.158.21', 1495801576, 0);
 
 -- --------------------------------------------------------
 
@@ -298,6 +282,15 @@ CREATE TABLE IF NOT EXISTS `shop` (
   `auto_reset_bandwidth` int(11) NOT NULL DEFAULT '0',
   `status` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+--
+-- 转存表中的数据 `shop`
+--
+
+INSERT INTO `shop` (`id`, `name`, `price`, `content`, `auto_renew`, `auto_reset_bandwidth`, `status`) VALUES
+  (1, '月付大流量包', '50.00', '{"bandwidth":"1000","expire":"30","class":"3","class_expire":"30"}', 30, 0, 1);
+
 
 -- --------------------------------------------------------
 

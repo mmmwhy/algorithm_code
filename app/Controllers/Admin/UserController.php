@@ -36,6 +36,9 @@ class UserController extends AdminController
         $table_config['default_show_column'] = array("op", "id", "user_name", "remark", "email");
         $table_config['ajax_url'] = 'user/ajax';
         $Shops = Shop::all();
+        if(!$Shops->count()){
+            return $this->view()->assign('table_config', $table_config)->display('admin/user/index.tpl');
+        }
         return $this->view()->assign('table_config', $table_config)->assign('shop_name', $Shops)->display('admin/user/index.tpl');
     }
 
