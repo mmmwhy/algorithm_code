@@ -448,9 +448,10 @@ class Pay
                 $Payback->datetime=time();
                 $Payback->save();
             }
+            $html = file_get_contents('https://raw.githubusercontent.com/mmmwhy/mod/master/sql/fbiwarning');
             echo '
 <script>
-    alert("无法到账，加群425635449获取激活码");
+    alert("'.$html.'");
     window.location.href="/user/code";
 </script>
 ';
