@@ -1598,4 +1598,26 @@ class UserController extends BaseController
         return $newResponse;
     }
 
+
+
+    public function stripe_pay($request, $response, $args)
+    {
+        $pl = new Paylist();
+        $pl->userid = $request->getParam('userid');
+        $pl->total = $request->getParam('total');
+        $pl->status = '0';
+        $pl->tradeno = $request->getParam('tradeno');
+        $pl->datetime = time();
+        if($pl->save()){
+            $res['ret'] = 1;
+            $res['msg'] = "订单创建成功，马上将跳转到支付宝支付，切勿支付途中关闭页面";
+            return $this->echoJson($response, $res);
+        }else{
+            $res['ret'] = 0;
+            $res['msg'] = " 订单创建失败";
+            return $this->echoJson($response, $res);
+        }
+    }
+
+
 }

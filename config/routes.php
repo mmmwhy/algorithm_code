@@ -145,6 +145,7 @@ $app->group('/user', function () {
     $this->get('/code/pay91', 'App\Controllers\pay91');
     $this->post('/code/f2fpay', 'App\Controllers\UserController:f2fpay');
     $this->get('/code/f2fpay', 'App\Controllers\UserController:f2fpayget');
+    $this->post('/code/stripe_pay', 'App\Controllers\UserController:stripe_pay');
     $this->get('/code_check', 'App\Controllers\UserController:code_check');
     $this->post('/code', 'App\Controllers\UserController:codepost');
     $this->post('/gacheck', 'App\Controllers\UserController:GaCheck');
@@ -304,6 +305,13 @@ $app->group('/api', function () {
     $this->get('/announcement','App\Controllers\Client\ClientApiController:GetAnnouncement');
     $this->get('/redirect','App\Controllers\Client\ClientApiController:Redirect');
     $this->get('/sublink','App\Controllers\Client\ClientApiController:GetSubLink');
+    $this->post('/register','App\Controllers\Client\leon:apiregister');
+    $this->post('/login','App\Controllers\Client\leon:apilogin');
+    $this->post('/f2fpay','App\Controllers\Client\leon:apif2fpay');
+    $this->post('/code_check','App\Controllers\Client\leon:apicode_check');
+    $this->post('/shop','App\Controllers\Client\leon:apishop');
+    $this->post('/buy','App\Controllers\Client\leon:apibuy');
+    $this->post('/doCheckIn','App\Controllers\Client\leon:apidoCheckIn');
 });
 
 //Client pages
