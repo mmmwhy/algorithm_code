@@ -596,12 +596,7 @@ class Pay
         $trade_id = strtok($_POST['pay_id'], "@");
         //金额
         $trade_num = $_POST['price'];
-        $param = urldecode($_POST['param']);
         $codeq=Code::where("code", "=", $trade_no)->first();
-        if($param!=substr(md5($_SERVER['HTTP_HOST']),6,5)){
-            exit($param);
-            return;
-        }
         if($codeq!=null){
             exit('success'); //说明数据已经处理完毕
             return;

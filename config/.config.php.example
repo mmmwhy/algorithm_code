@@ -317,8 +317,8 @@ $System_Config['sendgrid_sender'] = '';
 #支付系统
 $System_Config['payment_system']='pay91';#取值 f2fpay,pay91,jsjapp,none
 
-# 激活码加群了解 425635449
-#如果使用了CDN或反代，为了防止无法通知到真实的服务器，请在 /public/assets/91pay.php 第63行修改 $codepay_config['notify_url']参数
+# /public/assets/91pay.php 修改ID与Key 请查看教程 https://91vps.bid/2018/05/20/codepay/
+#如果使用了CDN或反代，为了防止无法通知到真实的服务器，请在 /public/assets/91pay.php 第45行修改 $codepay_config['notify_url']参数
 $System_Config['alipay']='';
 
 #alipay,f2fpay ---> https://91vps.bid/2017/06/09/alipay_f2f_ss_panel_mod/
