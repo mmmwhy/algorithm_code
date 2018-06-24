@@ -344,6 +344,11 @@
 									<i class="icon icon-lg">shop</i>&nbsp;商店
 								</a>
 							</li>
+							<li>
+								<a href="/user/coupon">
+									<i class="icon icon-lg">code</i>&nbsp;优惠码
+								</a>
+							</li>
 							
 							<li><a href="/user/bought"><i class="icon icon-lg">shopping_cart</i>&nbsp;购买记录</a></li>
 							
