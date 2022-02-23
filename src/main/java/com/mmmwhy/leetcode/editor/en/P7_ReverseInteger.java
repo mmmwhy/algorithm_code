@@ -40,12 +40,38 @@ package com.mmmwhy.leetcode.editor.en;
 public class P7_ReverseInteger {
   public static void main(String[] args) {
     Solution solution = new P7_ReverseInteger().new Solution();
+    // 2147483648
+    System.out.println(solution.reverse(2144444412));
   }
 
   // leetcode submit region begin(Prohibit modification and deletion)
   class Solution {
     public int reverse(int x) {
-      return 123;
+      if (x == -2147483648) {
+        return 0;
+      }
+
+      // 默认认为是正数
+      boolean negative = false;
+      if (x < 0) {
+        negative = true;
+        x = -x;
+      }
+
+      int result = 0;
+      while (x != 0) {
+        if (result > 214748364) {
+          return 0;
+        }
+        result = result * 10 + (x % 10);
+        x /= 10;
+      }
+
+      if (negative) {
+        return -result;
+      } else {
+        return result;
+      }
     }
   }
   // leetcode submit region end(Prohibit modification and deletion)
