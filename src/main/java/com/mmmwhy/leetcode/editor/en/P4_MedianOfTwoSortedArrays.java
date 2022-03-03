@@ -63,7 +63,7 @@ public class P4_MedianOfTwoSortedArrays {
 
     public static void main(String[] args) {
         Solution solution = new P4_MedianOfTwoSortedArrays().new Solution();
-        int[] nums1 = new int[]{1,3};
+        int[] nums1 = new int[]{1, 3};
         int[] nums2 = new int[]{2};
         System.out.println(solution.findMedianSortedArrays(nums1, nums2));
     }
@@ -78,14 +78,14 @@ public class P4_MedianOfTwoSortedArrays {
             int right = (n + m + 2) / 2;
             //将偶数和奇数的情况合并，如果是奇数，会求两次同样的 k 。
             return (
-                    getKthMin(nums1, 0, n - 1, nums2, 0, m - 1, left) +
-                            getKthMin(nums1, 0, n - 1, nums2, 0, m - 1, right)
+                    getKthMin(nums1, 0, n, nums2, 0, m, left) +
+                            getKthMin(nums1, 0, n, nums2, 0, m, right)
             ) * 0.5;
         }
 
         private int getKthMin(int[] nums1, int start1, int end1, int[] nums2, int start2, int end2, int k) {
-            int len1 = end1 - start1 + 1;
-            int len2 = end2 - start2 + 1;
+            int len1 = end1 - start1;
+            int len2 = end2 - start2;
 
             // 为了方便计算，我们使 nums1 的长度总小余 nums2
             if (len1 > len2) return getKthMin(nums2, start2, end2, nums1, start1, end1, k);
@@ -93,17 +93,17 @@ public class P4_MedianOfTwoSortedArrays {
 
             if (k == 1) return Math.min(nums1[start1], nums2[start2]);
 
-            // nums[start,start + k/2]，在每个数组内，找到 k/2 的位置
-            int nums1_temp_mid = Math.min(len1, k / 2);
-            int nums2_temp_mid = Math.min(len2, k / 2);
+            // 在每个数组内，找到 start + k/2 的位置
+            int nums1_move_step = Math.min(len1, k / 2);
+            int nums2_move_step = Math.min(len2, k / 2);
 
-            int i = start1 + nums1_temp_mid - 1;
-            int j = start2 + nums2_temp_mid - 1;
+            int nums1_temp_mid = start1 + nums1_move_step;
+            int nums2_temp_mid = start2 + nums2_move_step;
 
-            if (nums1[i] < nums2[j]) {
-                return getKthMin(nums1, i + 1, end1, nums2, start2, end2, k - nums1_temp_mid);
+            if (nums1[nums1_temp_mid - 1] < nums2[nums2_temp_mid - 1]) {
+                return getKthMin(nums1, nums1_temp_mid, end1, nums2, start2, end2, k - nums1_move_step);
             } else {
-                return getKthMin(nums1, start1, end1, nums2, j + 1, end2, k - nums2_temp_mid);
+                return getKthMin(nums1, start1, end1, nums2, nums2_temp_mid, end2, k - nums2_move_step);
             }
 
         }
