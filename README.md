@@ -1,1 +1,3 @@
-搭配 [leetcode 插件](https://github.com/shuzijun/leetcode-editor/blob/master/README_ZH.md) 使用 java 刷题。
+- 使用 java 进行刷题;
+- 搭配 [leetcode 插件](https://github.com/shuzijun/leetcode-editor/blob/master/README_ZH.md) 使用;
+- 笔记记录在 [notion](https://mmmwhy.notion.site/9defb52cde6f497abe2a8433ca344e66?v=dca562b492764428985b0c3bcdb2332e)上 ;
