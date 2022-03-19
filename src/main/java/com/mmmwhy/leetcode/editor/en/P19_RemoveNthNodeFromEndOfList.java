@@ -100,7 +100,7 @@ public class P19_RemoveNthNodeFromEndOfList {
         n--;
       }
       // 如果 quick 已经是 null 了， 说明 n >= sz (node 的长度)， 而给过限制条件，说明 n <= sz
-      // 边界条件 n = sz 了
+      // 则此时边界条件 n = sz 了
       if (quick_node == null) {
         return head.next;
       }

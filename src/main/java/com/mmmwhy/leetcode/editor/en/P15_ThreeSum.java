@@ -39,11 +39,11 @@ public class P15_ThreeSum {
     // leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
         public List<List<Integer>> threeSum(int[] nums) {
-            //对于每一个元素，都转化为 twosum
             Arrays.sort(nums);
             List<List<Integer>> result = new ArrayList<>();
             for (int i = 0; i < nums.length - 2; i++) {
                 // 因为数组是有序的，nums[i] 如果大于 0 了，则后边的元素更大于 0 了。
+                // 两个 i 没必要一样，因为上一个 i 已经考虑过现在的情况了
                 if (nums[i] <= 0 && (i == 0 || nums[i] != nums[i - 1])) {
                     // 留两个位置给 j 和 k
                     int j = i + 1, k = nums.length - 1, target = -nums[i];
