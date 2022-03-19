@@ -54,7 +54,7 @@ public class P14_LongestCommonPrefix {
         // i 表示的是每一个字
         int j = 1;
         for (; j < strs.length; j++) {
-          // j 表示的是每一个句子，从第二个橘子开始
+          // j 表示的是每一个句子，从第二个句子开始
           if (strs[j].charAt(i) != strs[j - 1].charAt(i)) {
             break;
           }
