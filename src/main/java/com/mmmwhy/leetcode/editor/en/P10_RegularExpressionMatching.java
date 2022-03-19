@@ -72,7 +72,7 @@ class Solution {
       // 动态规划
       // 0、如果 s[0:i) 可以匹配上 p[0:j) ，则将 dp[i][j] 定义为 true;
       // 1、dp[i][j] = dp[i-1][j-1], if (p[i-1]==s[j-1] || p[j-1]=='.') && p[j-1] != '*'
-      // 2、dp[i][j] = dp[i][j-2], if p[j-1] == '*'，在只匹配一次的时候触发
+      // 2、dp[i][j] = dp[i][j-2], if p[j-1] == '*'，在只匹配0次的时候触发
       // 3、dp[i][j] = dp[i-1][j] && (s[i-1] == p[j-2] || p[j-2] == '.')，在 p[j-1] == '*' 的时候触发，至少重复一次
       int m = s.length();
       int n = p.length();
@@ -89,7 +89,7 @@ class Solution {
                         && (p.charAt(j - 2) == '.' || s.charAt(i - 1) == p.charAt(j - 2)));
           } else {
             dp[i][j] =
-                i > 0
+                i != 0
                     && dp[i - 1][j - 1]
                     && (s.charAt(i - 1) == p.charAt(j - 1) || p.charAt(j - 1) == '.');
           }

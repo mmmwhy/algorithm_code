@@ -74,7 +74,7 @@ public class P6_ZigzagConversion {
         int j = i;
         newString.append(s.charAt(j));
         while (j < s.length()) {
-          int newJ = j + 2 * numRows - 2 - (2 * i);
+          int newJ = j + 2 * (numRows - 1 - i);
           if (newJ >= s.length()) {
             break;
           }

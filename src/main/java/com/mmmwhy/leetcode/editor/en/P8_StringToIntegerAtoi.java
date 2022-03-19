@@ -147,27 +147,27 @@ public class P8_StringToIntegerAtoi {
       for (; i < s.length(); i++) {
         if (javaDigit.contains(s.subSequence(i, i + 1))) {
           int digit = javaDigit.indexOf(s.charAt(i));
-          // 校验当前 result，还能不能触发
+          // 校验当前 result，还能不能继续增加
           if (Integer.MAX_VALUE / 10 < result) {
             if (positive) {
               return Integer.MAX_VALUE;
-            }
-            if (!positive) {
+            } else {
               return Integer.MIN_VALUE;
             }
           }
-
+          // 正好相等的时候，需要看 digit 新给的数有没有越界
           if (Integer.MAX_VALUE / 10 == result) {
             // 正负分别处理
             if (positive && (digit >= Integer.MAX_VALUE % 10 || i < s.length() - 1)) {
               return Integer.MAX_VALUE;
             }
-            if (!positive && (digit >= 8 || i < s.length() - 1)) {
+            if (!positive && (digit >= -(Integer.MIN_VALUE % 10) || i < s.length() - 1)) {
               return Integer.MIN_VALUE;
             }
           }
           result = result * 10 + digit;
         } else {
+          // 中途出现了别的字符，报错处理
           break;
         }
       }
