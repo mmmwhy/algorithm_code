@@ -60,14 +60,14 @@ public class P19_RemoveNthNodeFromEndOfList {
     Solution solution = new P19_RemoveNthNodeFromEndOfList().new Solution();
     int[] nums = new int[] {1};
 
-    ListNode l1_start = new ListNode();
-    ListNode l1_current = l1_start;
+    ListNode l1Start = new ListNode();
+    ListNode l1Current = l1Start;
     for (int i : nums) {
       ListNode temp_node = new ListNode(i);
-      l1_current.next = temp_node;
-      l1_current = temp_node;
+      l1Current.next = temp_node;
+      l1Current = temp_node;
     }
-    ListNode result = solution.removeNthFromEnd(l1_start.next, 1);
+    ListNode result = solution.removeNthFromEnd(l1Start.next, 1);
     while (result != null) {
       System.out.println(result.val);
       result = result.next;
@@ -89,28 +89,28 @@ public class P19_RemoveNthNodeFromEndOfList {
         return null;
       }
       // 让快结点先走 n 步
-      ListNode quick_node = head;
+      ListNode quickNode = head;
 
       // 慢结点在快结点走了 n 步后，跟着继续走
-      ListNode slow_node = head;
+      ListNode slowNode = head;
 
       // 先让快的先走
-      while (quick_node != null && n > 0) {
-        quick_node = quick_node.next;
+      while (quickNode != null && n > 0) {
+        quickNode = quickNode.next;
         n--;
       }
       // 如果 quick 已经是 null 了， 说明 n >= sz (node 的长度)， 而给过限制条件，说明 n <= sz
       // 则此时边界条件 n = sz 了
-      if (quick_node == null) {
+      if (quickNode == null) {
         return head.next;
       }
 
-      while (quick_node.next != null) {
-        quick_node = quick_node.next;
-        slow_node = slow_node.next;
+      while (quickNode.next != null) {
+        quickNode = quickNode.next;
+        slowNode = slowNode.next;
       }
       // 对位置开始调整
-      slow_node.next = slow_node.next.next;
+      slowNode.next = slowNode.next.next;
 
       return head;
     }
