@@ -1,56 +1,55 @@
-//Given an input string s and a pattern p, implement regular expression 
-//matching with support for '.' and '*' where: 
+// Given an input string s and a pattern p, implement regular expression
+// matching with support for '.' and '*' where:
 //
-// 
-// '.' Matches any single character. 
-// '*' Matches zero or more of the preceding element. 
-// 
 //
-// The matching should cover the entire input string (not partial). 
+// '.' Matches any single character.
+// '*' Matches zero or more of the preceding element.
 //
-// 
-// Example 1: 
 //
-// 
-//Input: s = "aa", p = "a"
-//Output: false
-//Explanation: "a" does not match the entire string "aa".
-// 
+// The matching should cover the entire input string (not partial).
 //
-// Example 2: 
 //
-// 
-//Input: s = "aa", p = "a*"
-//Output: true
-//Explanation: '*' means zero or more of the preceding element, 'a'. Therefore, 
-//by repeating 'a' once, it becomes "aa".
-// 
+// Example 1:
 //
-// Example 3: 
 //
-// 
-//Input: s = "ab", p = ".*"
-//Output: true
-//Explanation: ".*" means "zero or more (*) of any character (.)".
-// 
+// Input: s = "aa", p = "a"
+// Output: false
+// Explanation: "a" does not match the entire string "aa".
 //
-// 
-// Constraints: 
 //
-// 
-// 1 <= s.length <= 20 
-// 1 <= p.length <= 30 
-// s contains only lowercase English letters. 
-// p contains only lowercase English letters, '.', and '*'. 
-// It is guaranteed for each appearance of the character '*', there will be a 
-//previous valid character to match. 
-// 
+// Example 2:
+//
+//
+// Input: s = "aa", p = "a*"
+// Output: true
+// Explanation: '*' means zero or more of the preceding element, 'a'. Therefore,
+// by repeating 'a' once, it becomes "aa".
+//
+//
+// Example 3:
+//
+//
+// Input: s = "ab", p = ".*"
+// Output: true
+// Explanation: ".*" means "zero or more (*) of any character (.)".
+//
+//
+//
+// Constraints:
+//
+//
+// 1 <= s.length <= 20
+// 1 <= p.length <= 30
+// s contains only lowercase English letters.
+// p contains only lowercase English letters, '.', and '*'.
+// It is guaranteed for each appearance of the character '*', there will be a
+// previous valid character to match.
+//
 // Related Topics String Dynamic Programming Recursion 👍 7608 👎 1096
 
 package com.mmmwhy.leetcode.editor.en;
 
-
-public class P10_RegularExpressionMatching{
+public class P10_RegularExpressionMatching {
   public static void main(String[] args) {
     Solution solution = new P10_RegularExpressionMatching().new Solution();
     System.out.println(solution.isMatch("aa", "a"));
@@ -62,9 +61,8 @@ public class P10_RegularExpressionMatching{
     System.out.println(solution.isMatch("aaa", "ab*a*c*a"));
   }
 
-//leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
-
+  // leetcode submit region begin(Prohibit modification and deletion)
+  class Solution {
 
     public boolean isMatch(String s, String p) {
       if (s == null || p == null) return false;
@@ -98,8 +96,7 @@ class Solution {
 
       return dp[m][n];
     }
-
-}
-//leetcode submit region end(Prohibit modification and deletion)
+  }
+  // leetcode submit region end(Prohibit modification and deletion)
 
 }

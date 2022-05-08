@@ -1,41 +1,41 @@
-//Given a string containing digits from 2-9 inclusive, return all possible 
-//letter combinations that the number could represent. Return the answer in any order. 
+// Given a string containing digits from 2-9 inclusive, return all possible
+// letter combinations that the number could represent. Return the answer in any order.
 //
 //
-// A mapping of digit to letters (just like on the telephone buttons) is given 
-//below. Note that 1 does not map to any letters. 
+// A mapping of digit to letters (just like on the telephone buttons) is given
+// below. Note that 1 does not map to any letters.
 //
-// 
 //
-// 
-// Example 1: 
 //
-// 
-//Input: digits = "23"
-//Output: ["ad","ae","af","bd","be","bf","cd","ce","cf"]
-// 
 //
-// Example 2: 
+// Example 1:
 //
-// 
-//Input: digits = ""
-//Output: []
-// 
 //
-// Example 3: 
+// Input: digits = "23"
+// Output: ["ad","ae","af","bd","be","bf","cd","ce","cf"]
 //
-// 
-//Input: digits = "2"
-//Output: ["a","b","c"]
-// 
 //
-// 
-// Constraints: 
+// Example 2:
 //
-// 
-// 0 <= digits.length <= 4 
-// digits[i] is a digit in the range ['2', '9']. 
-// 
+//
+// Input: digits = ""
+// Output: []
+//
+//
+// Example 3:
+//
+//
+// Input: digits = "2"
+// Output: ["a","b","c"]
+//
+//
+//
+// Constraints:
+//
+//
+// 0 <= digits.length <= 4
+// digits[i] is a digit in the range ['2', '9'].
+//
 // Related Topics Hash Table String Backtracking 👍 9187 👎 640
 
 package com.mmmwhy.leetcode.editor.en;
@@ -45,7 +45,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class P17_LetterCombinationsOfAPhoneNumber{
+public class P17_LetterCombinationsOfAPhoneNumber {
   public static void main(String[] args) {
     Solution solution = new P17_LetterCombinationsOfAPhoneNumber().new Solution();
     System.out.println(solution.letterCombinations("23"));
@@ -53,10 +53,9 @@ public class P17_LetterCombinationsOfAPhoneNumber{
     System.out.println(solution.letterCombinations("2"));
     System.out.println(solution.letterCombinations(""));
   }
-  
 
-//leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
+  // leetcode submit region begin(Prohibit modification and deletion)
+  class Solution {
     public List<String> letterCombinations(String digits) {
 
       return helper(new ArrayList<>(), digits);
@@ -92,7 +91,7 @@ class Solution {
       for (String line : lastResult) {
         for (int j = 0; j < map.get(remainDigits.charAt(0)).length(); j++) {
           // 每个数字对应的字符
-          resultList.add(line + String.valueOf(map.get(remainDigits.charAt(0)).charAt(j)));
+          resultList.add(line + map.get(remainDigits.charAt(0)).charAt(j));
         }
       }
       return helper(resultList, remainDigits.substring(1));
@@ -133,7 +132,7 @@ class Solution {
 
       return result;
     }
-}
-//leetcode submit region end(Prohibit modification and deletion)
+  }
+  // leetcode submit region end(Prohibit modification and deletion)
 
 }

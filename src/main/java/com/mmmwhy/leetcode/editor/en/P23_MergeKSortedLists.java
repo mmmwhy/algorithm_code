@@ -51,22 +51,6 @@ package com.mmmwhy.leetcode.editor.en;
 
 public class P23_MergeKSortedLists {
 
-  public static class ListNode {
-    int val;
-    ListNode next;
-
-    ListNode() {}
-
-    ListNode(int val) {
-      this.val = val;
-    }
-
-    ListNode(int val, ListNode next) {
-      this.val = val;
-      this.next = next;
-    }
-  }
-
   public static void main(String[] args) {
     int[] nums1 = new int[] {1, 4, 5};
 
@@ -104,7 +88,24 @@ public class P23_MergeKSortedLists {
     }
   }
 
+  public static class ListNode {
+    int val;
+    ListNode next;
+
+    ListNode() {}
+
+    ListNode(int val) {
+      this.val = val;
+    }
+
+    ListNode(int val, ListNode next) {
+      this.val = val;
+      this.next = next;
+    }
+  }
+
   // leetcode submit region begin(Prohibit modification and deletion)
+
   /**
    * Definition for singly-linked list. public class ListNode { int val; ListNode next; ListNode()
    * {} ListNode(int val) { this.val = val; } ListNode(int val, ListNode next) { this.val = val;
