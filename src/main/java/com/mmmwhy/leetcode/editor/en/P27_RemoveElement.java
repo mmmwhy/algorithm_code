@@ -74,7 +74,7 @@ import java.util.Arrays;
 public class P27_RemoveElement {
   public static void main(String[] args) {
     Solution solution = new P27_RemoveElement().new Solution();
-    int[] nums = new int[] {0,1,2,2,3,0,4,2};
+    int[] nums = new int[] {0, 1, 2, 2, 3, 0, 4, 2};
     System.out.println(solution.removeElement(nums, 2));
     System.out.println(Arrays.toString(nums));
   }

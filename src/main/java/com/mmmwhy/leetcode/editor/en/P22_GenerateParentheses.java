@@ -1,20 +1,20 @@
-//Given n pairs of parentheses, write a function to generate all combinations 
-//of well-formed parentheses. 
+// Given n pairs of parentheses, write a function to generate all combinations
+// of well-formed parentheses.
 //
-// 
-// Example 1: 
+//
+// Example 1:
 // Input: n = 3
-//Output: ["((()))","(()())","(())()","()(())","()()()"]
-// Example 2: 
+// Output: ["((()))","(()())","(())()","()(())","()()()"]
+// Example 2:
 // Input: n = 1
-//Output: ["()"]
-// 
-// 
-// Constraints: 
+// Output: ["()"]
 //
-// 
-// 1 <= n <= 8 
-// 
+//
+// Constraints:
+//
+//
+// 1 <= n <= 8
+//
 // Related Topics String Dynamic Programming Backtracking 👍 12091 👎 471
 
 package com.mmmwhy.leetcode.editor.en;
@@ -22,17 +22,16 @@ package com.mmmwhy.leetcode.editor.en;
 import java.util.ArrayList;
 import java.util.List;
 
-public class P22_GenerateParentheses{
+public class P22_GenerateParentheses {
   public static void main(String[] args) {
-       Solution solution = new P22_GenerateParentheses().new Solution();
+    Solution solution = new P22_GenerateParentheses().new Solution();
     System.out.println(solution.generateParenthesis(1));
     System.out.println(solution.generateParenthesis(2));
     System.out.println(solution.generateParenthesis(3));
   }
-  
 
-//leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
+  // leetcode submit region begin(Prohibit modification and deletion)
+  class Solution {
     public List<String> generateParenthesis(int n) {
       return helper(new ArrayList<>(), n, n);
     }
@@ -87,7 +86,7 @@ class Solution {
 
       return tempResult4;
     }
-}
-//leetcode submit region end(Prohibit modification and deletion)
+  }
+  // leetcode submit region end(Prohibit modification and deletion)
 
 }

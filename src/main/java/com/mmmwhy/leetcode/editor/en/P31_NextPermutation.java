@@ -88,12 +88,12 @@ public class P31_NextPermutation {
     System.out.println(Arrays.toString(nums4));
 
     // 5,5,2,3,4,7
-    int[] nums5 = {5,4,7,5,3,2};
+    int[] nums5 = {5, 4, 7, 5, 3, 2};
     solution.nextPermutation(nums5);
     System.out.println(Arrays.toString(nums5));
 
     // 4,2,0,3,0,2,2
-    int[] nums6 = {4,2,0,2,3,2,0};
+    int[] nums6 = {4, 2, 0, 2, 3, 2, 0};
     solution.nextPermutation(nums6);
     System.out.println(Arrays.toString(nums6));
   }
@@ -111,7 +111,7 @@ public class P31_NextPermutation {
         // 不是第一个了，是最小的那个 flag
         for (int i = left - 1; i >= 0; i--) {
           if (nums[i] < nums[left]) {
-            if(i>flag){
+            if (i > flag) {
               flag = i;
               final_left = left;
               break;
@@ -126,7 +126,7 @@ public class P31_NextPermutation {
         reverse(nums);
       } else {
         // 将 left 插入到 flag 前边去
-        for(int j = final_left; j>flag;j--){
+        for (int j = final_left; j > flag; j--) {
           int temp = nums[j];
           nums[j] = nums[j - 1];
           nums[j - 1] = temp;
@@ -134,9 +134,9 @@ public class P31_NextPermutation {
         // flag 位置后的元素全部原地排序
         // 从 flag + 1 到 right 之间的元素
         // 写一个冒泡排序
-        for(int k = right;k>flag;k--){
-          for(int l = k-1;l>flag;l--){
-            if(nums[l] > nums[k]){
+        for (int k = right; k > flag; k--) {
+          for (int l = k - 1; l > flag; l--) {
+            if (nums[l] > nums[k]) {
               int temp = nums[l];
               nums[l] = nums[k];
               nums[k] = temp;
