@@ -1,0 +1,28 @@
+### 解题思路
+
+此处撰写解题思路
+
+### 代码
+
+* python3
+
+```python
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        leftIdx = 0
+        rightIdx = len(height) - 1
+        leftMax = 0
+        rightMax = 0
+        trapCnt = 0
+        while leftIdx < rightIdx:
+            leftMax = max(leftMax, height[leftIdx])
+            rightMax = max(rightMax, height[rightIdx])
+            if leftMax > rightMax:
+                trapCnt += rightMax - height[rightIdx]
+                rightIdx -= 1
+            else:
+                trapCnt += leftMax - height[leftIdx]
+                leftIdx += 1
+        return trapCnt
+```
+
