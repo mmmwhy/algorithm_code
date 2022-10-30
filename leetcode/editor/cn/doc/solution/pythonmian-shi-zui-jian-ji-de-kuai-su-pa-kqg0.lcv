@@ -1,0 +1,90 @@
+2022年2月20日更新：快速排序
+
+# 一、快速排序
+
+## 1、面试口头表达思路
+
+1.**随机**取数组中一个数作为**flag**。(初始化哨兵位置)
+2.**初始化**左右边界为 left, right，即设定从左到右的指针i，从右到左的指针j。
+3.将数组分为两份，比flag小的放左边，比flag大的放右边。
+当 i<=j时：
+- i从左往右扫，找到大于等于flag的数。
+- j从右往左扫，找到小于等于flag的数。
+- 左指针指向大于flag位置，右指针指向小于flag的位置，此时如果**i仍然<=j**，则交换左右指针下标对应的数值，然后 i(左指针)，j(右指针)各走一步继续。
+
+4.当实现完flag的左小右大时候，
+- 如果 i<right，[i,right]作为右边的数组**递归快排**；
+- 如果 left<j，[left,j]作为左边的数组**递归快排**；
+
+5.**外层调用quicksort函数**，传入数组、数组0下标、数组尾下标(注意是len(nums)-1)
+
+`时间复杂度是O(nlog(n))
+空间复杂度是O(1)`
+
+## 2、记忆口诀
+
+* 
+
+```
+1.随机选个哨兵
+2.左右设个指针
+3.左指未碰右指
+4.左指小往右加
+5.右指大往左减
+6.ij遇交互契
+7.跳出来两个如果
+8.分治开始了
+9.数组 左指和尾边界
+10.数组 头边界和右指
+```
+
+### 3、快速排序手撕代码
+
+* python3
+
+```python
+class Solution:
+    def sortArray(self, nums: List[int]) -> List[int]:
+        import random                               #导入随机数函数库
+        def quicksort(nums,left,right):
+            flag=nums[random.randint(left,right)]   #随机初始化哨兵位置
+            i,j=left,right                          #设定从左到右的指针i，从右到左的指针j
+            while i<=j:
+                while nums[i]<flag: i+=1            #i从左往右扫，找到大于等于flag的数。
+                while nums[j]>flag: j-=1            #j从右往左扫，找到小于等于flag的数。
+                if i<=j:
+                    nums[i],nums[j]=nums[j],nums[i] #交换左右指针下标对应的数值
+                    i+=1                            #左指针继续往右走
+                    j-=1                            #右指针继续往左走
+            if i<right: quicksort(nums,i,right)     #递归解决flag左边的低位数组的排序
+            if j>left:  quicksort(nums,left,j)      #递归解决flag右边的低位数组的排序
+        quicksort(nums,0,len(nums)-1)               #函数入口，将整个数组的信息传入
+        return nums                                 #返回修改后的nums
+```
+
+### 4、补充
+
+如果不是随机哨兵的方法，或者没有随机函数库，则换成如下：
+
+* 
+
+```
+class Solution:
+    def sortArray(self, nums: List[int]) -> List[int]:
+        def quicksort(nums,left,right):
+            flag=nums[(left+right)//2]              #每次从中间初始化哨兵位置
+            i,j=left,right                          #设定从左到右的指针i，从右到左的指针j
+            while i<=j:
+                while nums[i]<flag: i+=1            #i从左往右扫，找到大于等于flag的数。
+                while nums[j]>flag: j-=1            #j从右往左扫，找到小于等于flag的数。
+                if i<=j:
+                    nums[i],nums[j]=nums[j],nums[i] #交换左右指针下标对应的数值
+                    i+=1                            #左指针继续往右走
+                    j-=1                            #右指针继续往左走
+            if i<right: quicksort(nums,i,right)     #递归解决flag左边的低位数组的排序
+            if j>left:  quicksort(nums,left,j)      #递归解决flag右边的低位数组的排序
+        quicksort(nums,0,len(nums)-1)               #函数入口，将整个数组的信息传入
+        return nums                                 #返回修改后的nums
+```
+
+xdm，这个记忆口诀是不是很容易记！！！！！！！！！！！

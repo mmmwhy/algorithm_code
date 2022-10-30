@@ -1,0 +1,56 @@
+* 
+
+```
+class Solution {
+    public int[] sortArray(int[] nums) {
+        quickSort(nums,0,nums.length-1);
+        return nums;
+    }
+    public static void quickSort(int[] array,int left,int right)
+	{
+		int l = left;
+		int r = right;
+		int pivot = array[(left+right)/2];
+		int temp = 0;
+		
+		while(l < r)
+		{
+			while(array[l] < pivot){
+				l += 1;
+			}
+			while(array[r] > pivot){
+				r -= 1;
+			}
+			
+			if(l >= r){
+				break;
+			}
+			
+			temp = array[l];
+			array[l] = array[r];
+			array[r] = temp;
+			
+			if(array[l] == pivot){
+				r-=1;
+			}
+			if(array[r] == pivot){
+				l+=1;
+			}
+		}
+		
+		if(l==r){
+			l += 1;
+			r -= 1;
+		}
+		
+		if(left < r){
+			quickSort(array,left,r);
+		}
+		
+		if(right > l){
+			quickSort(array,l,right);
+		}
+	}
+}
+```
+
