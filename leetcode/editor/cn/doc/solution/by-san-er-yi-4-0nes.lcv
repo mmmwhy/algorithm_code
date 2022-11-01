@@ -1,0 +1,54 @@
+### 解题思路
+
+此处撰写解题思路
+首先序列化，递归先序遍历，注意：空结点存为null。注意将结果存为字符串，因为deserialize函数的data参数是字符串格式。
+其次，递归构建树。
+因为要用到队列，所以将字符串格式的data，转为列表。（python里列表通过pop函数可以当作队列来使用）
+因为先序遍历，先遍历根节点。
+取出队首元素（出队列），作为根节点，下一个队首为根节点的左子树结点，结点为空时返回，下一个值为当前节点右子树的根节点。......
+
+### 代码
+
+* python3
+
+```python
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Codec:
+
+    def serialize(self, root):
+        if not root:
+            return "null,"
+        left=self.serialize(root.left)
+        right=self.serialize(root.right)
+        return str(root.val)+','+left+right
+        
+
+        
+    def dfs(self,res:List)->TreeNode:
+        val=res.pop(0)
+        if val=='null':
+            return None
+        root=TreeNode(val)
+        root.left=self.dfs(res)
+        root.right=self.dfs(res)
+        return root
+
+    def deserialize(self, data):
+        root=self.dfs(data.split(','))
+        return root
+
+    
+
+
+# Your Codec object will be instantiated and called as such:
+# ser = Codec()
+# deser = Codec()
+# ans = deser.deserialize(ser.serialize(root))
+```
+
