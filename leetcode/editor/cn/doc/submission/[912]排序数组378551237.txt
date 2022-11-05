@@ -1,9 +1,4 @@
-import random
-from typing import List
-
-
-# leetcode submit region begin(Prohibit modification and deletion)
-class Solution5:
+class Solution:
     def quick_sort(self, nums, left, right):
         flag = nums[random.randint(left, right)]
         i, j = left, right
@@ -77,7 +72,7 @@ class Solution4:
         return res
 
 
-class Solution:
+class Solution4:
     def merge_sort(self, nums, l, r):
         # 两侧都是闭合的
         if l == r:
@@ -85,38 +80,24 @@ class Solution:
         mid = (l + r) // 2
         self.merge_sort(nums, l, mid)
         self.merge_sort(nums, mid + 1, r)
-        
-        result = []
-        left_idx, right_idx = l, mid + 1
-        while left_idx <= mid or right_idx <= r:
-            if l <= left_idx <= mid < right_idx <= r:
-                # 正常范围内的
-                if nums[left_idx] < nums[right_idx]:
-                    result.append(nums[left_idx])
-                    left_idx += 1
-                else:
-                    result.append(nums[right_idx])
-                    right_idx += 1
-            elif left_idx > mid:
-                # 左半边全合并了，只有右半边了
-                result.append(nums[right_idx])
-                right_idx += 1
-            elif right_idx > r:
-                # 右半边全合并了，只有左半边了
-                result.append(nums[left_idx])
-                left_idx += 1
-        
-        nums[l: r + 1] = result
+        tmp = []
+        i, j = l, mid + 1
+        while i <= mid or j <= r:
+            if i > mid or (j <= r and nums[j] < nums[i]):
+                # 左半边数组已全部被合并
+                tmp.append(nums[j])
+                j += 1
+            else:
+                # 右半边数组已全部被合并
+                tmp.append(nums[i])
+                i += 1
+        nums[l: r + 1] = tmp
     
     def sortArray(self, nums: List[int]) -> List[int]:
         self.merge_sort(nums, 0, len(nums) - 1)
         return nums
 
 
-# leetcode submit region end(Prohibit modification and deletion)
 
-if __name__ == "__main__":
-    solution = Solution()
-    print(solution.sortArray([-4, 0, 7, 4, 9, -5, -1, 0, -7, -1]))
-    print(solution.sortArray([5, 2, 3, 1]))
-    print(solution.sortArray([5, 1, 1, 2, 0, 0]))
+# runtime:812 ms
+# memory:21.9 MB

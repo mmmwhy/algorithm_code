@@ -24,28 +24,29 @@ class Solution:
         if root is None:
             return 0
         
-        # 计算每一个节点
-        max_value = -1
-        min_value = math.inf
-        max_value, min_value = self.findMaxMinSon(root, max_value, min_value)
-        root_max_diff = max(abs(root.val - max_value), abs(root.val - min_value))
+        self.findMaxMinSon(root)
         
-        left_max_diff = self.maxAncestorDiff(root.left)
-        right_max_diff = self.maxAncestorDiff(root.right)
-        
-        return max(root_max_diff, left_max_diff, right_max_diff)
+        return self.max_diff
     
-    def findMaxMinSon(self, root, max_value, min_value):
-        if root is None:
-            return max_value, min_value
+    def findMaxMinSon(self, root):
+        if root.left is None and root.right is None:
+            return root.val, root.val
         
-        max_value = max(max_value, root.val)
-        min_value = min(min_value, root.val)
+        if root.left is not None:
+            left_max, left_min = self.findMaxMinSon(root.left)
+        else:
+            left_max, left_min = -math.inf, math.inf
         
-        left_max, left_min = self.findMaxMinSon(root.left, max_value, min_value)
-        right_max, right_min = self.findMaxMinSon(root.right, max_value, min_value)
+        if root.right is not None:
+            right_max, right_min = self.findMaxMinSon(root.right)
+        else:
+            right_max, right_min = -math.inf, math.inf
         
-        return max([left_max, left_min, right_max, right_min]), min([left_max, left_min, right_max, right_min])
+        self.max_diff = max(self.max_diff,
+                            abs(max(left_max, right_max) - root.val),
+                            abs(min(left_min, right_min) - root.val))
+        
+        return max([left_max, right_max, root.val]), min([left_min, right_min, root.val])
 
 
 # leetcode submit region end(Prohibit modification and deletion)
@@ -60,7 +61,7 @@ if __name__ == "__main__":
     
     node1.left = node2
     node1.right = node3
-    node3.left = node4
+    # node3.left = node4
     node3.right = node5
     
     solution = Solution()
