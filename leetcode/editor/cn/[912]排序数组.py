@@ -3,6 +3,66 @@ from typing import List
 
 
 # leetcode submit region begin(Prohibit modification and deletion)
+class Solution33:
+    def partition(self, nums, left, right):
+        pivot = nums[left]
+        i, j = left + 1, right
+        while i <= j:
+            while i < right and nums[i] < pivot:
+                i += 1
+            while j > left and nums[j] > pivot:
+                j -= 1
+            
+            if i >= j:
+                break
+            
+            nums[i], nums[j] = nums[j], nums[i]
+        # 最后将 pivot 放到该放的位置上
+        nums[left], nums[j] = nums[j], nums[left]
+        return j
+    
+    def sort(self, nums, left, right):
+        if right <= left:
+            return
+            # 实现 left, right 范围内的排序
+        p = self.partition(nums, left, right)
+        self.sort(nums, left, p - 1)
+        self.sort(nums, p + 1, right)
+    
+    def sortArray(self, nums: List[int]) -> List[int]:
+        # 实现一个快速排序
+        random.shuffle(nums)
+        self.sort(nums, 0, len(nums) - 1)
+        return nums
+
+
+class Solution1:
+    def partition(self, nums, left, right):
+        pivot = nums[right]
+        i, j = left, left
+        while j < right:
+            if nums[j] < pivot:
+                nums[i], nums[j] = nums[j], nums[i]
+                i += 1
+            j += 1
+        nums[i], nums[right] = nums[right], nums[i]
+        return i
+    
+    def sort(self, nums, left, right):
+        if right <= left:
+            return
+            # 实现 left, right 范围内的排序
+        p = self.partition(nums, left, right)
+        self.sort(nums, left, p - 1)
+        self.sort(nums, p + 1, right)
+    
+    def sortArray(self, nums: List[int]) -> List[int]:
+        
+        # 实现一个快速排序
+        self.sort(nums, 0, len(nums) - 1)
+        return nums
+
+
 class Solution5:
     def quick_sort(self, nums, left, right):
         flag = nums[random.randint(left, right)]
@@ -117,6 +177,8 @@ class Solution:
 
 if __name__ == "__main__":
     solution = Solution()
-    print(solution.sortArray([-4, 0, 7, 4, 9, -5, -1, 0, -7, -1]))
+    print(solution.sortArray([3, 2, 3, 1, 2, 4, 5, 5, 6]))
     print(solution.sortArray([5, 2, 3, 1]))
     print(solution.sortArray([5, 1, 1, 2, 0, 0]))
+    print(solution.sortArray([-2, 3, -5]))
+    print(solution.sortArray([2] * 50000))
