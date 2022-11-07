@@ -19,7 +19,6 @@ class Solution:
             return None
         
         if root.val == p.val or root.val == q.val:
-            # 前序遍历的过程中，没找到 lca，但先遇到了 q 或者 p。
             return root
         
         left = self.lowestCommonAncestor(root.left, p, q)
@@ -28,7 +27,7 @@ class Solution:
         if left is not None and right is not None:
             # 认为是 lca 点
             return root
-        
+        # 前序遍历的过程中，没找到 lca，但先遇到了 q 或者 p。
         if left is not None:
             return left
         else:
