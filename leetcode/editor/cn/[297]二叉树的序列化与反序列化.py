@@ -24,12 +24,18 @@ class Codec:
         :type root: TreeNode
         :rtype: str
         """
+        res = []
+        self.pre_order(root, res)
+        return ",".join(res)
+    
+    def pre_order(self, root, res):
         if not root:
-            return 'null,'
-        left = self.serialize(root.left)
-        right = self.serialize(root.right)
+            res.append("null")
+            return
         
-        return str(root.val) + ',' + left + right
+        res.append(str(root.val))
+        self.pre_order(root.left, res)
+        self.pre_order(root.right, res)
     
     def bfs(self, res: List) -> Optional[TreeNode]:
         val = res.pop(0)
@@ -58,23 +64,23 @@ class Codec:
 # leetcode submit region end(Prohibit modification and deletion)
 
 if __name__ == "__main__":
-    # node1 = TreeNode(1)
-    # node2 = TreeNode(2)
-    # node3 = TreeNode(3)
-    # node4 = TreeNode(4)
-    # node5 = TreeNode(5)
-    #
-    # node1.left = node2
-    # node1.right = node3
-    # node3.left = node4
-    # node3.right = node5
-    #
-    # ser = Codec()
-    # deser = Codec()
-    #
-    # ans = deser.deserialize(ser.serialize(node1))
-    #
-    # print(ans.val)
+    node1 = TreeNode(1)
+    node2 = TreeNode(2)
+    node3 = TreeNode(3)
+    node4 = TreeNode(4)
+    node5 = TreeNode(5)
+    
+    node1.left = node2
+    node1.right = node3
+    node3.left = node4
+    node3.right = node5
+    
+    ser = Codec()
+    deser = Codec()
+    
+    ans = deser.deserialize(ser.serialize(node1))
+    
+    print(ans.val)
     
     node1 = TreeNode(3)
     node2 = TreeNode(2)

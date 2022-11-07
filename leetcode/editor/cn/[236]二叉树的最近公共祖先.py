@@ -17,7 +17,7 @@ class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         if root is None:
             return None
-        
+        # 前序遍历的过程中，没找到 lca，但先遇到了 q 或者 p。
         if root.val == p.val or root.val == q.val:
             return root
         
@@ -27,7 +27,8 @@ class Solution:
         if left is not None and right is not None:
             # 认为是 lca 点
             return root
-        # 前序遍历的过程中，没找到 lca，但先遇到了 q 或者 p。
+        
+        # 兼容了均为 None 的情况
         if left is not None:
             return left
         else:
