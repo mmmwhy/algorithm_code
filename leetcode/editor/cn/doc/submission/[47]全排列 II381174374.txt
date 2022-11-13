@@ -1,0 +1,29 @@
+class Solution:
+    def __init__(self):
+        self.res = []
+    
+    def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+        self.back_track(nums, [], [False] * len(nums))
+        return self.res
+    
+    def back_track(self, nums, track_list, used_pos):
+        if len(track_list) == len(nums):
+            if track_list not in self.res:
+                self.res.append(track_list.copy())
+        
+        for idx in range(len(nums)):
+            if used_pos[idx]:
+                continue
+            # 进行选择
+            track_list.append(nums[idx])
+            used_pos[idx] = True
+            
+            self.back_track(nums, track_list, used_pos)
+            # 取消选择
+            del track_list[-1]
+            used_pos[idx] = False
+
+
+
+# runtime:988 ms
+# memory:15.1 MB

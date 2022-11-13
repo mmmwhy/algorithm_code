@@ -1,0 +1,25 @@
+### 解题思路
+
+BFS模板题。将二叉树的左右子树改为遍历children列表即可。
+
+### 代码
+
+* python3
+
+```python
+class Solution:
+    def levelOrder(self, root: 'Node') -> List[List[int]]:
+        stack = deque([root]) if root else []
+        ans = []
+        while stack:
+            len_layer, cur_layer = len(stack), []
+            for _ in range(len_layer):
+                cur_node = stack.popleft()
+                cur_layer.append(cur_node.val)
+                for node in cur_node.children:
+                    stack.append(node)
+            ans.append(cur_layer)
+        return ans
+
+```
+

@@ -1,0 +1,59 @@
+BFS浅浅迭代一下
+
+* 
+
+```
+class Solution {
+public:
+    vector<vector<int>> levelOrder(Node* root) {
+        vector<int> v;
+        vector<vector<int>> vec;
+        queue<Node*> q;
+        if(!root) return vec;
+        q.push(root);
+        while(!q.empty()){
+            int size=q.size();//就是靠这个size来区分层的，没有进入for循环就还没有开始处理队列中的结点，也就是说此时节点中的都是“本地人”，还没有子代的结点出现
+            for(int i=0;i<size;i++){//通过这个for循环完成两件事：1.把这一层的val都存入到一个vector中。2.把每个不为空节点的子节点都存入到队列中，完成一次迭代
+                Node* temp=q.front();
+                q.pop();               
+                if(!temp) continue;
+                v.push_back(temp->val);   
+                //该节点的孩子节点非常好处理啊，存在vector中
+                vector<Node*> p=temp->children;  
+                for(int j=0;j<p.size();j++){
+                    q.push(p[j]);
+                }           
+            }
+            vec.push_back(v);
+            v.clear();            
+        }
+        return vec;
+    }
+};
+```
+
+虽然是套路题目被我秒了，但是，永远能在题解区学到新东西！
+用BFS简单，你会做。如果面试官要求你用DFS呢？下面是代码模板
+
+* 
+
+```
+class Solution {
+public://对标一下上面的迭代
+    void order(TreeNode* cur, vector<vector<int>>& result, int depth)//传的引用，只是做题的话我会选择全局变量
+    {
+        if (cur == nullptr) return;//出队的节点为空，直接continue，递归就是返回上一层了
+        if (result.size() == depth) result.push_back(vector<int>());//其实就是在每一层初始化一个一维向量，再存入二位答案数组中，这里简写了罢了
+        result[depth].push_back(cur->val);//再depth层存入对应值
+        order(cur->left, result, depth + 1);//简洁的递归（如果是N叉树换成循环就是了）
+        order(cur->right, result, depth + 1);
+    }//虽然进入递归就如同进入了不同的世界，本来不应该产生联系的，但通过同一个二维数组和depth坐标，美妙的将数据放入了指定的位置！
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> result;//注意这里的二维数组是没有初始化的
+        int depth = 0;//定义深度，分层用的
+        order(root, result, depth);//根节点，二维答案数组，深度
+        return result;
+    }
+};
+```
+
