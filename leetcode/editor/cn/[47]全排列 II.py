@@ -4,13 +4,13 @@ class Solution:
         self.res = []
     
     def permuteUnique(self, nums: List[int]) -> List[List[int]]:
+        nums = sorted(nums)
         self.back_track(nums, [], [False] * len(nums))
         return self.res
     
     def back_track(self, nums, track_list, used_pos):
         if len(track_list) == len(nums):
-            if track_list not in self.res:
-                self.res.append(track_list.copy())
+            self.res.append(track_list.copy())
         
         for idx in range(len(nums)):
             if used_pos[idx]:

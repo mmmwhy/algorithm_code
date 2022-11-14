@@ -1,0 +1,36 @@
+class Solution:
+    
+    def canPartitionKSubsets(self, nums: List[int], k: int) -> bool:
+        target_num = sum(nums) / k
+        return self.back_track(nums, 0, [[] for _ in range(k)], target_num)
+    
+    def back_track(self, nums, index, bucket, target_num):
+        if index == len(nums):
+            for sub_list in bucket:
+                if target_num != sum(sub_list):
+                    return False
+            return True
+        
+        for i in range(len(bucket)):
+            # 做选择
+            bucket[i].append(nums[index])
+            if self.back_track(nums, index + 1, bucket, target_num):
+                return True
+            
+            # 撤销选择
+            bucket[i].pop(-1)
+        
+        return False
+
+
+
+# runtime:N/A
+# memory:N/A
+# total_testcases:162
+# total_correct:37
+# input_formatted:[3522,181,521,515,304,123,2512,312,922,407,146,1932,4037,2646,3871,269]
+5
+# expected_output:true
+# code_output:
+# runtime_error:
+# last_testcase:[3522,181,521,515,304,123,2512,312,922,407,146,1932,4037,2646,3871,269] 5

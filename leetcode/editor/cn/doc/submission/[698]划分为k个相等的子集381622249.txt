@@ -1,7 +1,3 @@
-from typing import List
-
-
-# leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def __init__(self):
         self.state_res_cache = {}
@@ -58,10 +54,6 @@ class Solution:
         return False
 
 
-if __name__ == "__main__":
-    solution = Solution()
-    print(solution.canPartitionKSubsets([4, 3, 2, 3, 5, 2, 1], 4))
-    print(solution.canPartitionKSubsets([1, 2, 3, 4], 3))
-    print(solution.canPartitionKSubsets([3, 9, 4, 5, 8, 8, 7, 9, 3, 6, 2, 10, 10, 4, 10, 2], 10))
-    print(solution.canPartitionKSubsets(
-            [3522, 181, 521, 515, 304, 123, 2512, 312, 922, 407, 146, 1932, 4037, 2646, 3871, 269], 5))
+
+# runtime:676 ms
+# memory:15.9 MB
