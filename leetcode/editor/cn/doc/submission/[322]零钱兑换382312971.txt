@@ -1,0 +1,34 @@
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        self.memo = {}
+        return self.dp(coins, amount)
+    
+    def dp(self, coins: List[int], amount: int):
+        if amount == 0:
+            return 0
+        if amount < 0:
+            return -1
+        if amount in self.memo:
+            return self.memo[amount]
+        
+        res = math.inf
+        for coin in coins:
+            # 计算子问题的结果
+            sub_problem = self.dp(coins, amount - coin)
+            
+            # 无解，跳过
+            if sub_problem == -1:
+                continue
+            # 子问题的方案中取最优解，并 + 1
+            res = min(res, sub_problem + 1)
+        
+        if res == math.inf:
+            self.memo[amount] = -1
+        else:
+            self.memo[amount] = res
+        return self.memo[amount]
+
+
+
+# runtime:2576 ms
+# memory:26.2 MB
