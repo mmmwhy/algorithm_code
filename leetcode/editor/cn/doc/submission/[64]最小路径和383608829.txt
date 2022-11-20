@@ -1,0 +1,27 @@
+class Solution:
+    def minPathSum(self, grid: List[List[int]]) -> int:
+        self.cache = {}
+        return self.dp(grid, 0, 0, 0)
+    
+    def dp(self, grid, i, j, res):
+        if (i, j) in self.cache:
+            return self.cache[(i, j)]
+        
+        else:  # base case
+            if i == len(grid) - 1:
+                return res + sum(grid[-1][j:])
+            if j == len(grid[0]) - 1:
+                for idx in range(i, len(grid)):
+                    res += grid[idx][-1]
+                return res
+            self.cache[(i, j)] = min(self.dp(grid, i + 1, j, res + grid[i][j]),
+                                     self.dp(grid, i, j + 1, res + grid[i][j]))
+            return self.cache[(i, j)]
+
+
+
+# total_testcases:61
+# total_correct:14
+# input_formatted:[[1,4,8,6,2,2,1,7],[4,7,3,1,4,5,5,1],[8,8,2,1,1,8,0,1],[8,9,2,9,8,0,8,9],[5,7,5,7,1,8,5,5],[7,0,9,4,5,6,5,6],[4,9,9,7,9,1,9,0]]
+# expected_output:47
+# code_output:52

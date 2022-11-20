@@ -4,18 +4,26 @@ from typing import List
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
-        dp = [amount + 1] * (amount + 1)
-        dp[0] = 0
-        for i in range(amount + 1):
-            for coin in coins:
-                # dp向量的限制
-                if i - coin < 0:
-                    continue
-                dp[i] = min(dp[i], 1 + dp[i - coin])
-        if dp[amount] == amount + 1:
+        m = len(coins)
+        
+        # 定义 dp，对前 i 个物品，空间 j 的情况下，最少可以凑满的方式
+        dp = [[amount + 1 for _ in range(amount + 1)] for _ in range(m + 1)]
+        
+        # 前 i 个物品，空间 0 的情况下，没有可以凑出来的方法
+        for i in range(m + 1):
+            dp[i][0] = 0
+        
+        for i in range(1, m + 1):
+            for j in range(1, amount + 1):
+                if j - coins[i - 1] < 0:
+                    dp[i][j] = dp[i - 1][j]
+                else:
+                    dp[i][j] = min(dp[i - 1][j], 1 + dp[i][j - coins[i - 1]])
+        
+        if dp[m][amount] == amount + 1:
             return -1
         else:
-            return dp[amount]
+            return dp[m][amount]
 
 
 # leetcode submit region end(Prohibit modification and deletion)
