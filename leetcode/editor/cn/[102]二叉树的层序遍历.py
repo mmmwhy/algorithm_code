@@ -23,21 +23,20 @@ class Solution:
         queue = []
         res = []
         
-        queue.append(root)
+        queue.append([root, 0])
         
         while len(queue) > 0:
-            temp_res = []
-            queue_length = len(queue)
-            # 注意这里的双层循环设计，这样可以将同一层结果使用 temp_res 记录
-            for i in range(queue_length):
-                cur = queue.pop(0)
-                if cur.left is not None:
-                    queue.append(cur.left)
-                if cur.right is not None:
-                    queue.append(cur.right)
-                temp_res.append(cur.val)
+            cur, depth = queue.pop(0)
+            if cur.left is not None:
+                queue.append([cur.left, depth + 1])
+            if cur.right is not None:
+                queue.append([cur.right, depth + 1])
             
-            res.append(temp_res)
+            # depth 为 0 的时候，res 需要有 1 个长度了
+            if len(res) == depth:
+                res.append([cur.val])
+            else:
+                res[depth].append(cur.val)
         
         return res
 

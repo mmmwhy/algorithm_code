@@ -1,7 +1,3 @@
-# leetcode submit region begin(Prohibit modification and deletion)
-import math
-
-
 class Solution:
     
     def minWindow(self, s: str, t: str) -> str:
@@ -13,11 +9,12 @@ class Solution:
                 need_char_2_count[char] += 1
         
         left, right = 0, 0
+        res = ""
+        window = []
         window_char_2_count = {}
         valid = 0
-        
-        window_left, window_len = 0, math.inf
         while right < len(s):
+            window.append(s[right])
             
             # 更新窗口内的数据分布
             if s[right] in window_char_2_count:
@@ -31,9 +28,8 @@ class Solution:
             
             right += 1
             while valid == len(need_char_2_count):
-                if right - left < window_len:
-                    window_len = right - left
-                    window_left = left
+                if res == "" or len(window) < len(res):
+                    res = "".join(window)
                 
                 # 更新窗口内的数据分布
                 if s[left] in need_char_2_count and \
@@ -41,20 +37,20 @@ class Solution:
                     valid -= 1
                 
                 window_char_2_count[s[left]] -= 1
+                window.pop(0)
+                
                 left += 1
         
-        if window_len == math.inf:
-            return ""
-        else:
-            return s[window_left:window_left + window_len]
+        return res
 
 
-# leetcode submit region end(Prohibit modification and deletion)
 
-
-if __name__ == "__main__":
-    solution = Solution()
-    print(solution.minWindow("ADOBECODEBANC", "ABC"), "BANC")
-    print(solution.minWindow("aa", "aa"), "aa")
-    print(solution.minWindow("a", "a"), "a")
-    print(solution.minWindow("a", "aa"), "")
+# runtime:N/A
+# memory:N/A
+# total_testcases:267
+# total_correct:267
+# input_formatted:
+# expected_output:
+# code_output:
+# runtime_error:
+# last_testcase:
