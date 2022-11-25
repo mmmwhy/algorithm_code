@@ -1,3 +1,6 @@
+from typing import List
+
+
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def __init__(self):
@@ -16,7 +19,10 @@ class Solution:
             if used_pos[idx]:
                 continue
             if idx > 0 and nums[idx] == nums[idx - 1] and not used_pos[idx - 1]:
-                # 如果前面的相邻相等元素没有用过(说明一会走)，则跳过
+                """
+                若当前元素与上一个元素相同，那么从当前元素开始的回溯，应该要跳过。
+                如何判断从**当前元素开始的回溯**：从当前元素开始，代表这上一个元素还未回溯到(未使用到)，可以直接跳过。
+                """
                 continue
             # 进行选择
             track_list.append(nums[idx])
@@ -27,4 +33,10 @@ class Solution:
             del track_list[-1]
             used_pos[idx] = False
 
+
 # leetcode submit region end(Prohibit modification and deletion)
+
+
+if __name__ == "__main__":
+    solution = Solution()
+    print(solution.permuteUnique([1, 1, 2]))
