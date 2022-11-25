@@ -80,4 +80,3 @@ if __name__ == "__main__":
     
     solution = Solution()
     solution.flatten(q)
-    q
