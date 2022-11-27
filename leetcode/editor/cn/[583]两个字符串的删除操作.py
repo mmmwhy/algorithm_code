@@ -1,7 +1,7 @@
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def minDistance(self, word1: str, word2: str) -> int:
-        # 定义: word1[:i-1] 和 word2[:j-1] 的最大长度为 dp[i][j]
+        # 定义: word1[:i-1] 和 word2[:j-1] 的最大公共长度为 dp[i][j]
         m, n = len(word1), len(word2)
         dp = [[0 for _ in range(n + 1)] for _ in range(m + 1)]
         
