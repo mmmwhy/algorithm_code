@@ -14,7 +14,7 @@ class ListNode:
         self.next = next
 
 
-class Solution:
+class SolutionHalf:
     def isPalindrome(self, head: Optional[ListNode]) -> bool:
         
         node_count = 0
@@ -46,12 +46,42 @@ class Solution:
         return True
 
 
+class Solution:
+    def isPalindrome(self, head: Optional[ListNode]) -> bool:
+        import copy
+        # 实现一个链表反转的实现
+        reversed_head = self.reverse(copy.deepcopy(head))
+        while reversed_head:
+            if head.val != reversed_head.val:
+                return False
+            head = head.next
+            reversed_head = reversed_head.next
+        
+        return True
+    
+    def reverse(self, head):
+        pre = ListNode(-1)
+        pre.next = head
+        cur = head
+        next = head.next
+        
+        while next is not None:
+            # 挪的其实一直是 next，所以需要判断 next 是否存在
+            cur.next = next.next
+            next.next = pre.next  # 不可以是 cur，因为 cur 现在不一定在 pre 的后边
+            pre.next = next
+            
+            next = cur.next
+        return pre.next
+
+
 # leetcode submit region end(Prohibit modification and deletion)
 
 if __name__ == "__main__":
+    
     root_node = ListNode(-1)
     temp = root_node
-    for i in [1]:
+    for i in [1, 2, 3, 4]:
         temp.next = ListNode(i)
         temp = temp.next
     
@@ -69,7 +99,7 @@ if __name__ == "__main__":
     
     root_node = ListNode(-1)
     temp = root_node
-    for i in [1, 2, 2, 1]:
+    for i in [1]:
         temp.next = ListNode(i)
         temp = temp.next
     
