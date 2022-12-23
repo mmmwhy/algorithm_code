@@ -1,0 +1,24 @@
+class Solution:
+    def advantageCount(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        n = len(nums1)
+        mapping = defaultdict(list)
+        for i in range(n):
+            mapping[nums2[i]].append(i)
+        nums1.sort()
+        nums2.sort()
+        ans = [0] * n
+        l2, r2 = 0, n - 1
+        for l1 in range(n):
+            t = l2 if nums1[l1] > nums2[l2] else r2
+            ans[mapping[nums2[t]].pop()] = nums1[l1]
+            if t == l2:
+                l2 += 1
+            else:
+                r2 -= 1
+        return ans
+
+
+
+
+# runtime:240 ms
+# memory:44.7 MB
