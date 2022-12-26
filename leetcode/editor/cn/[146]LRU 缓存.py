@@ -103,7 +103,6 @@ class LRUCache:
 # leetcode submit region end(Prohibit modification and deletion)
 
 
-
 if __name__ == "__main__":
     cache = LRUCache(2)
     
@@ -117,5 +116,3 @@ if __name__ == "__main__":
     assert cache.get(1) == -1  # 没有结果
     assert cache.get(3) == 3  # {3:3,4:4}
     assert cache.get(4) == 4  # {4:4,3:3}
-=======
->>>>>>> Stashed changes
