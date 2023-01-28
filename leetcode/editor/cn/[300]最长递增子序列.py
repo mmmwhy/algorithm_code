@@ -4,14 +4,16 @@ from typing import List
 # leetcode submit region begin(Prohibit modification and deletion)
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
-        dp = [1] * (len(nums) + 1)
-        for idx in range(1, len(nums)):
-            temp_idx = idx - 1
-            while temp_idx >= 0:
-                if nums[temp_idx] < nums[idx]:
-                    dp[idx] = max(dp[idx], dp[temp_idx] + 1)
-                
-                temp_idx -= 1
+        # dp[i] 截止到 i 位置最长递增子序列长度是多少
+        n = len(nums)
+        dp = [1] * n
+        
+        for i in range(n):
+            # 对于每一个位置 i，如果其之前的某个位置 j 所对应的数字小于位置 i 所对应的数字
+            for j in range(i):
+                if nums[j] < nums[i]:
+                    dp[i] = max(dp[i], dp[j] + 1)
+        
         return max(dp)
 
 

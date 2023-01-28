@@ -5,6 +5,7 @@ class Solution:
         if len(s) == 0:
             return ""
         
+        # s[i:j] 为最长回文子串的长度是 dp[i][j]
         length = len(s)
         dp = [[0 for _ in range(length)] for _ in range(length)]
         for i in range(length):
