@@ -8,8 +8,11 @@ class Solution:
         
         # 定义 dp，对前 i 个物品，空间 j 的情况下，有多少种凑满的方式
         dp = [[0 for _ in range(amount + 1)] for _ in range(m + 1)]
+        
         for i in range(m + 1):
+            # 只要不选择任何钱币，就可以凑出 0，这里不存在「目标和」问题中的负号情况。
             dp[i][0] = 1
+        
         for i in range(1, m + 1):
             for j in range(1, amount + 1):
                 if j - coins[i - 1] < 0:

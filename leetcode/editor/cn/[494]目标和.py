@@ -74,7 +74,8 @@ class Solution:
 
 if __name__ == "__main__":
     solution = Solution()
-    print(solution.findTargetSumWays([100], -200))
-    print(solution.findTargetSumWays([7, 9, 3, 8, 0, 2, 4, 8, 3, 9], 0))
-    print(solution.findTargetSumWays([1000], -1000))
-    print(solution.findTargetSumWays([1, 1, 1, 1, 1], 3))
+    print(solution.findTargetSumWays([0, 0, 0, 0, 0, 0, 0, 0, 1], 1), 1)
+    print(solution.findTargetSumWays([100], -200), 0)
+    print(solution.findTargetSumWays([7, 9, 3, 8, 0, 2, 4, 8, 3, 9], 0), 0)
+    print(solution.findTargetSumWays([1000], -1000), 1)
+    print(solution.findTargetSumWays([1, 1, 1, 1, 1], 3), 5)

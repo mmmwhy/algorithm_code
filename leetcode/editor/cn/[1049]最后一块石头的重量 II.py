@@ -24,11 +24,7 @@ class Solution:
         dp[0][0] = True
         
         for i in range(1, m + 1):
-            # 只要不选择任何石头，就可以凑出 0，所有的 dp[i][0] 均为 true
-            dp[i][0] = True
-        
-        for i in range(1, m + 1):
-            for j in range(1, n + 1):
+            for j in range(n + 1):
                 if j < stones[i - 1]:
                     dp[i][j] = dp[i - 1][j]
                 else:
